@@ -1,6 +1,6 @@
 {
     "name": "spatie/laravel-honeypot",
-    "description": "Making form submission bots fail epically",
+    "description": "Preventing spam submitted through forms",
     "keywords": [
         "spatie",
         "laravel-honeypot"
