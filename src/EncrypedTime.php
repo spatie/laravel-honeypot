@@ -21,7 +21,7 @@ class EncrypedTime
     {
         $this->encrypedTime = $encrypedTime;
 
-        $timestamp = (int)app('encrypter')->encrypt($encrypedTime);
+        $timestamp = app('encrypter')->decrypt($encrypedTime);
 
         $this->carbon = Carbon::createFromTimestamp($timestamp);
     }
