@@ -15,5 +15,4 @@ class HoneypotBladeDirectiveTest extends TestCase
 
         $this->assertMatchesSnapshot($renderedView);
     }
-
 }

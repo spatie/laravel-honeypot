@@ -16,11 +16,19 @@ class ProtectAgainstSpamTest extends TestCase
             $this
                 ->assertSuccessful()
                 ->assertSee('ok');
+
+            return $this;
         });
 
-        Route::get('test', function() {
-            return view('honeypot');
-        })->middleware(ProtectAgainstSpam::class);
+        TestResponse::macro('assertDidNotPassSpamProtection', function() {
+            $content = $this
+                ->assertSuccessful()
+                ->baseResponse->content();
+
+            TestCase::assertEquals('', $content, 'The request unexpectately passed spam protection.');
+
+            return $this;
+        });
 
         Route::post('test', function() {
             return 'ok';
@@ -28,9 +36,32 @@ class ProtectAgainstSpamTest extends TestCase
     }
 
     /** @test */
-    public function requests_without_spam_protection_pass()
+    public function requests_that_not_use_the_honeypot_fields_succeed()
     {
         $this
-            ->visit('test');
+            ->post('test')
+            ->assertPassedSpamProtection();
     }
+
+    /** @test */
+    public function requests_that_post_an_empty_value_for_the_honeypot_name_field_do_succeed()
+    {
+        $nameField = config('honeypot.name_field_name');
+
+        $this
+            ->post('test', [$nameField => ''])
+            ->assertPassedSpamProtection();
+    }
+
+    /** @test */
+    public function requests_that_post_the_honeypot_name_field_with_content_do_not_succeed()
+    {
+        $nameField = config('honeypot.name_field_name');
+
+        $this
+            ->post('test', [$nameField => 'value'])
+            ->assertDidNotPassSpamProtection();
+    }
+
+
 }

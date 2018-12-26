@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use PharIo\Version\SpecificMajorAndMinorVersionConstraint;
 use Spatie\Honeypot\EncrypedTime;
-use Spatie\Honeypot\Exceptions\SpamDetected;
 use Spatie\Honeypot\SpamResponder\SpamResponse;
 use Spatie\ResponseCache\ResponseCache;
 use Spatie\ResponseCache\Events\CacheMissed;
@@ -30,11 +29,13 @@ class ProtectAgainstSpam
             return $next($request);
         }
 
-        if ($request->has('honeypot.name_field_name')) {
+        $honeypotValue = $request->get(config('honeypot.name_field_name'));
+
+        if (! empty($honeypotValue)) {
             return $this->respondToSpam($request, $next);
         }
 
-        if ($validFrom = $request->get('honeypot.valid_from_field_name')) {
+        if ($validFrom = $request->get(config('honeypot.valid_from_field_name'))) {
             if ((new EncrypedTime($validFrom))->isFuture()) {
                 return $this->respondToSpam($request, $next);
             }
