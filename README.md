@@ -1,3 +1,5 @@
+**THIS PACKAGE IS IN DEVELOPMENT, DO NOT USE YET**
+
 # Preventing spam submitted through forms
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-honeypot.svg?style=flat-square)](https://packagist.org/packages/spatie/:package_name)
@@ -5,7 +7,16 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-honeypot.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/:package_name)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-honeypot.svg?style=flat-square)](https://packagist.org/packages/spatie/:package_name)
 
-This is where your description should go. Try and limit it to a paragraph or two.
+When adding a form to a public site there a risk that spam bots will try to submit it with fake values. Luckily most of these bots are pretty dumb. You can thwart most of them by adding a field to your form that should not contain a value when submitted. Such a field is called a honeypot. Most bots will just fill all fields, including the honeypot.  When a request comes in with a filled honeypot, this package will discard that request.
+
+After installing this package all you need to do is to add a `@honeypot` Blade directive to your form.
+
+```html
+<form method="POST">
+    @honeypot
+    <input name="myField" type="text">
+</form>
+```
 
 ## Installation
 
@@ -15,11 +26,81 @@ You can install the package via composer:
 composer require spatie/laravel-honeypot
 ```
 
+Optionally, you can publish the config file of the package.
+
+```bash
+php artisan vendor:publish --provider="Spatie\Honeypot\HoneypotServiceProvider"
+```
+
+This is the content of the config file that will be published at `config/honeypot.php`:
+
+```php
+use Spatie\Honeypot\SpamResponder\BlankPageResponse;
+
+return [
+
+    /*
+     * Here you can specify name of the honeypot field. Any requests that submit a non-empty
+     * value for this name will be discarded. Make sure this name does not
+     * collide with a form field that is actually allowed.
+     */
+    'name_field_name' => 'my_name',
+
+    /*
+     * This field contains the name of a form field that will be use to verify
+     * if the form wasn't submitted too quickly. Make sure this name does not
+     * collide with a form field that is actually allowed.
+     */
+    'valid_from_field_name' => 'valid_from',
+
+    /*
+     * If the form is submitted faster then this amout of seconds
+     * the form submission will be considered invalid.
+     */
+    'amount_of_seconds' => 1,
+
+    /*
+     * This class is responsible for sending a response to request that
+     * are detected as being spammy. By default an blank page is shown.
+     *
+     * A valid responder is any class that implements
+     * `Spatie\Honeypot\SpamResponder\SpamResponse`
+     */
+    'respond_to_spam_with' => BlankPageResponse::class,
+];
+```
+  
 ## Usage
 
-``` php
-$skeleton = new Spatie\Skeleton();
-echo $skeleton->echoPhrase('Hello, Spatie!');
+First you must add the `@honeypot` blade directive to any form you wish to protect.
+
+```php
+<form method="POST" action="{{ action(App\Http\Controllers\ContactFormSubmissionController::class, 'create') }}")>
+    @honeypot
+    <input name="myField" type="text">
+</form>
+```
+
+`@honeypot` will add two fields: `my_name` and `my_time` (you can change the names in the config file).
+
+Next, you must use the `Spatie\Honeypot\ProtectAgainstSpam` middleware the route that handles the form submission. This middleware will intercept any request that submits a non empty value for the key named `my_name`. If will also intercept the request if it is submitted faster than the encrypted timestamp that the package generated in `my_time`.
+
+```php
+use App\Http\Controllers\ContactFormSubmissionController;
+use Spatie\Honeypot\ProtectAgainstSpam;
+
+Route::post([ContactFormSubmissionController::class, 'create'])->middleware(ProtectAgainstSpam::class);
+```
+
+If your app has a lot of forms handled by many different controllors, you could opt to register it as global middleware.
+
+```php
+// inside app\Http\Kernel.php
+
+protected $middleware = [
+   // ...
+   ProtectAgainstSpam::class,
+];
 ```
 
 ### Testing
