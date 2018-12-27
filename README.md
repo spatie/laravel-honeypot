@@ -104,7 +104,7 @@ If your app has a lot of forms handled by many different controllors, you could 
 
 protected $middleware = [
    // ...
-   ProtectAgainstSpam::class,
+   \Spatie\Honeypot\ProtectAgainstSpam::class,
 ];
 ```
 
