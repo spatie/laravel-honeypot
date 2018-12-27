@@ -4,14 +4,8 @@ namespace Spatie\Honeypot;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
-use PharIo\Version\SpecificMajorAndMinorVersionConstraint;
-use Spatie\Honeypot\EncrypedTime;
-use Spatie\Honeypot\SpamResponder\SpamResponder;
-use Spatie\ResponseCache\ResponseCache;
-use Spatie\ResponseCache\Events\CacheMissed;
 use Symfony\Component\HttpFoundation\Response;
-use Spatie\ResponseCache\Events\ResponseCacheHit;
+use Spatie\Honeypot\SpamResponder\SpamResponder;
 
 class ProtectAgainstSpam
 {
@@ -25,7 +19,7 @@ class ProtectAgainstSpam
 
     public function handle(Request $request, Closure $next): Response
     {
-        if (!config('honeypot.enabled')) {
+        if (! config('honeypot.enabled')) {
             return $next($request);
         }
 

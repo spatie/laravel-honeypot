@@ -11,7 +11,6 @@ class EncrypedTime
 
     public static function create(Carbon $carbon)
     {
-
         $encryptedTime = app('encrypter')->encrypt($carbon->timestamp);
 
         return new static($encryptedTime);
