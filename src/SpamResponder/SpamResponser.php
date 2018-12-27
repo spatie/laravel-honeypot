@@ -5,7 +5,7 @@ namespace Spatie\Honeypot\SpamResponder;
 use Closure;
 use Illuminate\Http\Request;
 
-interface SpamResponse
+interface SpamResponser
 {
     public function respond(Request $request, Closure $next);
 }

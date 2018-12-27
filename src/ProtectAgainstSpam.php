@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use PharIo\Version\SpecificMajorAndMinorVersionConstraint;
 use Spatie\Honeypot\EncrypedTime;
-use Spatie\Honeypot\SpamResponder\SpamResponse;
+use Spatie\Honeypot\SpamResponder\SpamResponser;
 use Spatie\ResponseCache\ResponseCache;
 use Spatie\ResponseCache\Events\CacheMissed;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +15,10 @@ use Spatie\ResponseCache\Events\ResponseCacheHit;
 
 class ProtectAgainstSpam
 {
-    /** @var \Spatie\Honeypot\SpamResponder\SpamResponse */
+    /** @var \Spatie\Honeypot\SpamResponder\SpamResponser */
     protected $spamResponder;
 
-    public function __construct(SpamResponse $spamResponder)
+    public function __construct(SpamResponser $spamResponder)
     {
         $this->spamResponder = $spamResponder;
     }

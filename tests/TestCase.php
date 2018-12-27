@@ -3,7 +3,6 @@
 namespace Spatie\Honeypot\Tests;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithContainer;
 use Illuminate\Support\Facades\View;
 use Spatie\Honeypot\HoneypotServiceProvider;

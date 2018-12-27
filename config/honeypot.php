@@ -1,6 +1,6 @@
 <?php
 
-use Spatie\Honeypot\SpamResponder\BlankPageResponse;
+use Spatie\Honeypot\SpamResponder\BlankPageResponder;
 
 return [
 
@@ -31,5 +31,10 @@ return [
      * A valid responder is any class that implements
      * `Spatie\Honeypot\SpamResponder\SpamResponse`
      */
-    'respond_to_spam_with' => BlankPageResponse::class,
+    'respond_to_spam_with' => BlankPageResponder::class,
+
+    /*
+     * This switch determines if the honeypot protection should be activated.
+     */
+    'enabled' => true,
 ];
