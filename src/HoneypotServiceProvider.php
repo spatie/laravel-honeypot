@@ -16,12 +16,13 @@ class HoneypotServiceProvider extends ServiceProvider
                 __DIR__.'/../config/honeypot.php' => config_path('honeypot.php'),
             ], 'config');
 
-            $this->loadViewsFrom(__DIR__.'/../resources/views', 'honeypot');
 
             $this->publishes([
                 __DIR__.'/../resources/views' => base_path('resources/views/vendor/honeypot'),
             ], 'views');
         }
+
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'honeypot');
 
         View::composer('honeypot::honeypotFormFields', HoneypotViewComposer::class);
 
