@@ -167,7 +167,7 @@ The view will be placed in `resources/views/vendor/honeypot/honeypotFormFields.b
 
 Whenever spam is detected, the `Spatie\Honeypot\SpamDetected` event is fired. It has the `$request` as a public property.
 
-###Testing
+### Testing
 
 ``` bash
 composer test
