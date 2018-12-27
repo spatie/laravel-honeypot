@@ -4,10 +4,10 @@ namespace Spatie\Honeypot;
 
 use Carbon\Carbon;
 
-class EncrypedTime
+class EncryptedTime
 {
     /** @var string */
-    protected $encrypedTime;
+    protected $encryptedTime;
 
     public static function create(Carbon $carbon)
     {
@@ -16,11 +16,11 @@ class EncrypedTime
         return new static($encryptedTime);
     }
 
-    public function __construct(string $encrypedTime)
+    public function __construct(string $encryptedTime)
     {
-        $this->encrypedTime = $encrypedTime;
+        $this->encryptedTime = $encryptedTime;
 
-        $timestamp = app('encrypter')->decrypt($encrypedTime);
+        $timestamp = app('encrypter')->decrypt($encryptedTime);
 
         $this->carbon = Carbon::createFromTimestamp($timestamp);
     }
@@ -32,6 +32,6 @@ class EncrypedTime
 
     public function __toString()
     {
-        return $this->encrypedTime;
+        return $this->encryptedTime;
     }
 }

@@ -16,13 +16,13 @@ class HoneypotViewComposer
 
         $validFrom = now()->addSeconds($honeypotConfig['amount_of_seconds']);
 
-        $encrypedValidFrom = EncrypedTime::create($validFrom);
+        $encryptedValidFrom = EncryptedTime::create($validFrom);
 
         $view->with(compact(
             'enabled',
             'nameFieldName',
             'validFromFieldName',
-            'encrypedValidFrom'
+            'encryptedValidFrom'
         ));
     }
 }
