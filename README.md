@@ -2,10 +2,10 @@
 
 # Preventing spam submitted through forms
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-honeypot.svg?style=flat-square)](https://packagist.org/packages/spatie/:package_name)
-[![Build Status](https://img.shields.io/travis/spatie/laravel-honeypot/master.svg?style=flat-square)](https://travis-ci.org/spatie/:package_name)
-[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-honeypot.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/:package_name)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-honeypot.svg?style=flat-square)](https://packagist.org/packages/spatie/:package_name)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-honeypot.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-honeypot)
+[![Build Status](https://img.shields.io/travis/spatie/laravel-honeypot/master.svg?style=flat-square)](https://travis-ci.org/spatie/laravel-honeypot)
+[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-honeypot.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-honeypot)
+[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-honeypot.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-honeypot)
 
 When adding a form to a public site there a risk that spam bots will try to submit it with fake values. Luckily most of these bots are pretty dumb. You can thwart most of them by adding a field to your form that should not contain a value when submitted. Such a field is called a honeypot. Most bots will just fill all fields, including the honeypot.  When a request comes in with a filled honeypot, this package will discard that request.
 
