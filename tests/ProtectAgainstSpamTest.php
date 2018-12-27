@@ -3,6 +3,7 @@
 namespace Spatie\Honeypot\Tests;
 
 use Illuminate\Support\Facades\Route;
+use Spatie\Honeypot\EncrypedTime;
 use Spatie\Honeypot\ProtectAgainstSpam;
 use Illuminate\Foundation\Testing\TestResponse;
 
@@ -72,6 +73,30 @@ class ProtectAgainstSpamTest extends TestCase
 
         $this
             ->post('test', [$nameField => 'value'])
+            ->assertPassedSpamProtection();
+    }
+
+    /** @test */
+    public function submissions_that_are_posted_too_soon_will_be_marked_as_spam()
+    {
+        $nameField = config('honeypot.name_field_name');
+        $validFromField =  config('honeypot.valid_from_field_name');
+        $validFrom = EncrypedTime::create(now()->addSecond(1));
+
+        $this
+            ->post('test', [$nameField => '', $validFromField => $validFrom])
+            ->assertDidNotPassSpamProtection();
+    }
+
+    /** @test */
+    public function submissions_that_are_posted_after_or_on_valid_from_will_not_be_marked_as_spam()
+    {
+        $nameField = config('honeypot.name_field_name');
+        $validFromField =  config('honeypot.valid_from_field_name');
+        $validFrom = EncrypedTime::create(now());
+
+        $this
+            ->post('test', [$nameField => '', $validFromField => $validFrom])
             ->assertPassedSpamProtection();
     }
 }

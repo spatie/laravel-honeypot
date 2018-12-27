@@ -165,6 +165,10 @@ The view will be placed in `resources/views/vendor/honeypot/honeypotFormFields.b
 @endif
 ```
 
+### Events fired
+
+Whenever spam is detected, the `Spatie\Honeypot\SpamDetected` event is fired. It has the `$request` as a public property.
+
 ### Testing
 
 ``` bash
