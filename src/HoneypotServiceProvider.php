@@ -5,7 +5,7 @@ namespace Spatie\Honeypot;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use Spatie\Honeypot\SpamResponder\SpamResponser;
+use Spatie\Honeypot\SpamResponder\SpamResponder;
 
 class HoneypotServiceProvider extends ServiceProvider
 {
@@ -29,7 +29,7 @@ class HoneypotServiceProvider extends ServiceProvider
             return "<?php echo view('honeypot::honeypotFormFields'); ?>";
         });
 
-        $this->app->bind(SpamResponser::class, config('honeypot.respond_to_spam_with'));
+        $this->app->bind(SpamResponder::class, config('honeypot.respond_to_spam_with'));
     }
 
     public function register()
