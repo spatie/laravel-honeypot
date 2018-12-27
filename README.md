@@ -87,7 +87,7 @@ First you must add the `@honeypot` blade directive to any form you wish to prote
 
 `@honeypot` will add two fields: `my_name` and `my_time` (you can change the names in the config file).
 
-Next, you must use the `Spatie\Honeypot\ProtectAgainstSpam` middleware the route that handles the form submission. This middleware will intercept any request that submits a non empty value for the key named `my_name`. If will also intercept the request if it is submitted faster than the encrypted timestamp that the package generated in `my_time`.
+Next, you must use the `Spatie\Honeypot\ProtectAgainstSpam` middleware the route that handles the form submission. This middleware will intercept any request that submits a non empty value for the key named `my_name`. It will also intercept the request if it is submitted faster than the encrypted timestamp that the package generated in `my_time`.
 
 ```php
 use App\Http\Controllers\ContactFormSubmissionController;
@@ -109,7 +109,7 @@ protected $middleware = [
 
 ### Disabling in testing
 
-By default any protected form that is submitted in faster than 1 second will be marked as spammy. TWhen running end to end test, which should run as fast as possible, you probably don't want this. 
+By default any protected form that is submitted in faster than 1 second will be marked as spammy. When running end to end tests, which should run as fast as possible, you probably don't want this. 
 
 To disable all honeypots in code you can set the `enabled` config value to `false`.
 
