@@ -28,13 +28,6 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         return [HoneypotServiceProvider::class];
     }
 
-    protected function getEnvironmentSetUp($app)
-    {
-        config()->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
-
-
-    }
-
     protected function setNow($year, int $month = 1, int $day = 1)
     {
         $newNow = $year instanceof Carbon
