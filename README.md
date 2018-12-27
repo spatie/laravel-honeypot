@@ -6,7 +6,7 @@
 [![StyleCI](https://github.styleci.io/repos/162617004/shield?branch=master)](https://github.styleci.io/repos/162617004)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-honeypot.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-honeypot)
 
-When adding a form to a public site there a risk that spam bots will try to submit it with fake values. Luckily most of these bots are pretty dumb. You can thwart most of them by adding an invisible field to your form that should never contain a value when submitted. Such a field is called a honeypot. Most bots will just fill all fields, including the honeypot.
+When adding a form to a public site there's a risk that spam bots will try to submit it with fake values. Luckily the majority of these bots are pretty dumb. You can thwart most of them by adding an invisible field to your form that should never contain a value when submitted. Such a field is called a honeypot. These spam bots will just fill all fields, including the honeypot.
 
 When a submission comes in with a filled honeypot field, this package will discard that request. 
 On top of that this package also check how long it took to submit the form. This is done using a timestamp in another invisible field. If the form was submitted in a ridiculously short time, the anti spam will also be triggered.
