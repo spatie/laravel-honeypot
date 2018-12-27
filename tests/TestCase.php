@@ -3,10 +3,10 @@
 namespace Spatie\Honeypot\Tests;
 
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\Concerns\InteractsWithContainer;
 use Illuminate\Support\Facades\View;
 use Spatie\Honeypot\HoneypotServiceProvider;
 use Spatie\Honeypot\Tests\TestClasses\FakeEncrypter;
+use Illuminate\Foundation\Testing\Concerns\InteractsWithContainer;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -16,7 +16,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     {
         parent::setUp();
 
-        View::addLocation(__DIR__ . '/views');
+        View::addLocation(__DIR__.'/views');
 
         $this->setNow(2019, 1, 1);
 

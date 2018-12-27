@@ -2,9 +2,9 @@
 
 namespace Spatie\Honeypot\Tests;
 
-use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Support\Facades\Route;
 use Spatie\Honeypot\ProtectAgainstSpam;
+use Illuminate\Foundation\Testing\TestResponse;
 
 class ProtectAgainstSpamTest extends TestCase
 {
@@ -12,7 +12,7 @@ class ProtectAgainstSpamTest extends TestCase
     {
         parent::setUp();
 
-        TestResponse::macro('assertPassedSpamProtection', function() {
+        TestResponse::macro('assertPassedSpamProtection', function () {
             $this
                 ->assertSuccessful()
                 ->assertSee('ok');
@@ -20,7 +20,7 @@ class ProtectAgainstSpamTest extends TestCase
             return $this;
         });
 
-        TestResponse::macro('assertDidNotPassSpamProtection', function() {
+        TestResponse::macro('assertDidNotPassSpamProtection', function () {
             $content = $this
                 ->assertSuccessful()
                 ->baseResponse->content();
@@ -30,7 +30,7 @@ class ProtectAgainstSpamTest extends TestCase
             return $this;
         });
 
-        Route::post('test', function() {
+        Route::post('test', function () {
             return 'ok';
         })->middleware(ProtectAgainstSpam::class);
     }
