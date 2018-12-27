@@ -1,5 +1,3 @@
-**THIS PACKAGE IS IN DEVELOPMENT, DO NOT USE YET**
-
 # Preventing spam submitted through forms
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-honeypot.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-honeypot)
