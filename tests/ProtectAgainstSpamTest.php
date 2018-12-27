@@ -63,5 +63,15 @@ class ProtectAgainstSpamTest extends TestCase
             ->assertDidNotPassSpamProtection();
     }
 
+    /** @test */
+    public function requests_will_always_succeed_when_the_package_is_not_enabled()
+    {
+        config()->set('honeypot.enabled', false);
 
+        $nameField = config('honeypot.name_field_name');
+
+        $this
+            ->post('test', [$nameField => 'value'])
+            ->assertPassedSpamProtection();
+    }
 }
