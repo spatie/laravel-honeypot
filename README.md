@@ -36,21 +36,21 @@ php artisan vendor:publish --provider="Spatie\Honeypot\HoneypotServiceProvider -
 This is the content of the config file that will be published at `config/honeypot.php`:
 
 ```php
-use Spatie\Honeypot\SpamResponder\BlankPageResponse;
+use Spatie\Honeypot\SpamResponder\BlankPageResponder;
 
 return [
 
     /*
      * Here you can specify name of the honeypot field. Any requests that submit a non-empty
      * value for this name will be discarded. Make sure this name does not
-     * collide with a form field that is actually allowed.
+     * collide with a form field that is actually used.
      */
     'name_field_name' => 'my_name',
 
     /*
      * This field contains the name of a form field that will be use to verify
      * if the form wasn't submitted too quickly. Make sure this name does not
-     * collide with a form field that is actually allowed.
+     * collide with a form field that is actually used.
      */
     'valid_from_field_name' => 'valid_from',
 
@@ -62,13 +62,13 @@ return [
 
     /*
      * This class is responsible for sending a response to request that
-     * are detected as being spammy. By default an blank page is shown.
+     * are detected as being spammy. By default a blank page is shown.
      *
      * A valid responder is any class that implements
      * `Spatie\Honeypot\SpamResponder\SpamResponder`
      */
     'respond_to_spam_with' => BlankPageResponder::class,
-    
+
     /*
      * This switch determines if the honeypot protection should be activated.
      */
