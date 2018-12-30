@@ -49,6 +49,12 @@ return [
     'name_field_name' => 'my_name',
 
     /*
+     * When this is activated the name_field_name will be ignored. On every
+     * page load a new random field name will be generated.
+     */
+    'random_name_field_name' => false,
+
+    /*
      * This field contains the name of a form field that will be use to verify
      * if the form wasn't submitted too quickly. Make sure this name does not
      * collide with a form field that is actually used.
