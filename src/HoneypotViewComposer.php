@@ -13,12 +13,7 @@ class HoneypotViewComposer
 
         $nameFieldName = $honeypotConfig['name_field_name'];
 
-        if ($honeypotConfig['random_name_field_name']) {
-            $randomString = Str::random();
-            session(['name_field_name' => $randomString]);
-            $nameFieldName = $randomString;
-        }
-
+        $randomNameFieldName = $honeypotConfig['random_name_field_name'];
         $enabled = $honeypotConfig['enabled'];
         $validFromFieldName = $honeypotConfig['valid_from_field_name'];
 
@@ -26,16 +21,15 @@ class HoneypotViewComposer
 
         $encryptedValidFrom = EncryptedTime::create($validFrom);
 
+        if ($randomNameFieldName) {
+            $nameFieldName = sprintf('%s-%s', $nameFieldName, Str::random());
+        }
+
         $view->with(compact(
             'enabled',
             'nameFieldName',
             'validFromFieldName',
             'encryptedValidFrom'
         ));
-    }
-
-    protected function generateRandomString(): String
-    {
-        return Str::random();
     }
 }

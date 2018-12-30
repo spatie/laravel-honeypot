@@ -23,14 +23,20 @@ class ProtectAgainstSpam
             return $next($request);
         }
 
-        $honeypotValue = $request->get(config('honeypot.name_field_name'));
+        $nameFieldName = config('honeypot.name_field_name');
+        $randomNameFieldName = config('honeypot.random_name_field_name');
+        $honeypotValue = $request->get($nameFieldName);
 
-        if (config('honeypot.random_name_field_name')) {
-            if(! $request->has(session()->get('name_field_name'))) {
+        if ($randomNameFieldName) {
+            $nameFieldName = collect($request->all())->filter(function ($value, $key) use ($nameFieldName) {
+                return preg_match(sprintf('/%s/', $nameFieldName), $key);
+            })->keys()->first();
+
+            if (is_null($nameFieldName)) {
                 return $this->respondToSpam($request, $next);
             }
 
-            $honeypotValue = $request->get(session()->get('name_field_name'));
+            $honeypotValue = $request->get($nameFieldName);
         }
 
         if (! empty($honeypotValue)) {

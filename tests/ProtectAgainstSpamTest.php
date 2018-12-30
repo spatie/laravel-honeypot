@@ -40,6 +40,8 @@ class ProtectAgainstSpamTest extends TestCase
     /** @test */
     public function requests_that_not_use_the_honeypot_fields_succeed()
     {
+        config()->set('honeypot.random_name_field_name', false);
+
         $this
             ->post('test')
             ->assertPassedSpamProtection();
@@ -106,26 +108,20 @@ class ProtectAgainstSpamTest extends TestCase
     {
         config()->set('honeypot.random_name_field_name', true);
 
-        $randomString = Str::random();
-
-        $this->withSession(['name_field_name' => $randomString]);
+        $nameField = config('honeypot.name_field_name');
 
         $this
-            ->post('test', [$randomString => ''])
+            ->post('test', [$nameField.'-'.Str::random() => null])
             ->assertPassedSpamProtection();
     }
 
     /** @test */
-    public function submission_with_wrong_session_name_field_name_do_not_succeed()
+    public function submission_with_random_generated_name_without_correct_prefix_will_be_marked_as_spam()
     {
         config()->set('honeypot.random_name_field_name', true);
 
-        $randomString = Str::random();
-
-        $this->withSession(['name_field_name' => 'wrong-string']);
-
         $this
-            ->post('test', [$randomString => ''])
+            ->post('test')
             ->assertDidNotPassSpamProtection();
     }
 }

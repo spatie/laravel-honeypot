@@ -12,10 +12,11 @@ return [
     'name_field_name' => 'my_name',
 
     /*
-     * When this is activated the name_field_name will be ignored. On every
-     * page load a new random field name will be generated.
+     * When this is activated there will be a random string added
+     * to the name_field_name. This improves the
+     * protection against bots.
      */
-    'random_name_field_name' => false,
+    'random_name_field_name' => true,
 
     /*
      * This field contains the name of a form field that will be use to verify
