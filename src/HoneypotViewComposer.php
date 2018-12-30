@@ -3,6 +3,7 @@
 namespace Spatie\Honeypot;
 
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 class HoneypotViewComposer
 {
@@ -10,8 +11,15 @@ class HoneypotViewComposer
     {
         $honeypotConfig = config('honeypot');
 
-        $enabled = $honeypotConfig['enabled'];
         $nameFieldName = $honeypotConfig['name_field_name'];
+
+        if ($honeypotConfig['random_name_field_name']) {
+            $randomString = Str::random();
+            session(['name_field_name' => $randomString]);
+            $nameFieldName = $randomString;
+        }
+
+        $enabled = $honeypotConfig['enabled'];
         $validFromFieldName = $honeypotConfig['valid_from_field_name'];
 
         $validFrom = now()->addSeconds($honeypotConfig['amount_of_seconds']);
@@ -24,5 +32,10 @@ class HoneypotViewComposer
             'validFromFieldName',
             'encryptedValidFrom'
         ));
+    }
+
+    protected function generateRandomString(): String
+    {
+        return Str::random();
     }
 }

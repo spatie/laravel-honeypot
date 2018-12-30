@@ -25,6 +25,14 @@ class ProtectAgainstSpam
 
         $honeypotValue = $request->get(config('honeypot.name_field_name'));
 
+        if (config('honeypot.random_name_field_name')) {
+            if(! $request->has(session()->get('name_field_name'))) {
+                return $this->respondToSpam($request, $next);
+            }
+
+            $honeypotValue = $request->get(session()->get('name_field_name'));
+        }
+
         if (! empty($honeypotValue)) {
             return $this->respondToSpam($request, $next);
         }
