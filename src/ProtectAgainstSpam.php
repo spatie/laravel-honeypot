@@ -24,12 +24,12 @@ class ProtectAgainstSpam
         }
 
         $nameFieldName = config('honeypot.name_field_name');
-        $randomNameFieldName = config('honeypot.random_name_field_name');
+        $randomNameFieldName = config('honeypot.randomize_name_field_name');
         $honeypotValue = $request->get($nameFieldName);
 
         if ($randomNameFieldName) {
             $nameFieldName = collect($request->all())->filter(function ($value, $key) use ($nameFieldName) {
-                return preg_match(sprintf('/%s/', $nameFieldName), $key);
+                return preg_match(sprintf('/'.$nameFieldName.'/'), $key);
             })->keys()->first();
 
             if (is_null($nameFieldName)) {
