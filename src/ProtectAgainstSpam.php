@@ -26,7 +26,7 @@ class ProtectAgainstSpam
         $randomizeNameFieldName = config('honeypot.randomize_name_field_name');
         $nameFieldName = config('honeypot.name_field_name');
 
-        if($randomizeNameFieldName) {
+        if ($randomizeNameFieldName) {
             $nameFieldName = $this->getRandomizedNameFieldName($nameFieldName, $request->all());
         }
 
