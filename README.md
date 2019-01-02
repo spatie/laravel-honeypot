@@ -53,7 +53,7 @@ return [
     * to the name_field_name. This improves the
     * protection against bots.
     */
-    'random_name_field_name' => true,
+    'randomize_name_field_name' => true,
 
     /*
      * This field contains the name of a form field that will be use to verify

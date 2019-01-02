@@ -13,7 +13,7 @@ class HoneypotViewComposer
 
         $nameFieldName = $honeypotConfig['name_field_name'];
 
-        $randomNameFieldName = $honeypotConfig['random_name_field_name'];
+        $randomNameFieldName = $honeypotConfig['randomize_name_field_name'];
         $enabled = $honeypotConfig['enabled'];
         $validFromFieldName = $honeypotConfig['valid_from_field_name'];
 

@@ -40,7 +40,7 @@ class ProtectAgainstSpamTest extends TestCase
     /** @test */
     public function requests_that_not_use_the_honeypot_fields_succeed()
     {
-        config()->set('honeypot.random_name_field_name', false);
+        config()->set('honeypot.randomize_name_field_name', false);
 
         $this
             ->post('test')
@@ -106,7 +106,7 @@ class ProtectAgainstSpamTest extends TestCase
     /** @test */
     public function submission_with_random_generated_name_for_the_honeypot_name_field_do_succeed()
     {
-        config()->set('honeypot.random_name_field_name', true);
+        config()->set('honeypot.randomize_name_field_name', true);
 
         $nameField = config('honeypot.name_field_name');
 
@@ -118,7 +118,7 @@ class ProtectAgainstSpamTest extends TestCase
     /** @test */
     public function submission_with_random_generated_name_without_correct_prefix_will_be_marked_as_spam()
     {
-        config()->set('honeypot.random_name_field_name', true);
+        config()->set('honeypot.randomize_name_field_name', true);
 
         $this
             ->post('test')

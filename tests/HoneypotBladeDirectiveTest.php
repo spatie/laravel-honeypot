@@ -11,7 +11,7 @@ class HoneypotBladeDirectiveTest extends TestCase
     /** @test */
     public function the_honeypot_blade_directive_renders_correctly()
     {
-        config()->set('honeypot.random_name_field_name', false);
+        config()->set('honeypot.randomize_name_field_name', false);
 
         $renderedView = view('honeypot')->render();
 
