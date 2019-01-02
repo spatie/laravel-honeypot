@@ -23,20 +23,17 @@ class ProtectAgainstSpam
             return $next($request);
         }
 
+        $randomizeNameFieldName = config('honeypot.randomize_name_field_name');
         $nameFieldName = config('honeypot.name_field_name');
-        $randomNameFieldName = config('honeypot.randomize_name_field_name');
+
+        if($randomizeNameFieldName) {
+            $nameFieldName = $this->getRandomizedNameFieldName($nameFieldName, $request->all());
+        }
+
         $honeypotValue = $request->get($nameFieldName);
 
-        if ($randomNameFieldName) {
-            $nameFieldName = collect($request->all())->filter(function ($value, $key) use ($nameFieldName) {
-                return preg_match(sprintf('/'.$nameFieldName.'/'), $key);
-            })->keys()->first();
-
-            if (is_null($nameFieldName)) {
-                return $this->respondToSpam($request, $next);
-            }
-
-            $honeypotValue = $request->get($nameFieldName);
+        if (is_null($nameFieldName)) {
+            return $this->respondToSpam($request, $next);
         }
 
         if (! empty($honeypotValue)) {
@@ -50,6 +47,13 @@ class ProtectAgainstSpam
         }
 
         return $next($request);
+    }
+
+    private function getRandomizedNameFieldName($nameFieldName, $requestFields):?String
+    {
+        return collect($requestFields)->filter(function ($value, $key) use ($nameFieldName) {
+            return starts_with($key, $nameFieldName);
+        })->keys()->first();
     }
 
     protected function respondToSpam(Request $request, Closure $next): Response
