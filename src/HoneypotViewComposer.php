@@ -3,6 +3,7 @@
 namespace Spatie\Honeypot;
 
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 class HoneypotViewComposer
 {
@@ -10,13 +11,19 @@ class HoneypotViewComposer
     {
         $honeypotConfig = config('honeypot');
 
-        $enabled = $honeypotConfig['enabled'];
         $nameFieldName = $honeypotConfig['name_field_name'];
+
+        $randomNameFieldName = $honeypotConfig['randomize_name_field_name'];
+        $enabled = $honeypotConfig['enabled'];
         $validFromFieldName = $honeypotConfig['valid_from_field_name'];
 
         $validFrom = now()->addSeconds($honeypotConfig['amount_of_seconds']);
 
         $encryptedValidFrom = EncryptedTime::create($validFrom);
+
+        if ($randomNameFieldName) {
+            $nameFieldName = sprintf('%s-%s', $nameFieldName, Str::random());
+        }
 
         $view->with(compact(
             'enabled',

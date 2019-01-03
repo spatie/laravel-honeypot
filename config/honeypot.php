@@ -12,6 +12,13 @@ return [
     'name_field_name' => 'my_name',
 
     /*
+     * When this is activated there will be a random string added
+     * to the name_field_name. This improves the
+     * protection against bots.
+     */
+    'randomize_name_field_name' => true,
+
+    /*
      * This field contains the name of a form field that will be use to verify
      * if the form wasn't submitted too quickly. Make sure this name does not
      * collide with a form field that is actually used.
@@ -19,7 +26,7 @@ return [
     'valid_from_field_name' => 'valid_from',
 
     /*
-     * If the form is submitted faster then this amout of seconds
+     * If the form is submitted faster then this amount of seconds
      * the form submission will be considered invalid.
      */
     'amount_of_seconds' => 1,
