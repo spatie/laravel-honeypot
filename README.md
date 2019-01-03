@@ -6,12 +6,12 @@
 [![StyleCI](https://github.styleci.io/repos/162617004/shield?branch=master)](https://github.styleci.io/repos/162617004)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-honeypot.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-honeypot)
 
-When adding a form to a public site there's a risk that spam bots will try to submit it with fake values. Luckily the majority of these bots are pretty dumb. You can thwart most of them by adding an invisible field to your form that should never contain a value when submitted. Such a field is called a honeypot. These spam bots will just fill all fields, including the honeypot.
+When adding a form to a public site, there's a risk that spam bots will try to submit it with fake values. Luckily, the majority of these bots are pretty dumb. You can thwart most of them by adding an invisible field to your form that should never contain a value when submitted. Such a field is called a honeypot. These spam bots will just fill all fields, including the honeypot.
 
 When a submission comes in with a filled honeypot field, this package will discard that request. 
 On top of that this package also check how long it took to submit the form. This is done using a timestamp in another invisible field. If the form was submitted in a ridiculously short time, the anti spam will also be triggered.
 
-After installing this package all you need to do is to add a `@honeypot` Blade directive to your form.
+After installing this package, all you need to do is to add a `@honeypot` Blade directive to your form.
 
 ```html
 <form method="POST">
@@ -79,7 +79,7 @@ return [
   
 ## Usage
 
-First you must add the `@honeypot` blade directive to any form you wish to protect.
+First, you must add the `@honeypot` blade directive to any form you wish to protect.
 
 ```php
 <form method="POST" action="{{ action(App\Http\Controllers\ContactFormSubmissionController::class, 'create') }}")>
@@ -90,7 +90,7 @@ First you must add the `@honeypot` blade directive to any form you wish to prote
 
 `@honeypot` will add two fields: `my_name` and `my_time` (you can change the names in the config file).
 
-Next, you must use the `Spatie\Honeypot\ProtectAgainstSpam` middleware the route that handles the form submission. This middleware will intercept any request that submits a non empty value for the key named `my_name`. It will also intercept the request if it is submitted faster than the encrypted timestamp that the package generated in `my_time`.
+Next, you must use the `Spatie\Honeypot\ProtectAgainstSpam` middleware in the route that handles the form submission. This middleware will intercept any request that submits a non empty value for the key named `my_name`. It will also intercept the request if it is submitted faster than the encrypted timestamp that the package generated in `my_time`.
 
 ```php
 use App\Http\Controllers\ContactFormSubmissionController;
@@ -99,7 +99,7 @@ use Spatie\Honeypot\ProtectAgainstSpam;
 Route::post([ContactFormSubmissionController::class, 'create'])->middleware(ProtectAgainstSpam::class);
 ```
 
-If your app has a lot of forms handled by many different controllors, you could opt to register it as global middleware.
+If your app has a lot of forms handled by many different controllers, you could opt to register it as global middleware.
 
 ```php
 // inside app\Http\Kernel.php
@@ -112,9 +112,9 @@ protected $middleware = [
 
 ### Disabling in testing
 
-By default any protected form that is submitted in faster than 1 second will be marked as spammy. When running end to end tests, which should run as fast as possible, you probably don't want this. 
+By default, any protected form that is submitted in faster than 1 second will be marked as spammy. When running end to end tests, which should run as fast as possible, you probably don't want this. 
 
-To disable all honeypots in code you can set the `enabled` config value to `false`.
+To disable all honeypots in code, you can set the `enabled` config value to `false`.
 
 ```php
 config()->set('honeypot.enabled', false)
@@ -122,7 +122,7 @@ config()->set('honeypot.enabled', false)
 
 ### Customizing the response
 
-When a spammy submission is detected the package will show a blank page by default. You can customize this behaviour by writing your own `SpamResponse` and specifying it's fully qualified class name in the `respond_to_spam_with` key of the `honeypot` config file.
+When a spammy submission is detected, the package will show a blank page by default. You can customize this behaviour by writing your own `SpamResponse` and specifying it's fully qualified class name in the `respond_to_spam_with` key of the `honeypot` config file.
 
 A valid `SpamResponse` is any class that implements the `Spatie\Honeypot\SpamResponder\SpamResponder` interface. This is what that interface looks like:
 
@@ -140,7 +140,7 @@ interface SpamResponser
 
 Even though a spam responders primary purpose is to respond to spammy requests, you could do other stuff there as well. You could for instance use the properties on `$request` to determine the source of the spam (maybe all requests come from the same IP) and put some logic to block that source altogether.
 
-If the package wrongly determined that the request is spammy you can generate the default response by passing the `$request` to the `$next` closure, like you would in a middleware.
+If the package wrongly determined that the request is spammy, you can generate the default response by passing the `$request` to the `$next` closure, like you would in a middleware.
 
 ```php
 // in your spam responder
@@ -149,7 +149,7 @@ $regularResponse = $next($request)
 
 ### Customizing the generated honeypot fields
 
-To customize output generated by `@honeypot` you can publish the `honeypot` view with:
+To customize output generated by `@honeypot`, you can publish the `honeypot` view with:
 
 ```php
 php artisan vendor:publish --provider="Spatie\Honeypot\HoneypotServiceProvider --tags=views"
