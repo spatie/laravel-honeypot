@@ -19,7 +19,7 @@ return [
     'valid_from_field_name' => 'valid_from',
 
     /*
-     * If the form is submitted faster then this amout of seconds
+     * If the form is submitted faster then this amount of seconds
      * the form submission will be considered invalid.
      */
     'amount_of_seconds' => 1,
