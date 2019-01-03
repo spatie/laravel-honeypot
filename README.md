@@ -99,7 +99,7 @@ use Spatie\Honeypot\ProtectAgainstSpam;
 Route::post([ContactFormSubmissionController::class, 'create'])->middleware(ProtectAgainstSpam::class);
 ```
 
-If your app has a lot of forms handled by many different controllors, you could opt to register it as global middleware.
+If your app has a lot of forms handled by many different controllers, you could opt to register it as global middleware.
 
 ```php
 // inside app\Http\Kernel.php
@@ -112,7 +112,7 @@ protected $middleware = [
 
 ### Disabling in testing
 
-By default any protected form that is submitted in faster than 1 second will be marked as spammy. When running end to end tests, which should run as fast as possible, you probably don't want this. 
+By default, any protected form that is submitted in faster than 1 second will be marked as spammy. When running end to end tests, which should run as fast as possible, you probably don't want this. 
 
 To disable all honeypots in code, you can set the `enabled` config value to `false`.
 
