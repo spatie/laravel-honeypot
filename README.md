@@ -31,7 +31,7 @@ composer require spatie/laravel-honeypot
 Optionally, you can publish the config file of the package.
 
 ```bash
-php artisan vendor:publish --provider="Spatie\Honeypot\HoneypotServiceProvider --tags=config"
+php artisan vendor:publish --provider="Spatie\Honeypot\HoneypotServiceProvider" --tag=config
 ```
 
 This is the content of the config file that will be published at `config/honeypot.php`:
