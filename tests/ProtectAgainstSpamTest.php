@@ -2,6 +2,7 @@
 
 namespace Spatie\Honeypot\Tests;
 
+use Illuminate\Support\Str;
 use Spatie\Honeypot\EncryptedTime;
 use Illuminate\Support\Facades\Route;
 use Spatie\Honeypot\ProtectAgainstSpam;
@@ -39,6 +40,8 @@ class ProtectAgainstSpamTest extends TestCase
     /** @test */
     public function requests_that_not_use_the_honeypot_fields_succeed()
     {
+        config()->set('honeypot.randomize_name_field_name', false);
+
         $this
             ->post('test')
             ->assertPassedSpamProtection();
@@ -98,5 +101,27 @@ class ProtectAgainstSpamTest extends TestCase
         $this
             ->post('test', [$nameField => '', $validFromField => $validFrom])
             ->assertPassedSpamProtection();
+    }
+
+    /** @test */
+    public function submission_with_random_generated_name_for_the_honeypot_name_field_do_succeed()
+    {
+        config()->set('honeypot.randomize_name_field_name', true);
+
+        $nameField = config('honeypot.name_field_name');
+
+        $this
+            ->post('test', [$nameField.'-'.Str::random() => null])
+            ->assertPassedSpamProtection();
+    }
+
+    /** @test */
+    public function submission_with_random_generated_name_without_correct_prefix_will_be_marked_as_spam()
+    {
+        config()->set('honeypot.randomize_name_field_name', true);
+
+        $this
+            ->post('test')
+            ->assertDidNotPassSpamProtection();
     }
 }
