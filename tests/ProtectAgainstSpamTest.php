@@ -80,7 +80,7 @@ class ProtectAgainstSpamTest extends TestCase
     }
 
     /** @test */
-    function requests_will_always_succeed_when_the_method_is_not_POST()
+    public function requests_will_always_succeed_when_the_method_is_not_POST()
     {
         $nameField = config('honeypot.name_field_name');
         $attributes = [$nameField => 'value'];
