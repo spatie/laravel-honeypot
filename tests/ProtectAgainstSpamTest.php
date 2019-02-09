@@ -32,7 +32,7 @@ class ProtectAgainstSpamTest extends TestCase
             return $this;
         });
 
-        Route::post('test', function () {
+        Route::any('test', function () {
             return 'ok';
         })->middleware(ProtectAgainstSpam::class);
     }
@@ -77,6 +77,18 @@ class ProtectAgainstSpamTest extends TestCase
         $this
             ->post('test', [$nameField => 'value'])
             ->assertPassedSpamProtection();
+    }
+
+    /** @test */
+    function requests_will_always_succeed_when_the_method_is_not_POST()
+    {
+        $nameField = config('honeypot.name_field_name');
+        $attributes = [$nameField => 'value'];
+
+        $this->get('test', $attributes)->assertPassedSpamProtection();
+        $this->put('test', $attributes)->assertPassedSpamProtection();
+        $this->patch('test', $attributes)->assertPassedSpamProtection();
+        $this->delete('test', $attributes)->assertPassedSpamProtection();
     }
 
     /** @test */
