@@ -19,7 +19,7 @@ return [
     'randomize_name_field_name' => true,
 
     /*
-     * This field contains the name of a form field that will be use to verify
+     * This field contains the name of a form field that will be used to verify
      * if the form wasn't submitted too quickly. Make sure this name does not
      * collide with a form field that is actually used.
      */
