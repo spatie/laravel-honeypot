@@ -22,7 +22,7 @@ class HoneypotViewComposer
         $encryptedValidFrom = EncryptedTime::create($validFrom);
 
         if ($randomNameFieldName) {
-            $nameFieldName = sprintf('%s-%s', $nameFieldName, Str::random());
+            $nameFieldName = sprintf('%s_%s', $nameFieldName, Str::random());
         }
 
         $view->with(compact(
