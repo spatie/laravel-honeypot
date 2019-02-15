@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 1.1.3 - 2019-02-15
+
+- fix name field name
+
 ## 1.1.2 - 2019-02-15
 
 - restrict honeypot to POST requests only
