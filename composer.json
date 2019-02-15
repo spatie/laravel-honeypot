@@ -21,7 +21,7 @@
         "illuminate/encryption": "^5.6|^5.7",
         "illuminate/http": "^5.6|^5.7",
         "illuminate/support": "^5.6|^5.7",
-        "illuminate/validation": "^5.6|^5.7",
+        "illuminate/validation": "^5.6|^5.7"
     },
     "require-dev": {
         "orchestra/testbench": "^3.6|^3.7",
