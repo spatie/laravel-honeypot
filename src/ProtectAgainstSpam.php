@@ -19,7 +19,11 @@ class ProtectAgainstSpam
 
     public function handle(Request $request, Closure $next): Response
     {
-        if (! config('honeypot.enabled') || ! $request->isMethod('POST')) {
+        if (! config('honeypot.enabled')) {
+            return $next($request);
+        }
+
+        if (! $request->isMethod('POST')) {
             return $next($request);
         }
 
