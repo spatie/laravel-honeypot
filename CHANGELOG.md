@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 1.1.2 - 2019-02-15
+
+- restrict honeypot to POST requests only
+
 ## 1.1.1 - 2019-02-15
 
 - use underscores instead of dashes for form field names
