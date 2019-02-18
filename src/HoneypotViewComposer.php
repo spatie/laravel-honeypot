@@ -25,11 +25,14 @@ class HoneypotViewComposer
             $nameFieldName = sprintf('%s_%s', $nameFieldName, Str::random());
         }
 
+        $classes = $honeypotConfig['classes'];
+
         $view->with(compact(
             'enabled',
             'nameFieldName',
             'validFromFieldName',
-            'encryptedValidFrom'
+            'encryptedValidFrom',
+            'classes'
         ));
     }
 }

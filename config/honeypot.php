@@ -5,6 +5,12 @@ use Spatie\Honeypot\SpamResponder\BlankPageResponder;
 return [
 
     /*
+     * Here you can specify classes of the honeypot wrapper.
+     * If no class name is provided inline display none will be used.
+     */
+    'classes' => null,
+
+    /*
      * Here you can specify name of the honeypot field. Any requests that submit a non-empty
      * value for this name will be discarded. Make sure this name does not
      * collide with a form field that is actually used.
