@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 1.3.1 - 2019-02-27
+
+- fix requirements
+
 ## 1.3.0 - 2019-02-27
 
 - drop support for PHP 7.1
