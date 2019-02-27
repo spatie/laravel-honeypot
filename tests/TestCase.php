@@ -12,7 +12,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
     use InteractsWithContainer;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

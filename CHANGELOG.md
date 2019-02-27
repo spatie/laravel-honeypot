@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 1.2.0 - 2019-02-27
+
+- add support for Laravel 5.8
+
 ## 1.1.3 - 2019-02-15
 
 - fix name field name
