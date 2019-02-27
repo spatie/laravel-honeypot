@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "~7.1",
+        "php": "~7.2",
         "illuminate/contracts": "~5.7|~5.8",
         "illuminate/encryption": "~5.7|~5.8",
         "illuminate/http": "~5.7|~5.8",
