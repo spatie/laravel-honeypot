@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - 7.1
   - 7.2
   - 7.3
 
@@ -17,5 +16,3 @@ before_script:
 script:
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
-after_script:
-  - php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
