@@ -123,7 +123,7 @@ class ProtectAgainstSpamTest extends TestCase
         $nameField = config('honeypot.name_field_name');
 
         $this
-            ->post('test', [$nameField . '-' . Str::random() => null])
+            ->post('test', [$nameField.'-'.Str::random() => null])
             ->assertPassedSpamProtection();
     }
 
