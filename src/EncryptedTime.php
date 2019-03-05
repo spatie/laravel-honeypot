@@ -9,7 +9,12 @@ class EncryptedTime
     /** @var string */
     protected $encryptedTime;
 
-    public static function create(Carbon $carbon)
+    /**
+     * @param \Carbon\Carbon|\Carbon\CarbonInterface $carbon
+     *
+     * @return static
+     */
+    public static function create($carbon)
     {
         $encryptedTime = app('encrypter')->encrypt($carbon->timestamp);
 

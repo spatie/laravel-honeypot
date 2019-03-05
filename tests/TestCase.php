@@ -3,6 +3,8 @@
 namespace Spatie\Honeypot\Tests;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
 use Illuminate\Support\Facades\View;
 use Spatie\Honeypot\HoneypotServiceProvider;
 use Spatie\Honeypot\Tests\TestClasses\FakeEncrypter;
@@ -30,21 +32,16 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function setNow($year, int $month = 1, int $day = 1)
     {
-        $newNow = $year instanceof Carbon
-            ? $year
+        $newNow = ($year instanceof Carbon || $year instanceof CarbonInterface)
+            ? $year->copy()
             : Carbon::createFromDate($year, $month, $day);
 
         $newNow = $newNow->startOfDay();
 
         Carbon::setTestNow($newNow);
-    }
 
-    protected function progressTime(int $minutes)
-    {
-        $newNow = now()->copy()->addMinutes($minutes);
-
-        Carbon::setTestNow($newNow);
-
-        return $this;
+        if (class_exists(CarbonImmutable::class)) {
+            CarbonImmutable::setTestNow($newNow);
+        }
     }
 }
