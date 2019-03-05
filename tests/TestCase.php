@@ -18,7 +18,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     {
         parent::setUp();
 
-        View::addLocation(__DIR__.'/views');
+        View::addLocation(__DIR__ . '/views');
 
         $this->setNow(2019, 1, 1);
 

@@ -96,7 +96,7 @@ class ProtectAgainstSpamTest extends TestCase
     {
         $nameField = config('honeypot.name_field_name');
         $validFromField = config('honeypot.valid_from_field_name');
-        $validFrom = EncryptedTime::create(now()->addSecond(1));
+        $validFrom = EncryptedTime::create(now()->addSecond());
 
         $this
             ->post('test', [$nameField => '', $validFromField => $validFrom])
@@ -123,7 +123,7 @@ class ProtectAgainstSpamTest extends TestCase
         $nameField = config('honeypot.name_field_name');
 
         $this
-            ->post('test', [$nameField.'-'.Str::random() => null])
+            ->post('test', [$nameField . '-' . Str::random() => null])
             ->assertPassedSpamProtection();
     }
 
