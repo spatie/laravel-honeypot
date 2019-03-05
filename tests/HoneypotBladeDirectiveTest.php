@@ -37,5 +37,7 @@ class HoneypotBladeDirectiveTest extends TestCase
         $renderedView = view('honeypot')->render();
 
         $this->assertMatchesSnapshot($renderedView);
+
+        DateFactory::use(DateFactory::DEFAULT_CLASS_NAME);
     }
 }
