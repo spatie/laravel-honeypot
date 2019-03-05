@@ -3,20 +3,16 @@
 namespace Spatie\Honeypot;
 
 use Carbon\Carbon;
+use DateTimeInterface;
 
 class EncryptedTime
 {
     /** @var string */
     protected $encryptedTime;
 
-    /**
-     * @param \Carbon\Carbon|\Carbon\CarbonInterface $carbon
-     *
-     * @return static
-     */
-    public static function create($carbon)
+    public static function create(DateTimeInterface $dateTime)
     {
-        $encryptedTime = app('encrypter')->encrypt($carbon->timestamp);
+        $encryptedTime = app('encrypter')->encrypt($dateTime->getTimestamp());
 
         return new static($encryptedTime);
     }
