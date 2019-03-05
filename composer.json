@@ -17,15 +17,15 @@
     ],
     "require": {
         "php": "^7.2",
-        "illuminate/contracts": "~5.7|~5.8",
-        "illuminate/encryption": "~5.7|~5.8",
-        "illuminate/http": "~5.7|~5.8",
-        "illuminate/support": "~5.7|~5.8",
-        "illuminate/validation": "~5.7|~5.8"
+        "illuminate/contracts": "5.7.*|5.8.*",
+        "illuminate/encryption": "5.7.*|5.8.*",
+        "illuminate/http": "5.7.*|5.8.*",
+        "illuminate/support": "5.7.*|5.8.*",
+        "illuminate/validation": "5.7.*|5.8.*"
     },
     "require-dev": {
-        "orchestra/testbench": "~3.7|~3.8",
-        "phpunit/phpunit": "^8.0",
+        "orchestra/testbench": "3.7.*|3.8.*",
+        "phpunit/phpunit": "^7.3|^8.0",
         "spatie/phpunit-snapshot-assertions": "^2.0"
     },
     "autoload": {
@@ -41,7 +41,6 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-
     },
     "config": {
         "sort-packages": true
