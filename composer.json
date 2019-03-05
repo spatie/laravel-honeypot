@@ -25,7 +25,6 @@
     },
     "require-dev": {
         "orchestra/testbench": "3.7.*|3.8.*",
-        "phpunit/phpunit": "^7.3|^8.0",
         "spatie/phpunit-snapshot-assertions": "^2.0"
     },
     "autoload": {
