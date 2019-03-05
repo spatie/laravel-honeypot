@@ -2,14 +2,14 @@
 
 namespace Spatie\Honeypot;
 
-use Carbon\Carbon;
+use Carbon\CarbonInterface;
 
 class EncryptedTime
 {
     /** @var string */
     protected $encryptedTime;
 
-    public static function create(Carbon $carbon)
+    public static function create(CarbonInterface $carbon)
     {
         $encryptedTime = app('encrypter')->encrypt($carbon->timestamp);
 

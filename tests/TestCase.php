@@ -3,6 +3,7 @@
 namespace Spatie\Honeypot\Tests;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Illuminate\Support\Facades\View;
 use Spatie\Honeypot\HoneypotServiceProvider;
 use Spatie\Honeypot\Tests\TestClasses\FakeEncrypter;
@@ -30,7 +31,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function setNow($year, int $month = 1, int $day = 1)
     {
-        $newNow = $year instanceof Carbon
+        $newNow = $year instanceof CarbonInterface
             ? $year
             : Carbon::createFromDate($year, $month, $day);
 
