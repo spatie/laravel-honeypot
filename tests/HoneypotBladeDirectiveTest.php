@@ -10,6 +10,8 @@ class HoneypotBladeDirectiveTest extends TestCase
 {
     use MatchesSnapshots;
 
+    protected $testNow = false;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -20,6 +22,8 @@ class HoneypotBladeDirectiveTest extends TestCase
     /** @test */
     public function the_honeypot_blade_directive_renders_correctly()
     {
+        $this->setNow(2019, 1, 1);
+
         $renderedView = view('honeypot')->render();
 
         $this->assertMatchesSnapshot($renderedView);
@@ -28,11 +32,8 @@ class HoneypotBladeDirectiveTest extends TestCase
     /** @test */
     public function the_honeypot_blade_directive_renders_correctly_when_using_CarbonImmutable()
     {
-        if (! class_exists(CarbonImmutable::class)) {
-            $this->markTestSkipped('Test for Carbon 2 only');
-        }
-
         DateFactory::use(CarbonImmutable::class);
+        $this->setNow(2019, 1, 1);
 
         $renderedView = view('honeypot')->render();
 

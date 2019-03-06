@@ -2,11 +2,13 @@
 
 namespace Spatie\Honeypot;
 
-use Carbon\Carbon;
 use DateTimeInterface;
+use Illuminate\Support\Facades\Date;
 
 class EncryptedTime
 {
+    protected $carbon;
+
     /** @var string */
     protected $encryptedTime;
 
@@ -23,7 +25,7 @@ class EncryptedTime
 
         $timestamp = app('encrypter')->decrypt($encryptedTime);
 
-        $this->carbon = Carbon::createFromTimestamp($timestamp);
+        $this->carbon = Date::createFromTimestamp($timestamp);
     }
 
     public function isFuture(): bool
