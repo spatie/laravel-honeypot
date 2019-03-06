@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 1.3.2 - 2019-03-06
+
+- drop support for Laravel 5.7 and Carbon 1
+
 ## 1.3.1 - 2019-02-27
 
 - fix requirements
