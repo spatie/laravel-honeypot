@@ -44,14 +44,13 @@ class ProtectAgainstSpam
         }
 
         if ($validFrom = $request->get(config('honeypot.valid_from_field_name'))) {
-
             try {
                 $time = new EncryptedTime($validFrom);
             } catch (\Exception $decryptException) {
                 $time = null;
             }
 
-            if (!$time || $time->isFuture()) {
+            if (! $time || $time->isFuture()) {
                 return $this->respondToSpam($request, $next);
             }
         }
