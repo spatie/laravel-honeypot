@@ -136,4 +136,17 @@ class ProtectAgainstSpamTest extends TestCase
             ->post('test')
             ->assertDidNotPassSpamProtection();
     }
+
+    /** @test */
+    public function submissions_that_are_posted_with_invalid_payload_will_be_marked_as_spam()
+    {
+        $nameField = config('honeypot.name_field_name');
+        $validFromField = config('honeypot.valid_from_field_name');
+
+        $validFrom = 'SomeRandomString';
+
+        $this
+            ->post('test', [$nameField => '', $validFromField => $validFrom])
+            ->assertDidNotPassSpamProtection();
+    }
 }
