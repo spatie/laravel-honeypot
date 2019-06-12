@@ -25,6 +25,10 @@ class EncryptedTime
 
         $timestamp = app('encrypter')->decrypt($encryptedTime);
 
+        if (! $this->isValidTimeStamp($timestamp)) {
+            throw new \Exception(sprintf('Timestamp %s is invalid', $timestamp));
+        }
+
         $this->carbon = Date::createFromTimestamp($timestamp);
     }
 
@@ -36,5 +40,12 @@ class EncryptedTime
     public function __toString()
     {
         return $this->encryptedTime;
+    }
+
+    private function isValidTimeStamp(string $timestamp)
+    {
+        return ((string) (int) $timestamp === $timestamp)
+            && ($timestamp >= 0)
+            && ($timestamp <= PHP_INT_MAX);
     }
 }
