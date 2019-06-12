@@ -38,9 +38,19 @@ class ProtectAgainstSpamTest extends TestCase
     }
 
     /** @test */
-    public function requests_that_not_use_the_honeypot_fields_succeed()
+    public function requests_that_not_use_the_honeypot_fields_succeed_without_random_name()
     {
         config()->set('honeypot.randomize_name_field_name', false);
+
+        $this
+            ->post('test')
+            ->assertPassedSpamProtection();
+    }
+
+    /** @test */
+    public function requests_that_not_use_the_honeypot_fields_succeed_with_random_name()
+    {
+        config()->set('honeypot.randomize_name_field_name', true);
 
         $this
             ->post('test')
@@ -128,19 +138,11 @@ class ProtectAgainstSpamTest extends TestCase
     }
 
     /** @test */
-    public function submission_with_random_generated_name_without_correct_prefix_will_be_marked_as_spam()
+    public function submissions_that_are_posted_with_invalid_payload_will_be_marked_as_spam()
     {
         config()->set('honeypot.randomize_name_field_name', true);
 
-        $this
-            ->post('test')
-            ->assertDidNotPassSpamProtection();
-    }
-
-    /** @test */
-    public function submissions_that_are_posted_with_invalid_payload_will_be_marked_as_spam()
-    {
-        $nameField = config('honeypot.name_field_name');
+        $nameField = config('honeypot.name_field_name').Str::random();
         $validFromField = config('honeypot.valid_from_field_name');
 
         $validFrom = 'SomeRandomString';
