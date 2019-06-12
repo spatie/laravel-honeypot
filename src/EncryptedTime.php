@@ -42,10 +42,20 @@ class EncryptedTime
         return $this->encryptedTime;
     }
 
-    private function isValidTimeStamp(string $timestamp)
+    private function isValidTimeStamp(string $timestamp): bool
     {
-        return ((string) (int) $timestamp === $timestamp)
-            && ($timestamp >= 0)
-            && ($timestamp <= PHP_INT_MAX);
+        if ((string) (int) $timestamp !== $timestamp) {
+            return false;
+        }
+
+        if ($timestamp <= 0) {
+            return false;
+        }
+
+        if ($timestamp >= PHP_INT_MAX) {
+            return false;
+        }
+
+        return true;
     }
 }

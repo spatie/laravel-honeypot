@@ -3,6 +3,7 @@
 namespace Spatie\Honeypot;
 
 use Closure;
+use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,7 +44,7 @@ class ProtectAgainstSpam
         if ($validFrom = $request->get(config('honeypot.valid_from_field_name'))) {
             try {
                 $time = new EncryptedTime($validFrom);
-            } catch (\Exception $decryptException) {
+            } catch (Exception $decryptException) {
                 $time = null;
             }
 
