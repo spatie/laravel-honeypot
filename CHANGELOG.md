@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 1.3.4 - 2019-06-12
+
+- improve validation of the timestamp
+
 ## 1.3.3 - 2019-03-18
 
 - fix invalid payload error
