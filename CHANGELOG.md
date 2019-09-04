@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 1.4.0 - 2019-04-09
+
+- make compatible with Laravel 6
+
 ## 1.3.4 - 2019-06-12
 
 - improve validation of the timestamp

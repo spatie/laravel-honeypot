@@ -3,6 +3,7 @@
 namespace Spatie\Honeypot\Tests\TestClasses;
 
 use Illuminate\Contracts\Encryption\Encrypter;
+use Illuminate\Support\Str;
 
 class FakeEncrypter implements Encrypter
 {
@@ -13,6 +14,6 @@ class FakeEncrypter implements Encrypter
 
     public function decrypt($payload, $unserialize = true)
     {
-        return str_before($payload, '-encrypted');
+        return Str::before($payload, '-encrypted');
     }
 }

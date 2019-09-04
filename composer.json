@@ -17,15 +17,15 @@
     ],
     "require": {
         "php": "^7.2",
-        "illuminate/contracts": "5.8.*",
-        "illuminate/encryption": "5.8.*",
-        "illuminate/http": "5.8.*",
-        "illuminate/support": "5.8.*",
-        "illuminate/validation": "5.8.*",
+        "illuminate/contracts": "5.8.*|^6.0",
+        "illuminate/encryption": "5.8.*|^6.0",
+        "illuminate/http": "5.8.*|^6.0",
+        "illuminate/support": "5.8.*|^6.0",
+        "illuminate/validation": "5.8.*|^6.0",
         "nesbot/carbon": "^2.0"
     },
     "require-dev": {
-        "orchestra/testbench": "3.8.*",
+        "orchestra/testbench": "3.8.*|^4.0",
         "spatie/phpunit-snapshot-assertions": "^2.0"
     },
     "autoload": {
