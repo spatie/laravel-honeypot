@@ -2,8 +2,8 @@
 
 namespace Spatie\Honeypot\Tests\TestClasses;
 
-use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Support\Str;
+use Illuminate\Contracts\Encryption\Encrypter;
 
 class FakeEncrypter implements Encrypter
 {
