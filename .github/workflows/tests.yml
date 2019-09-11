@@ -1,0 +1,41 @@
+name: Run Tests
+on: [push]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 15
+      fail-fast: false
+      matrix:
+        php-versions: ['7.2', '7.3']
+        composer-flags: ['--prefer-lowest', '--prefer-stable']
+        env:
+            - LARAVEL_VERSION='5.8.*' TESTBENCH_VERSION='3.8.*'
+            - LARAVEL_VERSION='^6.0'  TESTBENCH_VERSION='^4.0'
+    name: Test on PHP ${{ matrix.php-versions }}, Laravel ${{ matrix.laravel-versions }} and ${{ matrix.composer-flags }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Install PHP
+      uses: shivammathur/setup-php@master
+      with:
+        php-version: ${{ matrix.php-versions }}
+    - name: Check Environment
+      run: |
+        ${{ matrix.env }}
+        php -v
+        composer -V
+        php -m
+        echo "Laravel version ${LARAVEL_VERSION}"
+        echo "Orchestra Testbench version ${TESTBENCH_VERSION}"
+    - name: Install Dependencies
+      run: |
+        ${{ matrix.env }}
+        composer config discard-changes true
+        composer self-update
+        composer require --dev "laravel/framework:${LARAVEL_VERSION}" --no-interaction --no-update
+        composer require --dev "orchestra/testbench:${TESTBENCH_VERSION}" --no-interaction --no-update
+        composer update ${{ matrix.composer-flags }} --prefer-dist --no-suggest --no-interaction
+    - name: Run PHPUnit
+      run: php vendor/bin/phpunit
