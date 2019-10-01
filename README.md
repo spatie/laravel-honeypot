@@ -9,7 +9,7 @@
 When adding a form to a public site, there's a risk that spam bots will try to submit it with fake values. Luckily, the majority of these bots are pretty dumb. You can thwart most of them by adding an invisible field to your form that should never contain a value when submitted. Such a field is called a honeypot. These spam bots will just fill all fields, including the honeypot.
 
 When a submission comes in with a filled honeypot field, this package will discard that request. 
-On top of that this package also check how long it took to submit the form. This is done using a timestamp in another invisible field. If the form was submitted in a ridiculously short time, the anti spam will also be triggered.
+On top of that this package also checks how long it took to submit the form. This is done using a timestamp in another invisible field. If the form was submitted in a ridiculously short time, the anti spam will also be triggered.
 
 After installing this package, all you need to do is to add a `@honeypot` Blade directive to your form.
 
@@ -129,7 +129,7 @@ config()->set('honeypot.enabled', false)
 
 ### Customizing the response
 
-When a spammy submission is detected, the package will show a blank page by default. You can customize this behaviour by writing your own `SpamResponse` and specifying it's fully qualified class name in the `respond_to_spam_with` key of the `honeypot` config file.
+When a spammy submission is detected, the package will show a blank page by default. You can customize this behaviour by writing your own `SpamResponse` and specifying its fully qualified class name in the `respond_to_spam_with` key of the `honeypot` config file.
 
 A valid `SpamResponse` is any class that implements the `Spatie\Honeypot\SpamResponder\SpamResponder` interface. This is what that interface looks like:
 
@@ -145,7 +145,7 @@ interface SpamResponder
 }
 ```
 
-Even though a spam responders primary purpose is to respond to spammy requests, you could do other stuff there as well. You could for instance use the properties on `$request` to determine the source of the spam (maybe all requests come from the same IP) and put some logic to block that source altogether.
+Even though a spam responder's primary purpose is to respond to spammy requests, you could do other stuff there as well. You could for instance use the properties on `$request` to determine the source of the spam (maybe all requests come from the same IP) and put some logic to block that source altogether.
 
 If the package wrongly determined that the request is spammy, you can generate the default response by passing the `$request` to the `$next` closure, like you would in a middleware.
 
