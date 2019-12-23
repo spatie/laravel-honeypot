@@ -4,10 +4,10 @@ namespace Spatie\Honeypot;
 
 use Closure;
 use Exception;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 use Spatie\Honeypot\SpamResponder\SpamResponder;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProtectAgainstSpam
 {

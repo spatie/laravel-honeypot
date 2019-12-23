@@ -2,8 +2,8 @@
 
 namespace Spatie\Honeypot;
 
-use Illuminate\View\View;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class HoneypotViewComposer
 {
