@@ -3,11 +3,11 @@
 namespace Spatie\Honeypot\Tests;
 
 use Carbon\CarbonInterface;
+use Illuminate\Foundation\Testing\Concerns\InteractsWithContainer;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\View;
 use Spatie\Honeypot\HoneypotServiceProvider;
 use Spatie\Honeypot\Tests\TestClasses\FakeEncrypter;
-use Illuminate\Foundation\Testing\Concerns\InteractsWithContainer;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {

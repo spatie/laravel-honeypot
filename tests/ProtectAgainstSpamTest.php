@@ -2,11 +2,11 @@
 
 namespace Spatie\Honeypot\Tests;
 
+use Illuminate\Foundation\Testing\TestResponse;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Spatie\Honeypot\EncryptedTime;
-use Illuminate\Support\Facades\Route;
 use Spatie\Honeypot\ProtectAgainstSpam;
-use Illuminate\Foundation\Testing\TestResponse;
 
 class ProtectAgainstSpamTest extends TestCase
 {
