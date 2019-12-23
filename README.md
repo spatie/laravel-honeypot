@@ -22,9 +22,7 @@ After installing this package, all you need to do is to add a `@honeypot` Blade 
 
 ## Video tutorial
 
-In this video, which is part of the [Mailcoach](https://mailcoach.app) video course, you can see how the package can be installed and used.
-
-<iframe src="https://player.vimeo.com/video/381197983" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+In [this video](https://vimeo.com/381197983), which is part of the [Mailcoach](https://mailcoach.app) video course, you can see how the package can be installed and used.
 
 ## Installation
 
