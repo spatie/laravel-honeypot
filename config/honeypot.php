@@ -25,13 +25,13 @@ return [
     'valid_from_field_name' => env('HONEYPOT_VALID_FROM', 'valid_from'),
 
     /*
-     * If the form is submitted faster then this amount of seconds
+     * If the form is submitted faster than this amount of seconds
      * the form submission will be considered invalid.
      */
     'amount_of_seconds' => env('HONEYPOT_SECONDS', 1),
 
     /*
-     * This class is responsible for sending a response to request that
+     * This class is responsible for sending a response to requests that
      * are detected as being spammy. By default a blank page is shown.
      *
      * A valid responder is any class that implements
