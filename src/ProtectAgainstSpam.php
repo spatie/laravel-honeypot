@@ -56,7 +56,7 @@ class ProtectAgainstSpam
         return $next($request);
     }
 
-    private function getRandomizedNameFieldName($nameFieldName, $requestFields):?String
+    private function getRandomizedNameFieldName($nameFieldName, $requestFields): ?String
     {
         return collect($requestFields)->filter(function ($value, $key) use ($nameFieldName) {
             return Str::startsWith($key, $nameFieldName);
