@@ -13,7 +13,7 @@ jobs:
         env:
             - LARAVEL_VERSION='5.8.*' TESTBENCH_VERSION='3.8.*'
             - LARAVEL_VERSION='^6.0'  TESTBENCH_VERSION='^4.0'
-    name: Test on PHP ${{ matrix.php-versions }}, Laravel ${{ matrix.laravel-versions }} and ${{ matrix.composer-flags }}
+    name: P${{ matrix.php-versions }}-L${{ matrix.laravel-versions }}-${{ matrix.composer-flags }}
     steps:
     - name: Checkout
       uses: actions/checkout@master
