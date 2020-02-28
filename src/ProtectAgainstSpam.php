@@ -35,6 +35,10 @@ class ProtectAgainstSpam
             $nameFieldName = $this->getRandomizedNameFieldName($nameFieldName, $request->all());
         }
 
+        if (! $request->has($nameFieldName)) {
+            return $this->respondToSpam($request, $next);
+        }
+
         $honeypotValue = $request->get($nameFieldName);
 
         if (! empty($honeypotValue)) {
@@ -51,6 +55,8 @@ class ProtectAgainstSpam
             if (! $time || $time->isFuture()) {
                 return $this->respondToSpam($request, $next);
             }
+        } else {
+            return $this->respondToSpam($request, $next);
         }
 
         return $next($request);
