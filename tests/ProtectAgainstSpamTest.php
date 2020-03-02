@@ -27,7 +27,7 @@ class ProtectAgainstSpamTest extends TestCase
                 ->assertSuccessful()
                 ->baseResponse->content();
 
-            TestCase::assertEquals('', $content, 'The request unexpectately passed spam protection.');
+            TestCase::assertEquals('', $content, 'The request unexpectedly passed spam protection.');
 
             return $this;
         });
