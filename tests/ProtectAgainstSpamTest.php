@@ -38,32 +38,46 @@ class ProtectAgainstSpamTest extends TestCase
     }
 
     /** @test */
-    public function requests_that_not_use_the_honeypot_fields_succeed_without_random_name()
+    public function requests_succeed_if_honeypot_disabled()
+    {
+        config()->set('honeypot.enabled', false);
+
+        $nameField = config('honeypot.name_field_name');
+
+        $this
+            ->post('test', [$nameField => 'value'])
+            ->assertPassedSpamProtection();
+    }
+
+    /** @test */
+    public function requests_that_not_use_the_honeypot_fields_do_not_succeed_without_random_name()
     {
         config()->set('honeypot.randomize_name_field_name', false);
 
         $this
             ->post('test')
-            ->assertPassedSpamProtection();
+            ->assertDidNotPassSpamProtection();
     }
 
     /** @test */
-    public function requests_that_not_use_the_honeypot_fields_succeed_with_random_name()
+    public function requests_that_not_use_the_honeypot_fields_do_not_succeed_with_random_name()
     {
         config()->set('honeypot.randomize_name_field_name', true);
 
         $this
             ->post('test')
-            ->assertPassedSpamProtection();
+            ->assertDidNotPassSpamProtection();
     }
 
     /** @test */
     public function requests_that_post_an_empty_value_for_the_honeypot_name_field_do_succeed()
     {
         $nameField = config('honeypot.name_field_name');
+        $validFromField = config('honeypot.valid_from_field_name');
+        $validFrom = EncryptedTime::create(now());
 
         $this
-            ->post('test', [$nameField => ''])
+            ->post('test', [$nameField => '', $validFromField => $validFrom])
             ->assertPassedSpamProtection();
     }
 
@@ -131,9 +145,11 @@ class ProtectAgainstSpamTest extends TestCase
         config()->set('honeypot.randomize_name_field_name', true);
 
         $nameField = config('honeypot.name_field_name');
+        $validFromField = config('honeypot.valid_from_field_name');
+        $validFrom = EncryptedTime::create(now());
 
         $this
-            ->post('test', [$nameField.'-'.Str::random() => null])
+            ->post('test', [$nameField.'-'.Str::random() => null, $validFromField => $validFrom])
             ->assertPassedSpamProtection();
     }
 
