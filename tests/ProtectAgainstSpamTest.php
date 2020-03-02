@@ -2,9 +2,9 @@
 
 namespace Spatie\Honeypot\Tests;
 
-use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use Illuminate\Testing\TestResponse;
 use Spatie\Honeypot\EncryptedTime;
 use Spatie\Honeypot\ProtectAgainstSpam;
 
