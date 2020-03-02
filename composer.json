@@ -51,5 +51,7 @@
                 "Spatie\\Honeypot\\HoneypotServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
