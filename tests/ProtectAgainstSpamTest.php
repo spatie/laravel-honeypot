@@ -38,21 +38,30 @@ class ProtectAgainstSpamTest extends TestCase
     }
 
     /** @test */
-    public function requests_succeed_if_honeypot_disabled()
+    public function requests_that_not_use_the_honeypot_fields_succeed_without_random_name()
     {
-        config()->set('honeypot.enabled', false);
-
-        $nameField = config('honeypot.name_field_name');
+        config()->set('honeypot.randomize_name_field_name', false);
 
         $this
-            ->post('test', [$nameField => 'value'])
+            ->post('test')
             ->assertPassedSpamProtection();
     }
 
     /** @test */
-    public function requests_that_not_use_the_honeypot_fields_do_not_succeed_without_random_name()
+    public function requests_that_not_use_the_honeypot_fields_succeed_with_random_name()
+    {
+        config()->set('honeypot.randomize_name_field_name', true);
+
+        $this
+            ->post('test')
+            ->assertPassedSpamProtection();
+    }
+
+    /** @test */
+    public function requests_that_not_use_the_honeypot_fields_do_not_succeed_without_random_name_when_enabled()
     {
         config()->set('honeypot.randomize_name_field_name', false);
+        config()->set('honeypot.check_if_honeypot_fields_are_missing', true);
 
         $this
             ->post('test')
@@ -60,9 +69,10 @@ class ProtectAgainstSpamTest extends TestCase
     }
 
     /** @test */
-    public function requests_that_not_use_the_honeypot_fields_do_not_succeed_with_random_name()
+    public function requests_that_not_use_the_honeypot_fields_do_not_succeed_with_random_name_when_enabled()
     {
         config()->set('honeypot.randomize_name_field_name', true);
+        config()->set('honeypot.check_if_honeypot_fields_are_missing', true);
 
         $this
             ->post('test')

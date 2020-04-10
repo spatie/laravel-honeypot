@@ -29,13 +29,17 @@ class ProtectAgainstSpam
             return $next($request);
         }
 
+        if($this->continueWithMissingHoneypotFields($request)){
+            return $next($request);
+        }
+
         $nameFieldName = config('honeypot.name_field_name');
 
         if (config('honeypot.randomize_name_field_name')) {
             $nameFieldName = $this->getRandomizedNameFieldName($nameFieldName, $request->all());
         }
 
-        if (! $request->has($nameFieldName)) {
+        if ( ! $request->has($nameFieldName)) {
             return $this->respondToSpam($request, $next);
         }
 
@@ -76,5 +80,16 @@ class ProtectAgainstSpam
         event(new SpamDetected($request));
 
         return $this->spamResponder->respond($request, $next);
+    }
+
+    private function continueWithMissingHoneypotFields(Request $request): bool
+    {
+        $nameFieldMissing = ! collect($request->all())->contains(function($value, $key){
+            return Str::startsWith($key, config('honeypot.name_field_name'));
+        });
+
+        return config('honeypot.check_if_honeypot_fields_are_missing') === false
+            && $nameFieldMissing
+            && $request->missing(config('honeypot.valid_from_field_name'));
     }
 }
