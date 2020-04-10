@@ -29,7 +29,7 @@ class ProtectAgainstSpam
             return $next($request);
         }
 
-        if($this->continueWithMissingHoneypotFields($request)){
+        if ($this->continueWithMissingHoneypotFields($request)) {
             return $next($request);
         }
 
@@ -39,7 +39,7 @@ class ProtectAgainstSpam
             $nameFieldName = $this->getRandomizedNameFieldName($nameFieldName, $request->all());
         }
 
-        if ( ! $request->has($nameFieldName)) {
+        if (! $request->has($nameFieldName)) {
             return $this->respondToSpam($request, $next);
         }
 
@@ -84,7 +84,7 @@ class ProtectAgainstSpam
 
     private function continueWithMissingHoneypotFields(Request $request): bool
     {
-        $nameFieldMissing = ! collect($request->all())->contains(function($value, $key){
+        $nameFieldMissing = ! collect($request->all())->contains(function ($value, $key) {
             return Str::startsWith($key, config('honeypot.name_field_name'));
         });
 
