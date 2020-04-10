@@ -58,7 +58,7 @@ class ProtectAgainstSpamTest extends TestCase
     }
 
     /** @test */
-    public function requests_that_not_use_the_honeypot_fields_do_not_succeed_without_random_name_when_enabled()
+    public function requests_that_not_use_the_honeypot_fields_do_not_succeed_without_random_name_when_missing_fields_enabled()
     {
         config()->set('honeypot.randomize_name_field_name', false);
         config()->set('honeypot.check_if_honeypot_fields_are_missing', true);
@@ -69,7 +69,7 @@ class ProtectAgainstSpamTest extends TestCase
     }
 
     /** @test */
-    public function requests_that_not_use_the_honeypot_fields_do_not_succeed_with_random_name_when_enabled()
+    public function requests_that_not_use_the_honeypot_fields_do_not_succeed_with_random_name_when_missing_fields_enabled()
     {
         config()->set('honeypot.randomize_name_field_name', true);
         config()->set('honeypot.check_if_honeypot_fields_are_missing', true);
