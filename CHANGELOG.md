@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 2.2.0 - 2020-04-14
+
+- reverts back `block all requests without honeypot fields` and adds an option to enable it
+
 ## 2.1.0 - 2020-03-02
 
 - drop support for anything below Laravel 7
