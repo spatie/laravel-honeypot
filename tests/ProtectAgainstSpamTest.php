@@ -61,7 +61,7 @@ class ProtectAgainstSpamTest extends TestCase
     public function requests_that_not_use_the_honeypot_fields_do_not_succeed_without_random_name_when_missing_fields_enabled()
     {
         config()->set('honeypot.randomize_name_field_name', false);
-        config()->set('honeypot.check_if_honeypot_fields_are_missing', true);
+        config()->set('honeypot.honeypot_fields_required_for_all_forms', true);
 
         $this
             ->post('test')
@@ -72,7 +72,7 @@ class ProtectAgainstSpamTest extends TestCase
     public function requests_that_not_use_the_honeypot_fields_do_not_succeed_with_random_name_when_missing_fields_enabled()
     {
         config()->set('honeypot.randomize_name_field_name', true);
-        config()->set('honeypot.check_if_honeypot_fields_are_missing', true);
+        config()->set('honeypot.honeypot_fields_required_for_all_forms', true);
 
         $this
             ->post('test')

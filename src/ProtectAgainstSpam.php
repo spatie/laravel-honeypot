@@ -35,7 +35,7 @@ class ProtectAgainstSpam
             $nameFieldName = $this->getRandomizedNameFieldName($nameFieldName, $request->all());
         }
 
-        if ($this->continueWithMissingHoneypotFields($request, $nameFieldName)) {
+        if (! $this->shouldCheckHoneypot($request, $nameFieldName)) {
             return $next($request);
         }
 
@@ -82,10 +82,12 @@ class ProtectAgainstSpam
         return $this->spamResponder->respond($request, $next);
     }
 
-    private function continueWithMissingHoneypotFields(Request $request, ?string $nameFieldName): bool
+    private function shouldCheckHoneypot(Request $request, ?string $nameFieldName): bool
     {
-        return config('honeypot.check_if_honeypot_fields_are_missing') === false
-            && $request->missing($nameFieldName)
-            && $request->missing(config('honeypot.valid_from_field_name'));
+        if (config('honeypot.honeypot_fields_required_for_all_forms') == true) {
+            return true;
+        }
+
+        return $request->has($nameFieldName) || $request->has(config('honeypot.valid_from_field_name'));
     }
 }

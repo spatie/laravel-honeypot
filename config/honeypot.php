@@ -44,7 +44,7 @@ return [
      * if so the request will be stamped as spam. Be careful! When using the
      * global middleware be sure to add honeypot fields to each form.
      */
-    'check_if_honeypot_fields_are_missing' => false,
+    'honeypot_fields_required_for_all_forms' => false,
 
     /*
      * This switch determines if the honeypot protection should be activated.
