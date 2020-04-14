@@ -87,6 +87,13 @@ return [
     'respond_to_spam_with' => BlankPageResponder::class,
 
     /*
+     * When activated, requests will be checked if honeypot fields are missing,
+     * if so the request will be stamped as spam. Be careful! When using the
+     * global middleware be sure to add honeypot fields to each form.
+     */
+    'honeypot_fields_required_for_all_forms' => false,
+
+    /*
      * This switch determines if the honeypot protection should be activated.
      */
     'enabled' => env('HONEYPOT_ENABLED', true),

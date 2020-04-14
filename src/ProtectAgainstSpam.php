@@ -35,6 +35,10 @@ class ProtectAgainstSpam
             $nameFieldName = $this->getRandomizedNameFieldName($nameFieldName, $request->all());
         }
 
+        if (! $this->shouldCheckHoneypot($request, $nameFieldName)) {
+            return $next($request);
+        }
+
         if (! $request->has($nameFieldName)) {
             return $this->respondToSpam($request, $next);
         }
@@ -76,5 +80,14 @@ class ProtectAgainstSpam
         event(new SpamDetected($request));
 
         return $this->spamResponder->respond($request, $next);
+    }
+
+    private function shouldCheckHoneypot(Request $request, ?string $nameFieldName): bool
+    {
+        if (config('honeypot.honeypot_fields_required_for_all_forms') == true) {
+            return true;
+        }
+
+        return $request->has($nameFieldName) || $request->has(config('honeypot.valid_from_field_name'));
     }
 }
