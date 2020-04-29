@@ -3,20 +3,18 @@
 namespace Spatie\Honeypot;
 
 use Illuminate\Support\Str;
-use Spatie\Honeypot\EncryptedTime;
 
 class HoneypotSetup
 {
     /**
      * Get an array with values needed for composing the view
      * It allows to use it outside a blade component so it
-     * can be passed to a front-end framework like vue
+     * can be passed to a front-end framework like vue.
      *
      * @return array
      */
     public static function get()
     {
-
         $honeypotConfig = config('honeypot');
 
         $nameFieldName = $honeypotConfig['name_field_name'];
@@ -37,7 +35,7 @@ class HoneypotSetup
             'enabled' => $enabled,
             'nameFieldName' => $nameFieldName,
             'validFromFieldName' => $validFromFieldName,
-            'encryptedValidFrom' => strval($encryptedValidFrom)
+            'encryptedValidFrom' => strval($encryptedValidFrom),
         ];
     }
 }

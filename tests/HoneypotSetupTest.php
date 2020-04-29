@@ -7,7 +7,6 @@ use Spatie\Honeypot\HoneypotSetup;
 
 class HoneypotSetupTest extends TestCase
 {
-
     public function setUp(): void
     {
         parent::setUp();
