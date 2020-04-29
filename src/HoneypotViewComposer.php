@@ -2,15 +2,12 @@
 
 namespace Spatie\Honeypot;
 
-
 use Illuminate\View\View;
-use Spatie\Honeypot\HoneypotSetup;
 
 class HoneypotViewComposer
 {
     public function compose(View $view)
     {
-
         $fields = HoneypotSetup::get();
 
         $view->with('enabled', $fields['enabled'])
