@@ -18,6 +18,12 @@ return [
     'randomize_name_field_name' => env('HONEYPOT_RANDOMIZE', true),
 
     /*
+     * When this is activated, requests will be checked if
+     * form is submitted faster than this amount of seconds
+     */
+    'valid_from_timestamp' => env('HONEYPOT_VALID_FROM_TIMESTAMP', true),
+
+    /*
      * This field contains the name of a form field that will be used to verify
      * if the form wasn't submitted too quickly. Make sure this name does not
      * collide with a form field that is actually used.

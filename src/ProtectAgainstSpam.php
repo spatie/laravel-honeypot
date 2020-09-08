@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProtectAgainstSpam
 {
+
     /** @var \Spatie\Honeypot\SpamResponder\SpamResponder */
     protected $spamResponder;
 
@@ -49,26 +50,27 @@ class ProtectAgainstSpam
             return $this->respondToSpam($request, $next);
         }
 
-        $validFrom = $request->get(config('honeypot.valid_from_field_name'));
+        if (config('honeypot.valid_from_timestamp')) {
+            $validFrom = $request->get(config('honeypot.valid_from_field_name'));
 
-        if (! $validFrom) {
-            return $this->respondToSpam($request, $next);
+            if (! $validFrom) {
+                return $this->respondToSpam($request, $next);
+            }
+
+            try {
+                $time = new EncryptedTime($validFrom);
+            } catch (Exception $decryptException) {
+                $time = null;
+            }
+
+            if (! $time || $time->isFuture()) {
+                return $this->respondToSpam($request, $next);
+            }
         }
-
-        try {
-            $time = new EncryptedTime($validFrom);
-        } catch (Exception $decryptException) {
-            $time = null;
-        }
-
-        if (! $time || $time->isFuture()) {
-            return $this->respondToSpam($request, $next);
-        }
-
         return $next($request);
     }
 
-    private function getRandomizedNameFieldName($nameFieldName, $requestFields): ?String
+    private function getRandomizedNameFieldName($nameFieldName, $requestFields): ?string
     {
         return collect($requestFields)->filter(function ($value, $key) use ($nameFieldName) {
             return Str::startsWith($key, $nameFieldName);

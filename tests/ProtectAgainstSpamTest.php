@@ -138,6 +138,32 @@ class ProtectAgainstSpamTest extends TestCase
     }
 
     /** @test */
+    public function submissions_that_are_posted_after_or_on_valid_from_will_not_be_marked_as_spam_timestampcheck_is_disabled()
+    {
+        config()->set('honeypot.valid_from_timestamp', false);
+        $nameField = config('honeypot.name_field_name');
+        $validFromField = config('honeypot.valid_from_field_name');
+        $validFrom = EncryptedTime::create(now());
+
+        $this
+            ->post('test', [$nameField => '', $validFromField => $validFrom])
+            ->assertPassedSpamProtection();
+    }
+
+    /** @test */
+    public function submissions_that_are_posted_after_or_on_valid_from_will_not_be_marked_as_spam_timestampcheck_is_enabled()
+    {
+        config()->set('honeypot.valid_from_timestamp', true);
+        $nameField = config('honeypot.name_field_name');
+        $validFromField = config('honeypot.valid_from_field_name');
+        $validFrom = EncryptedTime::create(now());
+
+        $this
+            ->post('test', [$nameField => '', $validFromField => $validFrom])
+            ->assertPassedSpamProtection();
+    }
+
+    /** @test */
     public function submissions_that_are_posted_after_or_on_valid_from_will_not_be_marked_as_spam()
     {
         $nameField = config('honeypot.name_field_name');
