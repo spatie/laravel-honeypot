@@ -67,6 +67,7 @@ class ProtectAgainstSpam
                 return $this->respondToSpam($request, $next);
             }
         }
+
         return $next($request);
     }
 

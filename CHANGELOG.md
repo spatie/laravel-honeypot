@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 2.3.0 - 2020-09-08
+
+- add support for Laravel 8
+- add option to skip `valid_from` timestamp check
+
 ## 2.2.0 - 2020-04-14
 
 - reverts back `block all requests without honeypot fields` and adds an option to enable it
