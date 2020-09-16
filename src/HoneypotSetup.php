@@ -2,7 +2,6 @@
 
 namespace Spatie\Honeypot;
 
-use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Illuminate\Support\Str;
 
