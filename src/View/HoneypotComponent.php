@@ -2,9 +2,10 @@
 
 namespace Spatie\Honeypot\View;
 
+use Illuminate\View\Component;
 use Spatie\Honeypot\HoneypotSetup;
 
-class HoneypotComponent
+class HoneypotComponent extends Component
 {
     protected HoneypotSetup $setup;
 
