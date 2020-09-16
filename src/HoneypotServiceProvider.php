@@ -13,7 +13,7 @@ class HoneypotServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-            $this
+        $this
                 ->registerPublishables()
                 ->registerBladeClasses();
 
