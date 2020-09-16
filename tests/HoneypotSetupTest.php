@@ -17,7 +17,9 @@ class HoneypotSetupTest extends TestCase
     {
         config()->set('honeypot.enabled', true);
 
-        $this->assertTrue(HoneypotSetup::get()['enabled']);
+        app(HoneypotSetup::class)->toArray()['enabled'];
+
+        $this->assertTrue(app(HoneypotSetup::class)->toArray()['enabled']);
     }
 
     /** @test */
@@ -25,7 +27,7 @@ class HoneypotSetupTest extends TestCase
     {
         config()->set('honeypot.enabled', false);
 
-        $this->assertFalse(HoneypotSetup::get()['enabled']);
+        $this->assertFalse(app(HoneypotSetup::class)->toArray()['enabled']);
     }
 
     /** @test */
@@ -33,7 +35,8 @@ class HoneypotSetupTest extends TestCase
     {
         config()->set('honeypot.name_field_name', 'test_field');
         config()->set('honeypot.randomize_name_field_name', false);
-        $this->assertEquals(HoneypotSetup::get()['nameFieldName'], 'test_field');
+
+        $this->assertEquals('test_field', app(HoneypotSetup::class)->toArray()['nameFieldName']);
     }
 
     /** @test */
@@ -42,11 +45,9 @@ class HoneypotSetupTest extends TestCase
         config()->set('honeypot.name_field_name', 'test_field');
         config()->set('honeypot.randomize_name_field_name', true);
 
-        $nameFieldName = HoneypotSetup::get()['nameFieldName'];
-
-        $this->assertTrue(Str::of($nameFieldName)->startsWith('test_field_'));
-
-        $this->assertTrue(Str::of($nameFieldName)->length() > 11);
+        $actualNameFieldName = app(HoneypotSetup::class)->toArray()['nameFieldName'];
+        $this->assertTrue(Str::of($actualNameFieldName)->startsWith('test_field_'));
+        $this->assertTrue(Str::of($actualNameFieldName)->length() > 11);
     }
 
     /** @test */
@@ -54,12 +55,14 @@ class HoneypotSetupTest extends TestCase
     {
         config()->set('honeypot.valid_from_field_name', 'test_from_field');
 
-        $this->assertEquals(HoneypotSetup::get()['validFromFieldName'], 'test_from_field');
+        $actualValidFromFieldName = app(HoneypotSetup::class)->toArray()['validFromFieldName'];
+        $this->assertEquals('test_from_field', $actualValidFromFieldName);
     }
 
     /** @test */
     public function honeypot_setup_returns_an_encrypted_time()
     {
-        $this->assertTrue(Str::of(HoneypotSetup::get()['encryptedValidFrom'])->length() > 0);
+        $actualValue = app(HoneypotSetup::class)->toArray()['encryptedValidFrom'];
+        $this->assertTrue(strlen($actualValue) > 1);
     }
 }

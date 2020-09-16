@@ -8,11 +8,12 @@ class HoneypotViewComposer
 {
     public function compose(View $view)
     {
-        $fields = HoneypotSetup::get();
+        $setup = app(HoneypotSetup::class);
 
-        $view->with('enabled', $fields['enabled'])
-            ->with('nameFieldName', $fields['nameFieldName'])
-            ->with('validFromFieldName', $fields['validFromFieldName'])
-            ->with('encryptedValidFrom', $fields['encryptedValidFrom']);
+        $view
+            ->with('enabled', $setup->enabled())
+            ->with('nameFieldName', $setup->nameFieldName())
+            ->with('validFromFieldName', $setup->validFromFieldName())
+            ->with('encryptedValidFrom', $setup->encryptedValidFrom());
     }
 }
