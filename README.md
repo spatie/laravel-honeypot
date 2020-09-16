@@ -163,10 +163,10 @@ When using Inertia you must manually pass the values used in the honeypot fields
 
 ```php
 // in a controller
-public function create(\Spatie\Honeypot\HoneypotSetup $honeypotSetup) 
+public function create(\Spatie\Honeypot\Honeypot $honeypot) 
 {
-    return interia('contactform.show', [
-        'honeypot' => $honeypotSetup->toArray(),
+    return inertia('contactform.show', [
+        'honeypot' => $honeypot,
     ]);
 }
 ```

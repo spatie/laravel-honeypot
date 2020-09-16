@@ -3,9 +3,10 @@
 namespace Spatie\Honeypot;
 
 use Carbon\CarbonInterface;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
 
-class HoneypotSetup
+class Honeypot implements Arrayable
 {
     protected array $config;
 

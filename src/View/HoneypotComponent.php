@@ -3,13 +3,13 @@
 namespace Spatie\Honeypot\View;
 
 use Illuminate\View\Component;
-use Spatie\Honeypot\HoneypotSetup;
+use Spatie\Honeypot\Honeypot;
 
 class HoneypotComponent extends Component
 {
-    protected HoneypotSetup $setup;
+    protected Honeypot $setup;
 
-    public function __construct(HoneypotSetup $setup)
+    public function __construct(Honeypot $setup)
     {
         $this->setup = $setup;
     }

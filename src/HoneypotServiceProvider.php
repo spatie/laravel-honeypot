@@ -21,10 +21,10 @@ class HoneypotServiceProvider extends ServiceProvider
 
         $this->app->bind(SpamResponder::class, config('honeypot.respond_to_spam_with'));
 
-        $this->app->bind(HoneypotSetup::class, function () {
+        $this->app->bind(Honeypot::class, function () {
             $config = config('honeypot');
 
-            return new HoneypotSetup($config);
+            return new Honeypot($config);
         });
     }
 

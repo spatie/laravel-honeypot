@@ -3,13 +3,13 @@
 namespace Spatie\Honeypot\View;
 
 use Illuminate\View\View;
-use Spatie\Honeypot\HoneypotSetup;
+use Spatie\Honeypot\Honeypot;
 
 class HoneypotViewComposer
 {
     public function compose(View $view)
     {
-        $setup = app(HoneypotSetup::class);
+        $setup = app(Honeypot::class);
 
         $view
             ->with('enabled', $setup->enabled())
