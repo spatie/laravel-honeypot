@@ -1,8 +1,9 @@
 <?php
 
-namespace Spatie\Honeypot;
+namespace Spatie\Honeypot\View;
 
 use Illuminate\View\View;
+use Spatie\Honeypot\HoneypotSetup;
 
 class HoneypotViewComposer
 {
