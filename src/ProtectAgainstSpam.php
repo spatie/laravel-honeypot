@@ -6,14 +6,13 @@ use Closure;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Spatie\Honeypot\Events\SpamDetectedEvent;
 use Spatie\Honeypot\SpamResponder\SpamResponder;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProtectAgainstSpam
 {
-
-    /** @var \Spatie\Honeypot\SpamResponder\SpamResponder */
-    protected $spamResponder;
+    protected SpamResponder $spamResponder;
 
     public function __construct(SpamResponder $spamResponder)
     {
@@ -71,16 +70,17 @@ class ProtectAgainstSpam
         return $next($request);
     }
 
-    private function getRandomizedNameFieldName($nameFieldName, $requestFields): ?string
+    protected function getRandomizedNameFieldName($nameFieldName, $requestFields): ?string
     {
-        return collect($requestFields)->filter(function ($value, $key) use ($nameFieldName) {
-            return Str::startsWith($key, $nameFieldName);
-        })->keys()->first();
+        return collect($requestFields)
+            ->filter(fn ($value, $key) => Str::startsWith($key, $nameFieldName))
+            ->keys()
+            ->first();
     }
 
     protected function respondToSpam(Request $request, Closure $next): Response
     {
-        event(new SpamDetected($request));
+        event(new SpamDetectedEvent($request));
 
         return $this->spamResponder->respond($request, $next);
     }
