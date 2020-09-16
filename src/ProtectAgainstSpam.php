@@ -21,11 +21,11 @@ class ProtectAgainstSpam
 
     public function handle(Request $request, Closure $next): Response
     {
-        if (!config('honeypot.enabled')) {
+        if (! config('honeypot.enabled')) {
             return $next($request);
         }
 
-        if (!$request->isMethod('POST')) {
+        if (! $request->isMethod('POST')) {
             return $next($request);
         }
 
@@ -35,24 +35,24 @@ class ProtectAgainstSpam
             $nameFieldName = $this->getRandomizedNameFieldName($nameFieldName, $request->all());
         }
 
-        if (!$this->shouldCheckHoneypot($request, $nameFieldName)) {
+        if (! $this->shouldCheckHoneypot($request, $nameFieldName)) {
             return $next($request);
         }
 
-        if (!$request->has($nameFieldName)) {
+        if (! $request->has($nameFieldName)) {
             return $this->respondToSpam($request, $next);
         }
 
         $honeypotValue = $request->get($nameFieldName);
 
-        if (!empty($honeypotValue)) {
+        if (! empty($honeypotValue)) {
             return $this->respondToSpam($request, $next);
         }
 
         if (config('honeypot.valid_from_timestamp')) {
             $validFrom = $request->get(config('honeypot.valid_from_field_name'));
 
-            if (!$validFrom) {
+            if (! $validFrom) {
                 return $this->respondToSpam($request, $next);
             }
 
@@ -62,7 +62,7 @@ class ProtectAgainstSpam
                 $time = null;
             }
 
-            if (!$time || $time->isFuture()) {
+            if (! $time || $time->isFuture()) {
                 return $this->respondToSpam($request, $next);
             }
         }
@@ -73,7 +73,7 @@ class ProtectAgainstSpam
     protected function getRandomizedNameFieldName($nameFieldName, $requestFields): ?string
     {
         return collect($requestFields)
-            ->filter(fn($value, $key) => Str::startsWith($key, $nameFieldName))
+            ->filter(fn ($value, $key) => Str::startsWith($key, $nameFieldName))
             ->keys()
             ->first();
     }
