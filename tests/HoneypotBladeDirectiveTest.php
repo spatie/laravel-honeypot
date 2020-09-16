@@ -5,12 +5,11 @@ namespace Spatie\Honeypot\Tests;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\DateFactory;
 use Spatie\Snapshots\MatchesSnapshots;
+use Spatie\TestTime\TestTime;
 
 class HoneypotBladeDirectiveTest extends TestCase
 {
     use MatchesSnapshots;
-
-    protected $testNow = false;
 
     public function setUp(): void
     {
@@ -22,7 +21,7 @@ class HoneypotBladeDirectiveTest extends TestCase
     /** @test */
     public function the_honeypot_blade_directive_renders_correctly()
     {
-        $this->setNow(2019, 1, 1);
+        TestTime::freeze('Y-m-d H:i:s', '2019-01-01 00:00:00');
 
         $renderedView = view('honeypot')->render();
 
@@ -33,7 +32,7 @@ class HoneypotBladeDirectiveTest extends TestCase
     public function the_honeypot_blade_directive_renders_correctly_when_using_CarbonImmutable()
     {
         DateFactory::use(CarbonImmutable::class);
-        $this->setNow(2019, 1, 1);
+        TestTime::freeze('Y-m-d H:i:s', '2019-01-01 00:00:00');
 
         $renderedView = view('honeypot')->render();
 

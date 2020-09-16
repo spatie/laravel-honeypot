@@ -7,12 +7,15 @@ use Illuminate\Support\Str;
 use Illuminate\Testing\TestResponse;
 use Spatie\Honeypot\EncryptedTime;
 use Spatie\Honeypot\ProtectAgainstSpam;
+use Spatie\TestTime\TestTime;
 
 class ProtectAgainstSpamTest extends TestCase
 {
     public function setUp(): void
     {
         parent::setUp();
+
+        TestTime::freeze('Y-m-d H:i:s', '2019-01-01 00:00:00');
 
         TestResponse::macro('assertPassedSpamProtection', function () {
             $this
