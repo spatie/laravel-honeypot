@@ -111,7 +111,7 @@ First, you must add the `<x-honeypot>` Blade component to any form you wish to p
 
 ```php
 <form method="POST" action="{{ route('contactForm.submit') }}")>
-    @honeypot
+    <x-honeypot>
     <input name="myField" type="text">
 </form>
 ```
