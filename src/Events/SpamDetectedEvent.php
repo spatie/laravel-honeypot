@@ -1,13 +1,12 @@
 <?php
 
-namespace Spatie\Honeypot;
+namespace Spatie\Honeypot\Events;
 
 use Illuminate\Http\Request;
 
-class SpamDetected
+class SpamDetectedEvent
 {
-    /** @var \Illuminate\Http\Request */
-    public $request;
+    public Request $request;
 
     public function __construct(Request $request)
     {

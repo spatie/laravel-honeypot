@@ -2,15 +2,17 @@
 
 namespace Spatie\Honeypot;
 
+use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use DateTimeInterface;
+use Exception;
 use Illuminate\Support\Facades\Date;
 
 class EncryptedTime
 {
-    protected $carbon;
+    protected CarbonInterface $carbon;
 
-    /** @var string */
-    protected $encryptedTime;
+    protected string $encryptedTime;
 
     public static function create(DateTimeInterface $dateTime)
     {
@@ -26,7 +28,7 @@ class EncryptedTime
         $timestamp = app('encrypter')->decrypt($encryptedTime);
 
         if (! $this->isValidTimeStamp($timestamp)) {
-            throw new \Exception(sprintf('Timestamp %s is invalid', $timestamp));
+            throw new Exception(sprintf('Timestamp %s is invalid', $timestamp));
         }
 
         $this->carbon = Date::createFromTimestamp($timestamp);
