@@ -14,7 +14,7 @@ After installing this package, all you need to do is to add the `x-honeypot` Bla
 
 ```html
 <form method="POST">
-    <x-honeypot>
+    <x-honeypot />
     <input name="myField" type="text">
 </form>
 ```
@@ -107,16 +107,16 @@ return [
   
 ## Usage
 
-First, you must add the `<x-honeypot>` Blade component to any form you wish to protect.
+First, you must add the `x-honeypot` Blade component to any form you wish to protect.
 
 ```php
 <form method="POST" action="{{ route('contactForm.submit') }}")>
-    <x-honeypot>
+    <x-honeypot />
     <input name="myField" type="text">
 </form>
 ```
 
-Alternatively you can use the `@honeypot` Blade directive:
+Alternatively, you can use the `@honeypot` Blade directive:
 
 ```php
 <form method="POST" action="{{ route('contactForm.submit') }}")>
