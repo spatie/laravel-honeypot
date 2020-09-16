@@ -4,7 +4,6 @@ namespace Spatie\Honeypot;
 
 use Carbon\CarbonInterface;
 use DateTimeInterface;
-use Exception;
 use Illuminate\Support\Facades\Date;
 use Spatie\Honeypot\Exceptions\InvalidTimestamp;
 
