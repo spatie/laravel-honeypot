@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 3.0.1 - 2020-11-04
+
+- add support for PHP 8
+
 ## 3.0.0 - 2020-09-16
 
 - drop support for anything below PHP 7.4, Laravel 8
