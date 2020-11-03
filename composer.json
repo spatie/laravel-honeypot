@@ -22,7 +22,8 @@
         "illuminate/http": "^8.0",
         "illuminate/support": "^8.0",
         "illuminate/validation": "^8.0",
-        "nesbot/carbon": "^2.0"
+        "nesbot/carbon": "^2.0",
+        "symfony/http-foundation": "^5.1.2"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
