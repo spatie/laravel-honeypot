@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^7.4",
+        "php": "^7.4|^8.0",
         "illuminate/contracts": "^8.0",
         "illuminate/encryption": "^8.0",
         "illuminate/http": "^8.0",
