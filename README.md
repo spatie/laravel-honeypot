@@ -174,10 +174,25 @@ Your front-end will get an `honeypot` object with these keys: `enabled`, `nameFi
 Here's an example how these values could be rendered using Vue:
 
 ```html
-<div v-if="enabled" name="{{ honeypot.nameFieldName }}_wrap" style="display:none;">
-    <input name="{{ honeypot.nameFieldName }}" type="text" value="" id="{{ $nameFieldName }}">
-    <input name="{{ honeypot.validFromFieldName }}" type="text" value="{{ honeypot.encryptedValidFrom }}">
+<div v-if="enabled" :name="`${honeypot.nameFieldName}`_wrap" style="display:none;">
+    <input type="text" v-model="form[honeypot.nameFieldName]" :name="honeypot.nameFieldName" :id="honeypot.nameFieldName" />
+    <input type="text" v-model="form[honeypot.validFromFieldName]" :name="honeypot.validFromFieldName" />
 </div>
+```
+
+And then in your Vue component, add these values to your form data:
+
+```javascript
+props: ['honeypot'],
+
+data() {
+    return {
+        form: this.$inertia.form({
+            [this.honeypot.nameFieldName]: '',
+            [this.honeypot.validFromFieldName]: this.honeypot.encryptedValidFrom,
+        }),
+    }
+}
 ```
 
 ### Disabling in testing
