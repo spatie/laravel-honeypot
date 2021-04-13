@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Spatie\Honeypot\Events\SpamDetectedEvent;
 use Spatie\Honeypot\SpamResponder\SpamResponder;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Responses\LoginResponse;
 
 class ProtectAgainstSpam
 {
@@ -17,7 +18,7 @@ class ProtectAgainstSpam
     ) {
     }
 
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next): Response|LoginResponse
     {
         if (! config('honeypot.enabled')) {
             return $next($request);
