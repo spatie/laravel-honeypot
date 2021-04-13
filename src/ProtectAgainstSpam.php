@@ -14,7 +14,8 @@ class ProtectAgainstSpam
 {
     public function __construct(
         protected SpamResponder $spamResponder
-    ) {}
+    ) {
+    }
 
     public function handle(Request $request, Closure $next): Response
     {

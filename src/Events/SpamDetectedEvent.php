@@ -8,5 +8,6 @@ class SpamDetectedEvent
 {
     public function __construct(
         public Request $request
-    ) {}
+    ) {
+    }
 }
