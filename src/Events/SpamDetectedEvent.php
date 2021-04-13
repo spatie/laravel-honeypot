@@ -6,10 +6,7 @@ use Illuminate\Http\Request;
 
 class SpamDetectedEvent
 {
-    public Request $request;
-
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
+    public function __construct(
+        public Request $request
+    ) {}
 }
