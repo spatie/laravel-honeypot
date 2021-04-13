@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.0.0 - 2021-04-13
+
+- add support for Fortify
+- drop support for PHP 7
+
 ## 3.0.1 - 2020-11-04
 
 - add support for PHP 8
