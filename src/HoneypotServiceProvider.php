@@ -4,7 +4,6 @@ namespace Spatie\Honeypot;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\ServiceProvider;
 use Spatie\Honeypot\SpamResponder\SpamResponder;
 use Spatie\Honeypot\View\HoneypotComponent;
 use Spatie\Honeypot\View\HoneypotViewComposer;

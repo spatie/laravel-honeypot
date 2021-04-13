@@ -10,8 +10,8 @@ class Honeypot implements Arrayable
 {
     public function __construct(
         protected array $config
-    )
-    {}
+    ) {
+    }
 
     public function nameFieldName(): string
     {

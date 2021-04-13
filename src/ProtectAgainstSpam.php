@@ -2,6 +2,7 @@
 
 namespace Spatie\Honeypot;
 
+use App\Http\Responses\LoginResponse;
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,9 +15,10 @@ class ProtectAgainstSpam
 {
     public function __construct(
         protected SpamResponder $spamResponder
-    ) {}
+    ) {
+    }
 
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next): Response | LoginResponse
     {
         if (! config('honeypot.enabled')) {
             return $next($request);
