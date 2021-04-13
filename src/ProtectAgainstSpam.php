@@ -2,6 +2,7 @@
 
 namespace Spatie\Honeypot;
 
+use App\Http\Responses\LoginResponse;
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
@@ -12,14 +13,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProtectAgainstSpam
 {
-    protected SpamResponder $spamResponder;
-
-    public function __construct(SpamResponder $spamResponder)
-    {
-        $this->spamResponder = $spamResponder;
+    public function __construct(
+        protected SpamResponder $spamResponder
+    ) {
     }
 
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next): Response | LoginResponse
     {
         if (! config('honeypot.enabled')) {
             return $next($request);
@@ -58,7 +57,7 @@ class ProtectAgainstSpam
 
             try {
                 $time = new EncryptedTime($validFrom);
-            } catch (Exception $decryptException) {
+            } catch (Exception) {
                 $time = null;
             }
 

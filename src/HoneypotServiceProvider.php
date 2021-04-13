@@ -4,21 +4,31 @@ namespace Spatie\Honeypot;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\ServiceProvider;
 use Spatie\Honeypot\SpamResponder\SpamResponder;
 use Spatie\Honeypot\View\HoneypotComponent;
 use Spatie\Honeypot\View\HoneypotViewComposer;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class HoneypotServiceProvider extends ServiceProvider
+class HoneypotServiceProvider extends PackageServiceProvider
 {
-    public function boot()
+    public function configurePackage(Package $package): void
+    {
+        $package
+            ->name('laravel-honeypot')
+            ->hasConfigFile()
+            ->hasViews();
+    }
+
+    public function packageBooted()
     {
         $this
-                ->registerPublishables()
-                ->registerBladeClasses();
+            ->registerBindings()
+            ->registerBladeClasses();
+    }
 
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'honeypot');
-
+    protected function registerBindings(): self
+    {
         $this->app->bind(SpamResponder::class, config('honeypot.respond_to_spam_with'));
 
         $this->app->bind(Honeypot::class, function () {
@@ -26,24 +36,6 @@ class HoneypotServiceProvider extends ServiceProvider
 
             return new Honeypot($config);
         });
-    }
-
-    public function register()
-    {
-        $this->mergeConfigFrom(__DIR__ . '/../config/honeypot.php', 'honeypot');
-    }
-
-    protected function registerPublishables(): self
-    {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/honeypot.php' => config_path('honeypot.php'),
-            ], 'config');
-
-            $this->publishes([
-                __DIR__ . '/../resources/views' => base_path('resources/views/vendor/honeypot'),
-            ], 'views');
-        }
 
         return $this;
     }

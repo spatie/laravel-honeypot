@@ -8,11 +8,9 @@ use Illuminate\Support\Str;
 
 class Honeypot implements Arrayable
 {
-    protected array $config;
-
-    public function __construct(array $config)
-    {
-        $this->config = $config;
+    public function __construct(
+        protected array $config
+    ) {
     }
 
     public function nameFieldName(): string
@@ -51,7 +49,7 @@ class Honeypot implements Arrayable
         return strval(EncryptedTime::create($this->validFrom()));
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'enabled' => $this->enabled(),

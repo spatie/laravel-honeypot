@@ -7,11 +7,9 @@ use Spatie\Honeypot\Honeypot;
 
 class HoneypotComponent extends Component
 {
-    protected Honeypot $setup;
-
-    public function __construct(Honeypot $setup)
-    {
-        $this->setup = $setup;
+    public function __construct(
+        protected Honeypot $setup
+    ) {
     }
 
     public function render()
