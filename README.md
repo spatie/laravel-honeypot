@@ -131,7 +131,7 @@ Next, you must use the `Spatie\Honeypot\ProtectAgainstSpam` middleware in the ro
 use App\Http\Controllers\ContactFormSubmissionController;
 use Spatie\Honeypot\ProtectAgainstSpam;
 
-Route::post([ContactFormSubmissionController::class, 'create'])->middleware(ProtectAgainstSpam::class);
+Route::post('contact', [ContactFormSubmissionController::class, 'create'])->middleware(ProtectAgainstSpam::class);
 ```
 
 If you want to integrate the `Spatie\Honeypot\ProtectAgainstSpam` middleware with Laravel's built in authentication routes, wrap the `Auth::routes();` declaration with the appropriate middleware group (make sure to add the `@honeypot` directive to the authentication forms).
