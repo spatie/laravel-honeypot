@@ -174,7 +174,7 @@ Your front-end will get an `honeypot` object with these keys: `enabled`, `nameFi
 Here's an example how these values could be rendered using Vue:
 
 ```html
-<div v-if="enabled" :name="`${honeypot.nameFieldName}`_wrap" style="display:none;">
+<div v-if="enabled" :name="`${honeypot.nameFieldName}_wrap`" style="display:none;">
     <input type="text" v-model="form[honeypot.nameFieldName]" :name="honeypot.nameFieldName" :id="honeypot.nameFieldName" />
     <input type="text" v-model="form[honeypot.validFromFieldName]" :name="honeypot.validFromFieldName" />
 </div>
