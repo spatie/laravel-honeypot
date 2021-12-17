@@ -123,9 +123,9 @@ Alternatively, you can use the `@honeypot` Blade directive:
 </form>
 ```
 
-Using either the Blade component or directive will add two fields: `my_name` and `my_time` (you can change the names in the config file).
+Using either the Blade component or directive will add two fields: `my_name` and `valid_from_timestamp` (you can change the names in the config file).
 
-Next, you must use the `Spatie\Honeypot\ProtectAgainstSpam` middleware in the route that handles the form submission. This middleware will intercept any request that submits a non empty value for the key named `my_name`. It will also intercept the request if it is submitted faster than the encrypted timestamp that the package generated in `my_time`.
+Next, you must use the `Spatie\Honeypot\ProtectAgainstSpam` middleware in the route that handles the form submission. This middleware will intercept any request that submits a non empty value for the key named `my_name`. It will also intercept the request if it is submitted faster than the encrypted timestamp that the package generated in `valid_from_timestamp`.
 
 ```php
 use App\Http\Controllers\ContactFormSubmissionController;
