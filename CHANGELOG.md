@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.1.0 - 2022-01-13
+
+- support Laravel 9
+
 ## 4.0.0 - 2021-04-13
 
 - add support for Fortify
