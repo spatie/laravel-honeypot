@@ -16,4 +16,9 @@ class FakeEncrypter implements Encrypter
     {
         return Str::before($payload, '-encrypted');
     }
+
+    public function getKey()
+    {
+        return 1;
+    }
 }
