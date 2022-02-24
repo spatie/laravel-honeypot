@@ -237,7 +237,7 @@ $regularResponse = $next($request)
 To customize output generated, you can publish the `honeypot` view with:
 
 ```php
-php artisan vendor:publish --provider="Spatie\Honeypot\HoneypotServiceProvider" --tag=views
+php artisan vendor:publish --provider="Spatie\Honeypot\HoneypotServiceProvider" --tag=honeypot-views
 ```
 
 The view will be placed in `resources/views/vendor/honeypot/honeypotFormFields.blade.php`. This is the default content:
