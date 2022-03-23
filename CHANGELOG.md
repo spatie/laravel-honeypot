@@ -2,6 +2,23 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.2.0 - 2022-03-23
+
+## What's Changed
+
+- Add `tabindex=-1` to fields
+- Use custom class to hide honeypot fields
+- Increase default honeypot timeout to 3 seconds
+- Update .gitattributes by @PaolaRuby in https://github.com/spatie/laravel-honeypot/pull/100
+- Fix typo in docs by @mertasan in https://github.com/spatie/laravel-honeypot/pull/101
+
+## New Contributors
+
+- @PaolaRuby made their first contribution in https://github.com/spatie/laravel-honeypot/pull/100
+- @mertasan made their first contribution in https://github.com/spatie/laravel-honeypot/pull/101
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.1.0...4.2.0
+
 ## 4.1.0 - 2022-01-13
 
 - support Laravel 9
