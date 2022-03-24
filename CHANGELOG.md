@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.2.2 - 2022-03-24
+
+- Revert back to using inline styles (to avoid CSP issues)
+- Add `aria-hidden` for screenreaders
+- Use `autocomplete=nope` to disable autocomplete (https://stackoverflow.com/questions/12374442/chrome-ignores-autocomplete-off)
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.2.1...4.2.2
+
 ## 4.2.1 - 2022-03-23
 
 - Add `autocomplete=off` to input fields
