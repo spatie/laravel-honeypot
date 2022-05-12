@@ -2,7 +2,6 @@
 
 namespace Spatie\Honeypot;
 
-use App\Http\Responses\LoginResponse;
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
