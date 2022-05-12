@@ -18,7 +18,7 @@ class ProtectAgainstSpam
     ) {
     }
 
-    public function handle(Request $request, Closure $next): Response | LoginResponse
+    public function handle(Request $request, Closure $next)
     {
         if (! config('honeypot.enabled')) {
             return $next($request);
