@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.2.3 - 2022-05-12
+
+## What's Changed
+
+- Don't specify return type for middleware (too many different types possible)
+- Update .gitattributes by @angeljqv in https://github.com/spatie/laravel-honeypot/pull/102
+- Update README.md - Added 'valid_from_timestamp' by @vdvcoder in https://github.com/spatie/laravel-honeypot/pull/105
+
+## New Contributors
+
+- @angeljqv made their first contribution in https://github.com/spatie/laravel-honeypot/pull/102
+- @vdvcoder made their first contribution in https://github.com/spatie/laravel-honeypot/pull/105
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.2.2...4.2.3
+
 ## 4.2.2 - 2022-03-24
 
 - Revert back to using inline styles (to avoid CSP issues)
