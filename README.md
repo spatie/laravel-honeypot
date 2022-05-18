@@ -213,7 +213,7 @@ data() {
 }
 ```
 
-### Usage everywhere with the Trait (Livewire, Components, etc)
+### Usage through the trait (for Livewire, Components, etc)
 
 To protect, for example, a Livewire component, you could use the trait `UsesSpamProtection` like so:
 
