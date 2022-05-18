@@ -99,6 +99,15 @@ return [
     'respond_to_spam_with' => BlankPageResponder::class,
 
     /*
+     * This class is responsible for applying all protection
+     * rules for a request. By default uses `request()`.
+     *
+     * It throws the `Spatie\Honeypot\ExceptionsSpamException` if the
+     * request is flagged as spam, or returns void if it succeded.
+     */
+    'spam_protection' => \Spatie\Honeypot\SpamProtection::class,
+
+    /*
      * When activated, requests will be checked if honeypot fields are missing,
      * if so the request will be stamped as spam. Be careful! When using the
      * global middleware be sure to add honeypot fields to each form.
@@ -201,6 +210,22 @@ data() {
             [this.honeypot.validFromFieldName]: this.honeypot.encryptedValidFrom,
         }),
     }
+}
+```
+
+### Usage in Livewire
+
+When using Livewire you must use the trait `UsesSpamProtection` like so:
+
+```php
+// in a livewire controller
+use Spatie\Honeypot\Concerns\UsesSpamProtection;
+
+public function submit(): void 
+{
+    $this->protectAgainstSpam(); // if is spam, abort the request
+
+    User::create($request->all());
 }
 ```
 
