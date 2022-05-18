@@ -213,13 +213,15 @@ data() {
 }
 ```
 
-### Usage through the trait (for Livewire, Components, etc)
+### Preventing spam in Livewire
 
-To protect, for example, a Livewire component, you could use the trait `UsesSpamProtection` like so:
+In a Livewire component you can use the trait `UsesSpamProtection`:
 
 ```php
-// in a livewire controller
+use Livewire\Component;
 use Spatie\Honeypot\Concerns\UsesSpamProtection;
+
+class YourComponent extends Component
 
 public function submit(): void 
 {
