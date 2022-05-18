@@ -10,9 +10,6 @@ use Spatie\Honeypot\Exceptions\SpamException;
 
 class SpamProtection
 {
-    /**
-     * @throws SpamException
-     */
     public function check(?Request $request = null): void
     {
         $request ??= request();
@@ -74,9 +71,6 @@ class SpamProtection
             ->first();
     }
 
-    /**
-     * @throws SpamException
-     */
     protected function spamDetected(Request $request): void
     {
         event(new SpamDetectedEvent($request));
