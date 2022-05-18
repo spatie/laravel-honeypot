@@ -213,9 +213,9 @@ data() {
 }
 ```
 
-### Usage in Livewire
+### Usage everywhere with the Trait (Livewire, Components, etc)
 
-When using Livewire you must use the trait `UsesSpamProtection` like so:
+To protect, for example, a Livewire component, you could use the trait `UsesSpamProtection` like so:
 
 ```php
 // in a livewire controller
