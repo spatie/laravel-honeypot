@@ -4,6 +4,7 @@ namespace Spatie\Honeypot;
 
 use Carbon\CarbonInterface;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class Honeypot implements Arrayable
