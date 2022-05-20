@@ -4,13 +4,13 @@
                name="{{ $nameFieldName }}"
                type="text"
                value=""
-               @if ($livewireModel) wire:model.defer="{{ $livewireModel }}.{{ $unrandomizedNameFieldName }}" @endif
+               @if ($livewireModel ?? false) wire:model.defer="{{ $livewireModel }}.{{ $unrandomizedNameFieldName }}" @endif
                autocomplete="nope"
                tabindex="-1">
         <input name="{{ $validFromFieldName }}"
                type="text"
                value="{{ $encryptedValidFrom }}"
-               @if ($livewireModel) wire:model.defer="{{ $livewireModel }}.{{ $validFromFieldName }}" @endif
+               @if ($livewireModel ?? false) wire:model.defer="{{ $livewireModel }}.{{ $validFromFieldName }}" @endif
                autocomplete="nope"
                tabindex="-1">
     </div>
