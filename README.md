@@ -125,7 +125,7 @@ return [
 
 First, you must add the `x-honeypot` Blade component to any form you wish to protect.
 
-```php
+```blade
 <form method="POST" action="{{ route('contactForm.submit') }}")>
     <x-honeypot />
     <input name="myField" type="text">
@@ -134,7 +134,7 @@ First, you must add the `x-honeypot` Blade component to any form you wish to pro
 
 Alternatively, you can use the `@honeypot` Blade directive:
 
-```php
+```blade
 <form method="POST" action="{{ route('contactForm.submit') }}")>
     @honeypot
     <input name="myField" type="text">
@@ -215,20 +215,57 @@ data() {
 
 ### Preventing spam in Livewire
 
-In a Livewire component you can use the trait `UsesSpamProtection`:
+In a Livewire component there are three tricks to prevent the spam requests.
+
+First add the trait `UsesSpamProtection` to your component:
 
 ```php
-use Livewire\Component;
+use Spatie\Honeypot\Http\Livewire\Concerns\UsesSpamProtection;
 
 class YourComponent extends Component
-
-public function submit(): void 
 {
-    $this->protectAgainstSpam(); // if is spam, abort the request
+    use UsesSpamProtection;
+```
 
-    User::create($request->all());
+Then declare a `HoneypotData` wireable property and add the protection to your submit method like so:
+
+```php
+use Spatie\Honeypot\Http\Livewire\Concerns\HoneypotData;
+
+class YourComponent extends Component
+{
+    // ...
+    
+    public HoneypotData $extraFields;
+    
+    public function mount()
+    {
+        $this->extraFields = new HoneypotData();
+    }
+ 
+   
+    public function submit(): void 
+    {
+        $this->protectAgainstSpam(); // if is spam, will abort the request
+    
+        User::create($request->all());
+    }
 }
 ```
+
+Finally, edit your livewire blade component with the honeypot component:
+
+```blade
+<form method="POST" action="{{ route('contactForm.submit') }}")>
+    <x-honeypot livewire-model="extraFields" />
+    <input name="myField" type="text">
+</form>
+```
+
+You can use any name for your property `HoneypotData` because the trait will guess the right property name by itself.
+
+That's all.
+
 
 ### Disabling in testing
 
