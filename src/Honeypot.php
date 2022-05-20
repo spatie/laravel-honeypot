@@ -5,6 +5,7 @@ namespace Spatie\Honeypot;
 use Carbon\CarbonInterface;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
+use JetBrains\PhpStorm\ArrayShape;
 
 class Honeypot implements Arrayable
 {
@@ -54,6 +55,13 @@ class Honeypot implements Arrayable
         return EncryptedTime::create($this->validFrom());
     }
 
+    #[ArrayShape([
+        'enabled'                   => "bool",
+        'nameFieldName'             => "string",
+        'unrandomizedNameFieldName' => "string",
+        'validFromFieldName'        => "string",
+        'encryptedValidFrom'        => "string",
+    ])]
     public function toArray(): array
     {
         return [
