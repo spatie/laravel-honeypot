@@ -2,54 +2,49 @@
 
 namespace Spatie\Honeypot;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Spatie\Honeypot\Events\SpamDetectedEvent;
 use Spatie\Honeypot\Exceptions\InvalidTimestamp;
 use Spatie\Honeypot\Exceptions\SpamException;
 
 class SpamProtection
 {
-    public function check(?Request $request = null): void
+    public function check(Collection|array $requestFields): void
     {
-        $request ??= request();
-
         if (! config('honeypot.enabled')) {
             return;
         }
 
-        if (! $request->isMethod('POST')) {
-            return;
-        }
+        $requestFields = Collection::wrap($requestFields);
 
         $nameFieldName = config('honeypot.name_field_name');
 
         if (config('honeypot.randomize_name_field_name')) {
-            $nameFieldName = $this->getRandomizedNameFieldName($nameFieldName, $request->all());
+            $nameFieldName = $this->getRandomizedNameFieldName($nameFieldName, $requestFields);
         }
 
-        if (! $this->shouldCheckHoneypot($request, $nameFieldName)) {
+        if (! $this->shouldCheckHoneypot($requestFields, $nameFieldName)) {
             return;
         }
 
-        if (! $request->has($nameFieldName)) {
-            $this->spamDetected($request);
+        if (! $requestFields->has($nameFieldName)) {
+            throw new SpamException();
         }
 
-        $honeypotValue = $request->get($nameFieldName);
+        $honeypotValue = $requestFields->get($nameFieldName);
 
         if (! empty($honeypotValue)) {
-            $this->spamDetected($request);
+            throw new SpamException();
         }
 
         if (! config('honeypot.valid_from_timestamp')) {
             return;
         }
 
-        $validFrom = $request->get(config('honeypot.valid_from_field_name'));
+        $validFrom = $requestFields->get(config('honeypot.valid_from_field_name'));
 
         if (! $validFrom) {
-            $this->spamDetected($request);
+            throw new SpamException();
         }
 
         try {
@@ -59,31 +54,25 @@ class SpamProtection
         }
 
         if (! $time || $time->isFuture()) {
-            $this->spamDetected($request);
+            throw new SpamException();
         }
     }
 
-    protected function getRandomizedNameFieldName($nameFieldName, $requestFields): ?string
+    protected function getRandomizedNameFieldName(string $nameFieldName, Collection $requestFields): ?string
     {
-        return collect($requestFields)
+        return $requestFields
             ->filter(fn ($value, $key) => Str::startsWith($key, $nameFieldName))
             ->keys()
             ->first();
     }
 
-    protected function spamDetected(Request $request): void
+    private function shouldCheckHoneypot(Collection $requestFields, ?string $nameFieldName): bool
     {
-        event(new SpamDetectedEvent($request));
-
-        throw new SpamException();
-    }
-
-    private function shouldCheckHoneypot(Request $request, ?string $nameFieldName): bool
-    {
-        if (config('honeypot.honeypot_fields_required_for_all_forms') == true) {
+        if (config('honeypot.honeypot_fields_required_for_all_forms') === true) {
             return true;
         }
 
-        return $request->has($nameFieldName) || $request->has(config('honeypot.valid_from_field_name'));
+        return $requestFields->has($nameFieldName)
+            || $requestFields->has(config('honeypot.valid_from_field_name'));
     }
 }
