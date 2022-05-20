@@ -13,9 +13,14 @@ class Honeypot implements Arrayable
     ) {
     }
 
+    public function unrandomizedNameFieldName(): string
+    {
+        return $this->config['name_field_name'];
+    }
+
     public function nameFieldName(): string
     {
-        $nameFieldName = $this->config['name_field_name'];
+        $nameFieldName = $this->unrandomizedNameFieldName();
 
         if ($this->randomizeNameFieldName()) {
             return sprintf('%s_%s', $nameFieldName, Str::random());
@@ -54,6 +59,7 @@ class Honeypot implements Arrayable
         return [
             'enabled' => $this->enabled(),
             'nameFieldName' => $this->nameFieldName(),
+            'unrandomizedNameFieldName' => $this->unrandomizedNameFieldName(),
             'validFromFieldName' => $this->validFromFieldName(),
             'encryptedValidFrom' => $this->encryptedValidFrom(),
         ];
