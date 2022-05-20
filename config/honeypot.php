@@ -7,7 +7,7 @@ return [
      * This switch determines if the honeypot protection should be activated.
      */
     'enabled' => env('HONEYPOT_ENABLED', true),
-    
+
     /*
      * Here you can specify name of the honeypot field. Any requests that submit a non-empty
      * value for this name will be discarded. Make sure this name does not
@@ -56,7 +56,7 @@ return [
      * global middleware be sure to add honeypot fields to each form.
      */
     'honeypot_fields_required_for_all_forms' => false,
-    
+
     /*
      * This class is responsible for applying all spam protection
      * rules for a request. In most cases, you shouldn't change

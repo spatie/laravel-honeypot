@@ -219,7 +219,6 @@ In a Livewire component you can use the trait `UsesSpamProtection`:
 
 ```php
 use Livewire\Component;
-use Spatie\Honeypot\Concerns\UsesSpamProtection;
 
 class YourComponent extends Component
 

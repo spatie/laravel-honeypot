@@ -4,7 +4,6 @@ namespace Spatie\Honeypot;
 
 use Carbon\CarbonInterface;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class Honeypot implements Arrayable
@@ -47,7 +46,7 @@ class Honeypot implements Arrayable
 
     public function encryptedValidFrom(): string
     {
-        return strval(EncryptedTime::create($this->validFrom()));
+        return EncryptedTime::create($this->validFrom());
     }
 
     public function toArray(): array
