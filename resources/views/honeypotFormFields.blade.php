@@ -1,6 +1,17 @@
 @if($enabled)
     <div id="{{ $nameFieldName }}_wrap" style="display: none" aria-hidden="true">
-        <input name="{{ $nameFieldName }}" type="text" value="" id="{{ $nameFieldName }}" autocomplete="nope" tabindex="-1">
-        <input name="{{ $validFromFieldName }}" type="text" value="{{ $encryptedValidFrom }}" autocomplete="nope" tabindex="-1">
+        <input id="{{ $nameFieldName }}"
+               name="{{ $nameFieldName }}"
+               type="text"
+               value=""
+               @if ($livewireModel) wire:model.defer="{{ $livewireModel }}.{{ $unrandomizedNameFieldName }}" @endif
+               autocomplete="nope"
+               tabindex="-1">
+        <input name="{{ $validFromFieldName }}"
+               type="text"
+               value="{{ $encryptedValidFrom }}"
+               @if ($livewireModel) wire:model.defer="{{ $livewireModel }}.{{ $validFromFieldName }}" @endif
+               autocomplete="nope"
+               tabindex="-1">
     </div>
 @endif
