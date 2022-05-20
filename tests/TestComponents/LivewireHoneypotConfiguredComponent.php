@@ -17,7 +17,7 @@ class LivewireHoneypotConfiguredComponent extends LivewireHoneypotComponent
     {
         return <<<'blade'
             <form wire:submit.prevent="submit" method="POST">
-                @honeypot
+                @honeypot('livewire-model', 'extraFields')
                 <input name="myField" type="text">
             </form>
         blade;
