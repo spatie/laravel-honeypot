@@ -215,7 +215,7 @@ data() {
 
 ### Usage in Livewire
 
-In a Livewire component there are three step to prevent spam requests.
+You can use this package to prevent spam submission to forms powered by Livewire.
 
 First, add the `UsesSpamProtection` trait to your Livewire component:
 
