@@ -99,6 +99,15 @@ return [
     'respond_to_spam_with' => BlankPageResponder::class,
 
     /*
+     * This class is responsible for applying all protection
+     * rules for a request. By default uses `request()`.
+     *
+     * It throws the `Spatie\Honeypot\ExceptionsSpamException` if the
+     * request is flagged as spam, or returns void if it succeded.
+     */
+    'spam_protection' => \Spatie\Honeypot\SpamProtection::class,
+
+    /*
      * When activated, requests will be checked if honeypot fields are missing,
      * if so the request will be stamped as spam. Be careful! When using the
      * global middleware be sure to add honeypot fields to each form.
@@ -116,7 +125,7 @@ return [
 
 First, you must add the `x-honeypot` Blade component to any form you wish to protect.
 
-```php
+```blade
 <form method="POST" action="{{ route('contactForm.submit') }}")>
     <x-honeypot />
     <input name="myField" type="text">
@@ -125,7 +134,7 @@ First, you must add the `x-honeypot` Blade component to any form you wish to pro
 
 Alternatively, you can use the `@honeypot` Blade directive:
 
-```php
+```blade
 <form method="POST" action="{{ route('contactForm.submit') }}")>
     @honeypot
     <input name="myField" type="text">
@@ -203,6 +212,60 @@ data() {
     }
 }
 ```
+
+### Preventing spam in Livewire
+
+In a Livewire component there are three tricks to prevent the spam requests.
+
+First add the trait `UsesSpamProtection` to your component:
+
+```php
+use Spatie\Honeypot\Http\Livewire\Concerns\UsesSpamProtection;
+
+class YourComponent extends Component
+{
+    use UsesSpamProtection;
+```
+
+Then declare a `HoneypotData` wireable property and add the protection to your submit method like so:
+
+```php
+use Spatie\Honeypot\Http\Livewire\Concerns\HoneypotData;
+
+class YourComponent extends Component
+{
+    // ...
+    
+    public HoneypotData $extraFields;
+    
+    public function mount()
+    {
+        $this->extraFields = new HoneypotData();
+    }
+ 
+   
+    public function submit(): void 
+    {
+        $this->protectAgainstSpam(); // if is spam, will abort the request
+    
+        User::create($request->all());
+    }
+}
+```
+
+Finally, edit your livewire blade component with the honeypot component:
+
+```blade
+<form method="POST" action="{{ route('contactForm.submit') }}")>
+    <x-honeypot livewire-model="extraFields" />
+    <input name="myField" type="text">
+</form>
+```
+
+You can use any name for your property `HoneypotData` because the trait will guess the right property name by itself.
+
+That's all.
+
 
 ### Disabling in testing
 

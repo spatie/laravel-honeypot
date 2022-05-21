@@ -27,10 +27,11 @@
         "symfony/http-foundation": "^5.1.2|^6.0"
     },
     "require-dev": {
+        "livewire/livewire": "^2.10",
         "orchestra/testbench": "^6.23|^7.0",
+        "phpunit/phpunit": "^9.4",
         "spatie/phpunit-snapshot-assertions": "^4.2",
-        "spatie/test-time": "^1.2.1",
-        "phpunit/phpunit": "^9.4"
+        "spatie/test-time": "^1.2.1"
     },
     "autoload": {
         "psr-4": {

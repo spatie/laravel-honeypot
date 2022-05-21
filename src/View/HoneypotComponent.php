@@ -8,17 +8,13 @@ use Spatie\Honeypot\Honeypot;
 class HoneypotComponent extends Component
 {
     public function __construct(
-        protected Honeypot $setup
+        protected Honeypot $setup,
+        public ?string $livewireModel = null,
     ) {
     }
 
     public function render()
     {
-        return view('honeypot::honeypotFormFields', [
-            'enabled' => $this->setup->enabled(),
-            'nameFieldName' => $this->setup->nameFieldName(),
-            'validFromFieldName' => $this->setup->validFromFieldName(),
-            'encryptedValidFrom' => $this->setup->encryptedValidFrom(),
-        ]);
+        return view('honeypot::honeypotFormFields', $this->setup->toArray());
     }
 }
