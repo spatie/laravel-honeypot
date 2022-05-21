@@ -56,11 +56,11 @@ class Honeypot implements Arrayable
     }
 
     #[ArrayShape([
-        'enabled'                   => "bool",
-        'nameFieldName'             => "string",
+        'enabled' => "bool",
+        'nameFieldName' => "string",
         'unrandomizedNameFieldName' => "string",
-        'validFromFieldName'        => "string",
-        'encryptedValidFrom'        => "string",
+        'validFromFieldName' => "string",
+        'encryptedValidFrom' => "string",
     ])]
     public function toArray(): array
     {
