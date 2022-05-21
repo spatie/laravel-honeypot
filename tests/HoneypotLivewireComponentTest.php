@@ -2,6 +2,7 @@
 
 namespace Spatie\Honeypot\Tests;
 
+use Exception;
 use Livewire\Livewire;
 use Spatie\Honeypot\Tests\TestComponents\LivewireHoneypotComponent;
 use Spatie\Honeypot\Tests\TestComponents\LivewireHoneypotConfiguredComponent;
@@ -12,7 +13,7 @@ class HoneypotLivewireComponentTest extends TestCase
     /** @test */
     public function it_throws_exception_because_the_component_is_not_well_configured()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage("Livewire component requires a `HoneypotData` property.");
 
         Livewire::test(LivewireHoneypotComponent::class)

@@ -213,11 +213,11 @@ data() {
 }
 ```
 
-### Preventing spam in Livewire
+### Usage in Livewire
 
-In a Livewire component there are three tricks to prevent the spam requests.
+In a Livewire component there are three step to prevent spam requests.
 
-First add the trait `UsesSpamProtection` to your component:
+First, add the `UsesSpamProtection` trait to your Livewire component:
 
 ```php
 use Spatie\Honeypot\Http\Livewire\Concerns\UsesSpamProtection;
@@ -227,7 +227,7 @@ class YourComponent extends Component
     use UsesSpamProtection;
 ```
 
-Then declare a `HoneypotData` wireable property and add the protection to your submit method like so:
+Next, declare a `HoneypotData` property and call `protectAgainstSpam()` in the method that handles form submissions:
 
 ```php
 use Spatie\Honeypot\Http\Livewire\Concerns\HoneypotData;
@@ -253,7 +253,7 @@ class YourComponent extends Component
 }
 ```
 
-Finally, edit your livewire blade component with the honeypot component:
+Finally, use the `x-honeypot` in your Livewire Blade component:
 
 ```blade
 <form method="POST" action="{{ route('contactForm.submit') }}")>
@@ -261,11 +261,6 @@ Finally, edit your livewire blade component with the honeypot component:
     <input name="myField" type="text">
 </form>
 ```
-
-You can use any name for your property `HoneypotData` because the trait will guess the right property name by itself.
-
-That's all.
-
 
 ### Disabling in testing
 
