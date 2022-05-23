@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.3.0 - 2022-05-23
+
+## What's Changed
+
+- SpamProtection to use the honeypot everywhere by @masterix21 in https://github.com/spatie/laravel-honeypot/pull/107
+
+## New Contributors
+
+- @masterix21 made their first contribution in https://github.com/spatie/laravel-honeypot/pull/107
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.2.3...4.3.0
+
 ## 4.2.3 - 2022-05-12
 
 ## What's Changed
