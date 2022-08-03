@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.3.1 - 2022-08-03
+
+### What's Changed
+
+- handle DecryptException when valid_from field is a non-encrypted valu… by @mikemunger in https://github.com/spatie/laravel-honeypot/pull/110
+
+### New Contributors
+
+- @mikemunger made their first contribution in https://github.com/spatie/laravel-honeypot/pull/110
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.3.0...4.3.1
+
 ## 4.3.0 - 2022-05-23
 
 ## What's Changed
