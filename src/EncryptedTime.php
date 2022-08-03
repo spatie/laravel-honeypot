@@ -4,6 +4,7 @@ namespace Spatie\Honeypot;
 
 use Carbon\CarbonInterface;
 use DateTimeInterface;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Date;
 use Spatie\Honeypot\Exceptions\InvalidTimestamp;
 
@@ -24,7 +25,11 @@ class EncryptedTime
     {
         $this->encryptedTime = $encryptedTime;
 
-        $timestamp = app('encrypter')->decrypt($encryptedTime);
+        try {
+            $timestamp = app('encrypter')->decrypt($encryptedTime);
+        } catch (DecryptException $e) {
+            throw InvalidTimestamp::make($encryptedTime);
+        }
 
         if (! $this->isValidTimeStamp($timestamp)) {
             throw InvalidTimestamp::make($timestamp);

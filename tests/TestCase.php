@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\Concerns\InteractsWithContainer;
 use Illuminate\Support\Facades\View;
 use Livewire\LivewireServiceProvider;
 use Spatie\Honeypot\HoneypotServiceProvider;
-use Spatie\Honeypot\Tests\TestClasses\FakeEncrypter;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -20,7 +19,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
         View::addLocation(__DIR__.'/views');
 
-        $this->swap('encrypter', new FakeEncrypter());
+        config()->set('app.key', 'base64:05V7tNPZKeo4DB3PT/Xzgw6qAKxVTAjUWWZ9YrzpBc0=');
     }
 
     protected function getPackageProviders($app)
