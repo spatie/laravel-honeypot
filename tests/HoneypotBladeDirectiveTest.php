@@ -4,6 +4,7 @@ namespace Spatie\Honeypot\Tests;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Support\DateFactory;
+use Spatie\Honeypot\Tests\TestClasses\FakeEncrypter;
 use Spatie\Snapshots\MatchesSnapshots;
 use Spatie\TestTime\TestTime;
 
@@ -14,6 +15,8 @@ class HoneypotBladeDirectiveTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+
+        $this->swap('encrypter', new FakeEncrypter());
 
         config()->set('honeypot.randomize_name_field_name', false);
     }
