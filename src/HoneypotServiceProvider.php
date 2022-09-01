@@ -12,40 +12,41 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class HoneypotServiceProvider extends PackageServiceProvider
 {
-    public function configurePackage(Package $package): void
-    {
-        $package
-            ->name('laravel-honeypot')
-            ->hasConfigFile()
-            ->hasViews();
-    }
+	public function configurePackage(Package $package): void
+	{
+		$package
+			->name('laravel-honeypot')
+			->hasConfigFile()
+			->hasViews()
+			->hasMigration('create_honeypot_logs_table');
+	}
+	
+	public function packageBooted()
+	{
+		$this
+			->registerBindings()
+			->registerBladeClasses();
+	}
 
-    public function packageBooted()
-    {
-        $this
-            ->registerBindings()
-            ->registerBladeClasses();
-    }
+	protected function registerBindings(): self
+	{
+		$this->app->bind(SpamResponder::class, config('honeypot.respond_to_spam_with'));
 
-    protected function registerBindings(): self
-    {
-        $this->app->bind(SpamResponder::class, config('honeypot.respond_to_spam_with'));
+		$this->app->bind(SpamProtection::class, config('honeypot.spam_protection'));
 
-        $this->app->bind(SpamProtection::class, config('honeypot.spam_protection'));
+		$this->app->bind(Honeypot::class, fn() => new Honeypot(config('honeypot')));
 
-        $this->app->bind(Honeypot::class, fn () => new Honeypot(config('honeypot')));
+		return $this;
+	}
 
-        return $this;
-    }
+	protected function registerBladeClasses(): self
+	{
+		View::composer('honeypot::honeypotFormFields', HoneypotViewComposer::class);
+		Blade::component('honeypot', HoneypotComponent::class);
+		Blade::directive('honeypot', function () {
+			return "<?php echo view('honeypot::honeypotFormFields'); ?>";
+		});
 
-    protected function registerBladeClasses(): self
-    {
-        View::composer('honeypot::honeypotFormFields', HoneypotViewComposer::class);
-        Blade::component('honeypot', HoneypotComponent::class);
-        Blade::directive('honeypot', function () {
-            return "<?php echo view('honeypot::honeypotFormFields'); ?>";
-        });
-
-        return $this;
-    }
+		return $this;
+	}
 }

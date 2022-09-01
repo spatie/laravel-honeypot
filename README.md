@@ -1,4 +1,3 @@
-
 [<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />](https://supportukrainenow.org)
 
 # Preventing spam submitted through forms
@@ -8,33 +7,43 @@
 ![Code Style Status](https://img.shields.io/github/workflow/status/spatie/laravel-honeypot/Check%20&%20fix%20styling?label=code%20style)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-honeypot.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-honeypot)
 
-When adding a form to a public site, there's a risk that spam bots will try to submit it with fake values. Luckily, the majority of these bots are pretty dumb. You can thwart most of them by adding an invisible field to your form that should never contain a value when submitted. Such a field is called a honeypot. These spam bots will just fill all fields, including the honeypot.
+When adding a form to a public site, there's a risk that spam bots will try to submit it with fake values. Luckily, the
+majority of these bots are pretty dumb. You can thwart most of them by adding an invisible field to your form that
+should never contain a value when submitted. Such a field is called a honeypot. These spam bots will just fill all
+fields, including the honeypot.
 
-When a submission comes in with a filled honeypot field, this package will discard that request. 
-On top of that this package also checks how long it took to submit the form. This is done using a timestamp in another invisible field. If the form was submitted in a ridiculously short time, the anti spam will also be triggered.
+When a submission comes in with a filled honeypot field, this package will discard that request.
+On top of that this package also checks how long it took to submit the form. This is done using a timestamp in another
+invisible field. If the form was submitted in a ridiculously short time, the anti spam will also be triggered.
 
 After installing this package, all you need to do is to add the `x-honeypot` Blade component to your form.
 
 ```html
+
 <form method="POST">
-    <x-honeypot />
+    <x-honeypot/>
     <input name="myField" type="text">
 </form>
 ```
 
-The package also supports manually passing the necessary values to your view layer, so you can easily add honeypot fields to your [Inertia](https://inertiajs.com) powered app.
+The package also supports manually passing the necessary values to your view layer, so you can easily add honeypot
+fields to your [Inertia](https://inertiajs.com) powered app.
 
 ## Support us
 
 [<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-honeypot.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-honeypot)
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can
+support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using.
+You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards
+on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
 ## Video tutorial
 
-In [this video](https://vimeo.com/381197983), which is part of the [Mailcoach](https://mailcoach.app) video course, you can see how the package can be installed and used.
+In [this video](https://vimeo.com/381197983), which is part of the [Mailcoach](https://mailcoach.app) video course, you
+can see how the package can be installed and used.
 
 ## Installation
 
@@ -42,6 +51,13 @@ You can install the package via composer:
 
 ```bash
 composer require spatie/laravel-honeypot
+```
+
+Afterwards, if logging is desired, publish the honeypot logs migration file and migrate
+
+```bash
+php artisan vendor:publish --provider="Spatie\Honeypot\HoneypotServiceProvider" --tag=honeypot-migrations
+php artisan migrate
 ```
 
 Optionally, you can publish the config file of the package.
@@ -120,7 +136,7 @@ return [
     'enabled' => env('HONEYPOT_ENABLED', true),
 ];
 ```
-  
+
 ## Usage
 
 First, you must add the `x-honeypot` Blade component to any form you wish to protect.
@@ -141,9 +157,13 @@ Alternatively, you can use the `@honeypot` Blade directive:
 </form>
 ```
 
-Using either the Blade component or directive will add two fields: `my_name` and `valid_from_timestamp` (you can change the names in the config file).
+Using either the Blade component or directive will add two fields: `my_name` and `valid_from_timestamp` (you can change
+the names in the config file).
 
-Next, you must use the `Spatie\Honeypot\ProtectAgainstSpam` middleware in the route that handles the form submission. This middleware will intercept any request that submits a non empty value for the key named `my_name`. It will also intercept the request if it is submitted faster than the encrypted timestamp that the package generated in `valid_from_timestamp`.
+Next, you must use the `Spatie\Honeypot\ProtectAgainstSpam` middleware in the route that handles the form submission.
+This middleware will intercept any request that submits a non empty value for the key named `my_name`. It will also
+intercept the request if it is submitted faster than the encrypted timestamp that the package generated
+in `valid_from_timestamp`.
 
 ```php
 use App\Http\Controllers\ContactFormSubmissionController;
@@ -152,7 +172,9 @@ use Spatie\Honeypot\ProtectAgainstSpam;
 Route::post('contact', [ContactFormSubmissionController::class, 'create'])->middleware(ProtectAgainstSpam::class);
 ```
 
-If you want to integrate the `Spatie\Honeypot\ProtectAgainstSpam` middleware with Laravel's built in authentication routes, wrap the `Auth::routes();` declaration with the appropriate middleware group (make sure to add the `@honeypot` directive to the authentication forms).
+If you want to integrate the `Spatie\Honeypot\ProtectAgainstSpam` middleware with Laravel's built in authentication
+routes, wrap the `Auth::routes();` declaration with the appropriate middleware group (make sure to add the `@honeypot`
+directive to the authentication forms).
 
 ```php
 use Spatie\Honeypot\ProtectAgainstSpam;
@@ -173,7 +195,7 @@ protected $middleware = [
 ];
 ```
 
-### Usage in Inertia 
+### Usage in Inertia
 
 When using Inertia you must manually pass the values used in the honeypot fields. Here's an example:
 
@@ -187,14 +209,17 @@ public function create(\Spatie\Honeypot\Honeypot $honeypot)
 }
 ```
 
-Your front-end will get an `honeypot` object with these keys: `enabled`, `nameFieldName`, `validFromFieldName`, `encryptedValidFrom`.
+Your front-end will get an `honeypot` object with these keys: `enabled`, `nameFieldName`, `validFromFieldName`
+, `encryptedValidFrom`.
 
 Here's an example how these values could be rendered using Vue:
 
 ```html
+
 <div v-if="honeypot.enabled" :name="`${honeypot.nameFieldName}_wrap`" style="display:none;">
-    <input type="text" v-model="form[honeypot.nameFieldName]" :name="honeypot.nameFieldName" :id="honeypot.nameFieldName" />
-    <input type="text" v-model="form[honeypot.validFromFieldName]" :name="honeypot.validFromFieldName" />
+    <input type="text" v-model="form[honeypot.nameFieldName]" :name="honeypot.nameFieldName"
+           :id="honeypot.nameFieldName"/>
+    <input type="text" v-model="form[honeypot.validFromFieldName]" :name="honeypot.validFromFieldName"/>
 </div>
 ```
 
@@ -202,14 +227,15 @@ And then in your Vue component, add these values to your form data:
 
 ```javascript
 props: ['honeypot'],
-
-data() {
-    return {
-        form: this.$inertia.form({
-            [this.honeypot.nameFieldName]: '',
-            [this.honeypot.validFromFieldName]: this.honeypot.encryptedValidFrom,
-        }),
-    }
+  
+  data()
+{
+  return {
+    form: this.$inertia.form({
+      [this.honeypot.nameFieldName]: '',
+      [this.honeypot.validFromFieldName]: this.honeypot.encryptedValidFrom,
+    }),
+  }
 }
 ```
 
@@ -264,7 +290,8 @@ Finally, use the `x-honeypot` in your Livewire Blade component:
 
 ### Disabling in testing
 
-By default, any protected form that is submitted in faster than 1 second will be marked as spammy. When running end to end tests, which should run as fast as possible, you probably don't want this. 
+By default, any protected form that is submitted in faster than 1 second will be marked as spammy. When running end to
+end tests, which should run as fast as possible, you probably don't want this.
 
 To disable all honeypots in code, you can set the `enabled` config value to `false`.
 
@@ -274,9 +301,12 @@ config()->set('honeypot.enabled', false)
 
 ### Customizing the response
 
-When a spammy submission is detected, the package will show a blank page by default. You can customize this behaviour by writing your own `SpamResponse` and specifying its fully qualified class name in the `respond_to_spam_with` key of the `honeypot` config file.
+When a spammy submission is detected, the package will show a blank page by default. You can customize this behaviour by
+writing your own `SpamResponse` and specifying its fully qualified class name in the `respond_to_spam_with` key of
+the `honeypot` config file.
 
-A valid `SpamResponse` is any class that implements the `Spatie\Honeypot\SpamResponder\SpamResponder` interface. This is what that interface looks like:
+A valid `SpamResponse` is any class that implements the `Spatie\Honeypot\SpamResponder\SpamResponder` interface. This is
+what that interface looks like:
 
 ```php
 namespace Spatie\Honeypot\SpamResponder;
@@ -290,9 +320,12 @@ interface SpamResponder
 }
 ```
 
-Even though a spam responder's primary purpose is to respond to spammy requests, you could do other stuff there as well. You could for instance use the properties on `$request` to determine the source of the spam (maybe all requests come from the same IP) and put some logic to block that source altogether.
+Even though a spam responder's primary purpose is to respond to spammy requests, you could do other stuff there as well.
+You could for instance use the properties on `$request` to determine the source of the spam (maybe all requests come
+from the same IP) and put some logic to block that source altogether.
 
-If the package wrongly determined that the request is spammy, you can generate the default response by passing the `$request` to the `$next` closure, like you would in a middleware.
+If the package wrongly determined that the request is spammy, you can generate the default response by passing
+the `$request` to the `$next` closure, like you would in a middleware.
 
 ```php
 // in your spam responder
@@ -320,7 +353,8 @@ The view will be placed in `resources/views/vendor/honeypot/honeypotFormFields.b
 
 ### Events fired
 
-Whenever spam is detected, the `Spatie\Honeypot\Events\SpamDetectedEvent` event is fired. It has the `$request` as a public property.
+Whenever spam is detected, the `Spatie\Honeypot\Events\SpamDetectedEvent` event is fired. It has the `$request` as a
+public property.
 
 ### Testing
 
@@ -334,7 +368,9 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Alternatives
 
-If you need stronger spam protection, consider using [Google ReCaptcha](https://m.dotdev.co/google-recaptcha-integration-with-laravel-ad0f30b52d7d) or [Akismet](https://github.com/nickurt/laravel-akismet). 
+If you need stronger spam protection, consider
+using [Google ReCaptcha](https://m.dotdev.co/google-recaptcha-integration-with-laravel-ad0f30b52d7d)
+or [Akismet](https://github.com/nickurt/laravel-akismet).
 
 ## Contributing
 
@@ -342,14 +378,16 @@ Please see [CONTRIBUTING](https://github.com/spatie/.github/blob/main/CONTRIBUTI
 
 ## Security
 
-If you've found a bug regarding security please mail [security@spatie.be](mailto:security@spatie.be) instead of using the issue tracker.
+If you've found a bug regarding security please mail [security@spatie.be](mailto:security@spatie.be) instead of using
+the issue tracker.
 
 ## Credits
 
 - [Freek Van der Herten](https://github.com/freekmurze)
 - [All Contributors](../../contributors)
 
-This package was inspired by [the Honeypot package](https://github.com/msurguy/Honeypot) by [Maksim Surguy](https://github.com/msurguy).
+This package was inspired by [the Honeypot package](https://github.com/msurguy/Honeypot)
+by [Maksim Surguy](https://github.com/msurguy).
 
 ## License
 
