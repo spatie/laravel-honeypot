@@ -3,9 +3,9 @@
 use Carbon\CarbonImmutable;
 use Illuminate\Support\DateFactory;
 use Spatie\Honeypot\Tests\TestClasses\FakeEncrypter;
-use Spatie\TestTime\TestTime;
-
 use function Spatie\Snapshots\assertMatchesSnapshot;
+
+use Spatie\TestTime\TestTime;
 
 beforeEach(function () {
     $this->swap('encrypter', new FakeEncrypter());
