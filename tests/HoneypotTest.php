@@ -1,68 +1,52 @@
 <?php
 
-namespace Spatie\Honeypot\Tests;
-
-use Illuminate\Support\Str;
 use Spatie\Honeypot\Honeypot;
 
-class HoneypotTest extends TestCase
-{
-    public function setUp(): void
-    {
-        parent::setUp();
-    }
+test('honeypot setup returns enabled true if true in config', function () {
+    config()->set('honeypot.enabled', true);
 
-    /** @test */
-    public function honeypot_setup_returns_enabled_true_if_true_in_config()
-    {
-        config()->set('honeypot.enabled', true);
+    app(Honeypot::class)->toArray()['enabled'];
 
-        app(Honeypot::class)->toArray()['enabled'];
+    expect(app(Honeypot::class)->toArray()['enabled'])->toBeTrue();
+});
 
-        $this->assertTrue(app(Honeypot::class)->toArray()['enabled']);
-    }
+test('honeypot setup returns enabled false if false is in config')
+    ->tap(fn () => config()->set('honeypot.enabled', false))
+    ->expect(fn () => app(Honeypot::class)->toArray()['enabled'])
+    ->toBeFalse();
 
-    /** @test */
-    public function honeypot_setup_returns_enabled_false_if_false_in_config()
-    {
-        config()->set('honeypot.enabled', false);
-
-        $this->assertFalse(app(Honeypot::class)->toArray()['enabled']);
-    }
-
-    /** @test */
-    public function honeypot_setup_returns_correct_name_field_name_when_randomize_name_field_name_is_false()
-    {
+test('honeypot setup returns correct `name_field_name` when randomize name field name is `false`')
+    ->tap(function () {
         config()->set('honeypot.name_field_name', 'test_field');
         config()->set('honeypot.randomize_name_field_name', false);
+    })
+    ->expect(fn () => app(Honeypot::class)->toArray()['nameFieldName'])
+    ->toEqual('test_field');
 
-        $this->assertEquals('test_field', app(Honeypot::class)->toArray()['nameFieldName']);
-    }
-
-    /** @test */
-    public function honeypot_setup_returns_correct_name_field_name_when_randomize_name_field_name_is_true()
-    {
+test(
+    'honeypot setup returns correct `name_field_name` when randomize name field name is `true`',
+    function () {
         config()->set('honeypot.name_field_name', 'test_field');
         config()->set('honeypot.randomize_name_field_name', true);
 
         $actualNameFieldName = app(Honeypot::class)->toArray()['nameFieldName'];
-        $this->assertTrue(Str::of($actualNameFieldName)->startsWith('test_field_'));
-        $this->assertTrue(Str::of($actualNameFieldName)->length() > 11);
-    }
 
-    /** @test */
-    public function honeypot_setup_returns_correct_valid_from_field_name()
-    {
-        config()->set('honeypot.valid_from_field_name', 'test_from_field');
-
-        $actualValidFromFieldName = app(Honeypot::class)->toArray()['validFromFieldName'];
-        $this->assertEquals('test_from_field', $actualValidFromFieldName);
+        expect($actualNameFieldName)
+            ->toStartWith('test_field_')
+            ->toBeGreaterThan(11);
     }
+);
 
-    /** @test */
-    public function honeypot_setup_returns_an_encrypted_time()
-    {
-        $actualValue = app(Honeypot::class)->toArray()['encryptedValidFrom'];
-        $this->assertTrue(strlen($actualValue) > 1);
-    }
-}
+test('honeypot setup returns correct valid from field name', function () {
+    config()->set('honeypot.valid_from_field_name', 'test_from_field');
+
+    $actualValidFromFieldName = app(Honeypot::class)->toArray()['validFromFieldName'];
+
+    expect($actualValidFromFieldName)->toEqual('test_from_field');
+});
+
+test('honeypot setup returns an encrypted time', function () {
+    $actualValue = app(Honeypot::class)->toArray()['encryptedValidFrom'];
+
+    expect(strlen($actualValue))->toBeGreaterThan(1);
+});

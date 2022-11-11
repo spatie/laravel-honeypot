@@ -29,7 +29,9 @@
     "require-dev": {
         "livewire/livewire": "^2.10",
         "orchestra/testbench": "^6.23|^7.0",
+        "pestphp/pest-plugin-livewire": "^1.0",
         "phpunit/phpunit": "^9.4",
+        "spatie/pest-plugin-snapshots": "^1.1",
         "spatie/phpunit-snapshot-assertions": "^4.2",
         "spatie/test-time": "^1.2.1"
     },
@@ -44,11 +46,14 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage-html coverage"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "extra": {
         "laravel": {

@@ -1,46 +1,33 @@
 <?php
 
-namespace Spatie\Honeypot\Tests;
-
 use Carbon\CarbonImmutable;
 use Illuminate\Support\DateFactory;
 use Spatie\Honeypot\Tests\TestClasses\FakeEncrypter;
-use Spatie\Snapshots\MatchesSnapshots;
+use function Spatie\Snapshots\assertMatchesSnapshot;
+
 use Spatie\TestTime\TestTime;
 
-class HoneypotBladeDirectiveTest extends TestCase
-{
-    use MatchesSnapshots;
+beforeEach(function () {
+    $this->swap('encrypter', new FakeEncrypter());
 
-    public function setUp(): void
-    {
-        parent::setUp();
+    config()->set('honeypot.randomize_name_field_name', false);
+});
 
-        $this->swap('encrypter', new FakeEncrypter());
+test('the honeypot Blade directive renders correctly', function () {
+    TestTime::freeze('Y-m-d H:i:s', '2019-01-01 00:00:00');
 
-        config()->set('honeypot.randomize_name_field_name', false);
-    }
+    $renderedView = view('honeypot')->render();
 
-    /** @test */
-    public function the_honeypot_blade_directive_renders_correctly()
-    {
-        TestTime::freeze('Y-m-d H:i:s', '2019-01-01 00:00:00');
+    assertMatchesSnapshot($renderedView);
+});
 
-        $renderedView = view('honeypot')->render();
+test('the honeypot Blade directive renders correctly when using CarbonImmutable', function () {
+    DateFactory::use(CarbonImmutable::class);
+    TestTime::freeze('Y-m-d H:i:s', '2019-01-01 00:00:00');
 
-        $this->assertMatchesSnapshot($renderedView);
-    }
+    $renderedView = view('honeypot')->render();
 
-    /** @test */
-    public function the_honeypot_blade_directive_renders_correctly_when_using_CarbonImmutable()
-    {
-        DateFactory::use(CarbonImmutable::class);
-        TestTime::freeze('Y-m-d H:i:s', '2019-01-01 00:00:00');
+    assertMatchesSnapshot($renderedView);
 
-        $renderedView = view('honeypot')->render();
-
-        $this->assertMatchesSnapshot($renderedView);
-
-        DateFactory::use(DateFactory::DEFAULT_CLASS_NAME);
-    }
-}
+    DateFactory::use(DateFactory::DEFAULT_CLASS_NAME);
+});

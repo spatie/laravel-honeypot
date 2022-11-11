@@ -1,209 +1,163 @@
 <?php
 
-namespace Spatie\Honeypot\Tests;
-
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\Testing\TestResponse;
+use function PHPUnit\Framework\assertEquals;
 use Spatie\Honeypot\EncryptedTime;
 use Spatie\Honeypot\ProtectAgainstSpam;
+
 use Spatie\TestTime\TestTime;
 
-class ProtectAgainstSpamTest extends TestCase
-{
-    public function setUp(): void
-    {
-        parent::setUp();
+beforeEach(function () {
+    TestTime::freeze('Y-m-d H:i:s', '2019-01-01 00:00:00');
 
-        TestTime::freeze('Y-m-d H:i:s', '2019-01-01 00:00:00');
-
-        TestResponse::macro('assertPassedSpamProtection', function () {
-            $this
-                ->assertSuccessful()
-                ->assertSee('ok');
-
-            return $this;
-        });
-
-        TestResponse::macro('assertDidNotPassSpamProtection', function () {
-            $content = $this
-                ->assertSuccessful()
-                ->baseResponse->content();
-
-            TestCase::assertEquals('', $content, 'The request unexpectedly passed spam protection.');
-
-            return $this;
-        });
-
-        Route::any('test', function () {
-            return 'ok';
-        })->middleware(ProtectAgainstSpam::class);
-    }
-
-    /** @test */
-    public function requests_that_not_use_the_honeypot_fields_succeed_without_random_name()
-    {
-        config()->set('honeypot.randomize_name_field_name', false);
-
+    TestResponse::macro('assertPassedSpamProtection', function () {
         $this
-            ->post('test')
-            ->assertPassedSpamProtection();
-    }
+            ->assertSuccessful()
+            ->assertSee('ok');
 
-    /** @test */
-    public function requests_that_not_use_the_honeypot_fields_succeed_with_random_name()
-    {
-        config()->set('honeypot.randomize_name_field_name', true);
+        return $this;
+    });
 
-        $this
-            ->post('test')
-            ->assertPassedSpamProtection();
-    }
+    TestResponse::macro('assertDidNotPassSpamProtection', function () {
+        $content = $this
+            ->assertSuccessful()
+            ->baseResponse->content();
 
-    /** @test */
-    public function requests_that_not_use_the_honeypot_fields_do_not_succeed_without_random_name_when_missing_fields_enabled()
-    {
-        config()->set('honeypot.randomize_name_field_name', false);
-        config()->set('honeypot.honeypot_fields_required_for_all_forms', true);
+        assertEquals('', $content, 'The request unexpectedly passed spam protection.');
 
-        $this
-            ->post('test')
-            ->assertDidNotPassSpamProtection();
-    }
+        return $this;
+    });
 
-    /** @test */
-    public function requests_that_not_use_the_honeypot_fields_do_not_succeed_with_random_name_when_missing_fields_enabled()
-    {
-        config()->set('honeypot.randomize_name_field_name', true);
-        config()->set('honeypot.honeypot_fields_required_for_all_forms', true);
+    Route::any('test', function () {
+        return 'ok';
+    })->middleware(ProtectAgainstSpam::class);
+});
 
-        $this
-            ->post('test')
-            ->assertDidNotPassSpamProtection();
-    }
+test('requests that not use the honeypot fields succeed without random name')
+    ->tap(fn () => config()->set('honeypot.randomize_name_field_name', false))
+    ->post('test')
+    ->assertPassedSpamProtection();
 
-    /** @test */
-    public function requests_that_post_an_empty_value_for_the_honeypot_name_field_do_succeed()
-    {
-        $nameField = config('honeypot.name_field_name');
-        $validFromField = config('honeypot.valid_from_field_name');
-        $validFrom = EncryptedTime::create(now());
+test('requests that do not use the honeypot fields succeed with random name')
+    ->tap(fn () => config()->set('honeypot.randomize_name_field_name', true))
+    ->post('test')
+    ->assertPassedSpamProtection();
 
-        $this
-            ->post('test', [$nameField => '', $validFromField => $validFrom])
-            ->assertPassedSpamProtection();
-    }
+test('requests that do not use the honeypot fields do not succeed without random name when missing fields enabled')
+    ->tap(fn () => config()->set('honeypot.randomize_name_field_name', false))
+    ->tap(fn () => config()->set('honeypot.honeypot_fields_required_for_all_forms', true))
+    ->post('test')
+    ->assertDidNotPassSpamProtection();
 
-    /** @test */
-    public function requests_that_post_the_honeypot_name_field_with_content_do_not_succeed()
-    {
-        $nameField = config('honeypot.name_field_name');
+test('requests that do not use the honeypot fields do not succeed with random name when missing fields enabled')
+    ->tap(fn () => config()->set('honeypot.randomize_name_field_name', true))
+    ->tap(fn () => config()->set('honeypot.honeypot_fields_required_for_all_forms', true))
+    ->post('test')
+    ->assertDidNotPassSpamProtection();
 
-        $this
-            ->post('test', [$nameField => 'value'])
-            ->assertDidNotPassSpamProtection();
-    }
+test('requests that post an empty value for the honeypot name field do succeed', function () {
+    $nameField = config('honeypot.name_field_name');
+    $validFromField = config('honeypot.valid_from_field_name');
+    $validFrom = EncryptedTime::create(now());
 
-    /** @test */
-    public function requests_will_always_succeed_when_the_package_is_not_enabled()
-    {
-        config()->set('honeypot.enabled', false);
+    $this
+        ->post('test', [$nameField => '', $validFromField => $validFrom])
+        ->assertPassedSpamProtection();
+});
 
-        $nameField = config('honeypot.name_field_name');
+test('requests that post the honeypot name field with content do not succeed', function () {
+    $nameField = config('honeypot.name_field_name');
 
-        $this
-            ->post('test', [$nameField => 'value'])
-            ->assertPassedSpamProtection();
-    }
+    $this
+        ->post('test', [$nameField => 'value'])
+        ->assertDidNotPassSpamProtection();
+});
 
-    /** @test */
-    public function requests_will_always_succeed_when_the_method_is_not_POST()
-    {
-        $nameField = config('honeypot.name_field_name');
-        $attributes = [$nameField => 'value'];
+test('requests will always succeed when the package is not enabled', function () {
+    config()->set('honeypot.enabled', false);
 
-        $this->get('test', $attributes)->assertPassedSpamProtection();
-        $this->put('test', $attributes)->assertPassedSpamProtection();
-        $this->patch('test', $attributes)->assertPassedSpamProtection();
-        $this->delete('test', $attributes)->assertPassedSpamProtection();
-    }
+    $nameField = config('honeypot.name_field_name');
 
-    /** @test */
-    public function submissions_that_are_posted_too_soon_will_be_marked_as_spam()
-    {
-        $nameField = config('honeypot.name_field_name');
-        $validFromField = config('honeypot.valid_from_field_name');
-        $validFrom = EncryptedTime::create(now()->addSecond());
+    $this
+        ->post('test', [$nameField => 'value'])
+        ->assertPassedSpamProtection();
+});
 
-        $this
-            ->post('test', [$nameField => '', $validFromField => $validFrom])
-            ->assertDidNotPassSpamProtection();
-    }
+test('requests will always succeed when the method is not POST', function () {
+    $nameField = config('honeypot.name_field_name');
+    $attributes = [$nameField => 'value'];
 
-    /** @test */
-    public function submissions_that_are_posted_after_or_on_valid_from_will_not_be_marked_as_spam_timestampcheck_is_disabled()
-    {
-        config()->set('honeypot.valid_from_timestamp', false);
-        $nameField = config('honeypot.name_field_name');
-        $validFromField = config('honeypot.valid_from_field_name');
-        $validFrom = EncryptedTime::create(now());
+    $this->get('test', $attributes)->assertPassedSpamProtection();
+    $this->put('test', $attributes)->assertPassedSpamProtection();
+    $this->patch('test', $attributes)->assertPassedSpamProtection();
+    $this->delete('test', $attributes)->assertPassedSpamProtection();
+});
 
-        $this
-            ->post('test', [$nameField => '', $validFromField => $validFrom])
-            ->assertPassedSpamProtection();
-    }
+test('submissions that are posted too son will be marked as spam', function () {
+    $nameField = config('honeypot.name_field_name');
+    $validFromField = config('honeypot.valid_from_field_name');
+    $validFrom = EncryptedTime::create(now()->addSecond());
 
-    /** @test */
-    public function submissions_that_are_posted_after_or_on_valid_from_will_not_be_marked_as_spam_timestampcheck_is_enabled()
-    {
-        config()->set('honeypot.valid_from_timestamp', true);
-        $nameField = config('honeypot.name_field_name');
-        $validFromField = config('honeypot.valid_from_field_name');
-        $validFrom = EncryptedTime::create(now());
+    $this
+        ->post('test', [$nameField => '', $validFromField => $validFrom])
+        ->assertDidNotPassSpamProtection();
+});
 
-        $this
-            ->post('test', [$nameField => '', $validFromField => $validFrom])
-            ->assertPassedSpamProtection();
-    }
+test('submissions that are not posted after or on valid form will not be marked as spam when timestamp check is disabled', function () {
+    config()->set('honeypot.valid_from_timestamp', false);
+    $nameField = config('honeypot.name_field_name');
+    $validFromField = config('honeypot.valid_from_field_name');
+    $validFrom = EncryptedTime::create(now());
 
-    /** @test */
-    public function submissions_that_are_posted_after_or_on_valid_from_will_not_be_marked_as_spam()
-    {
-        $nameField = config('honeypot.name_field_name');
-        $validFromField = config('honeypot.valid_from_field_name');
-        $validFrom = EncryptedTime::create(now());
+    $this
+        ->post('test', [$nameField => '', $validFromField => $validFrom])
+        ->assertPassedSpamProtection();
+});
 
-        $this
-            ->post('test', [$nameField => '', $validFromField => $validFrom])
-            ->assertPassedSpamProtection();
-    }
+test('submissions that are posted after or on valid form will not be marked as spam when timestamp check is enabled', function () {
+    config()->set('honeypot.valid_from_timestamp', true);
+    $nameField = config('honeypot.name_field_name');
+    $validFromField = config('honeypot.valid_from_field_name');
+    $validFrom = EncryptedTime::create(now());
 
-    /** @test */
-    public function submission_with_random_generated_name_for_the_honeypot_name_field_do_succeed()
-    {
-        config()->set('honeypot.randomize_name_field_name', true);
+    $this
+        ->post('test', [$nameField => '', $validFromField => $validFrom])
+        ->assertPassedSpamProtection();
+});
 
-        $nameField = config('honeypot.name_field_name');
-        $validFromField = config('honeypot.valid_from_field_name');
-        $validFrom = EncryptedTime::create(now());
+test('submissions taht are posted after or on valid form will not be marked as spam', function () {
+    $nameField = config('honeypot.name_field_name');
+    $validFromField = config('honeypot.valid_from_field_name');
+    $validFrom = EncryptedTime::create(now());
 
-        $this
-            ->post('test', [$nameField.'-'.Str::random() => null, $validFromField => $validFrom])
-            ->assertPassedSpamProtection();
-    }
+    $this
+        ->post('test', [$nameField => '', $validFromField => $validFrom])
+        ->assertPassedSpamProtection();
+});
 
-    /** @test */
-    public function submissions_that_are_posted_with_invalid_payload_will_be_marked_as_spam()
-    {
-        config()->set('honeypot.randomize_name_field_name', true);
+test('submission with random generated name for the honeypot name field do succeed', function () {
+    config()->set('honeypot.randomize_name_field_name', true);
 
-        $nameField = config('honeypot.name_field_name').Str::random();
-        $validFromField = config('honeypot.valid_from_field_name');
+    $nameField = config('honeypot.name_field_name');
+    $validFromField = config('honeypot.valid_from_field_name');
+    $validFrom = EncryptedTime::create(now());
 
-        $validFrom = 'SomeRandomString';
+    $this
+        ->post('test', [$nameField . '-' . Str::random() => null, $validFromField => $validFrom])
+        ->assertPassedSpamProtection();
+});
 
-        $this
-            ->post('test', [$nameField => '', $validFromField => $validFrom])
-            ->assertDidNotPassSpamProtection();
-    }
-}
+test('submissions that are posted with invalid payload will be marked as spam', function () {
+    config()->set('honeypot.randomize_name_field_name', true);
+
+    $nameField = config('honeypot.name_field_name') . Str::random();
+    $validFromField = config('honeypot.valid_from_field_name');
+
+    $validFrom = 'SomeRandomString';
+
+    $this
+        ->post('test', [$nameField => '', $validFromField => $validFrom])
+        ->assertDidNotPassSpamProtection();
+});

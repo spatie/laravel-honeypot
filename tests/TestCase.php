@@ -13,11 +13,11 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     protected $testNow = true;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        View::addLocation(__DIR__.'/views');
+        View::addLocation(__DIR__ . '/views');
 
         config()->set('app.key', 'base64:05V7tNPZKeo4DB3PT/Xzgw6qAKxVTAjUWWZ9YrzpBc0=');
     }
