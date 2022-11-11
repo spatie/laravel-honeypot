@@ -12,7 +12,7 @@ it('throws exception because the component is not well configured')
     ->call('submit')
     ->assertOk();
 
-test('works if honeypot is disabled')
+it('works if honeypot is disabled')
     ->tap(fn () =>  config()->set('honeypot.enabled', false))
     ->livewire(LivewireHoneypotConfiguredComponent::class)
     ->call('submit')
@@ -33,7 +33,7 @@ test('permission denied if request is spam')
     ->call('submit')
     ->assertStatus(403);;
 
-test('it works', function () {
+it('works', function () {
     TestTime::freeze('Y-m-d H:i:s', '2019-01-01 00:00:00');
 
     $component = livewire(LivewireHoneypotConfiguredComponent::class);
