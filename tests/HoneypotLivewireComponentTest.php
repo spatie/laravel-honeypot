@@ -32,7 +32,7 @@ test('permission denied if request is spam')
     ->set('extraFields.firstname', 'I am a spammer')
     ->call('submit')
     ->assertStatus(403);
-    ;
+;
 
 it('works', function () {
     TestTime::freeze('Y-m-d H:i:s', '2019-01-01 00:00:00');
