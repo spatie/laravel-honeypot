@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Foundation\Testing\Concerns\InteractsWithViews;
-use Spatie\TestTime\TestTime;
-
 use function Spatie\Snapshots\assertMatchesSnapshot;
+
+use Spatie\TestTime\TestTime;
 
 uses(InteractsWithViews::class);
 

@@ -1,10 +1,10 @@
 <?php
 
+use function Pest\Livewire\livewire;
 use Spatie\Honeypot\Tests\TestComponents\LivewireHoneypotComponent;
 use Spatie\Honeypot\Tests\TestComponents\LivewireHoneypotConfiguredComponent;
-use Spatie\TestTime\TestTime;
 
-use function Pest\Livewire\livewire;
+use Spatie\TestTime\TestTime;
 
 it('throws exception because the component is not well configured')
     ->throws(Exception::class, "Livewire component requires a `HoneypotData` property.")
@@ -12,8 +12,16 @@ it('throws exception because the component is not well configured')
     ->call('submit')
     ->assertOk();
 
+<<<<<<< HEAD
 it('works if honeypot is disabled')
     ->tap(fn () =>  config()->set('honeypot.enabled', false))
+||||||| ee029a5
+test('works if honeypot is disabled')
+    ->tap(fn () =>  config()->set('honeypot.enabled', false))
+=======
+test('works if honeypot is disabled')
+    ->tap(fn () => config()->set('honeypot.enabled', false))
+>>>>>>> 42b8d3cfc6d6a0e91bedb3d9f4552c799eab4bd6
     ->livewire(LivewireHoneypotConfiguredComponent::class)
     ->call('submit')
     ->assertOk();
@@ -31,7 +39,8 @@ test('permission denied if request is spam')
     ->livewire(LivewireHoneypotConfiguredComponent::class)
     ->set('extraFields.firstname', 'I am a spammer')
     ->call('submit')
-    ->assertStatus(403);;
+    ->assertStatus(403);
+    ;
 
 it('works', function () {
     TestTime::freeze('Y-m-d H:i:s', '2019-01-01 00:00:00');

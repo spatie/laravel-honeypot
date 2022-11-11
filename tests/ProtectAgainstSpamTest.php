@@ -3,11 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\Testing\TestResponse;
+use function PHPUnit\Framework\assertEquals;
 use Spatie\Honeypot\EncryptedTime;
 use Spatie\Honeypot\ProtectAgainstSpam;
-use Spatie\TestTime\TestTime;
 
-use function PHPUnit\Framework\assertEquals;
+use Spatie\TestTime\TestTime;
 
 beforeEach(function () {
     TestTime::freeze('Y-m-d H:i:s', '2019-01-01 00:00:00');
