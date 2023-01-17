@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.3.2 - 2023-01-17
+
+### What's Changed
+
+- PHP 8.2 Build by @erikn69 in https://github.com/spatie/laravel-honeypot/pull/112
+- Refactor tests to Pest by @alexmanase in https://github.com/spatie/laravel-honeypot/pull/113
+- Laravel 10.x Support by @erikn69 in https://github.com/spatie/laravel-honeypot/pull/115
+
+### New Contributors
+
+- @erikn69 made their first contribution in https://github.com/spatie/laravel-honeypot/pull/112
+- @alexmanase made their first contribution in https://github.com/spatie/laravel-honeypot/pull/113
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.3.1...4.3.2
+
 ## 4.3.1 - 2022-08-03
 
 ### What's Changed
