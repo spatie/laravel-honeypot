@@ -212,27 +212,43 @@ data() {
     }
 }
 ```
+### Usage in Inertia with Axios and Vue
 
-### Usage in Inertia with Axios/Fetch
+At times, you just want to pop up a partial modal inside a main inertia page to send some content via an API route.
 
-At times, you just want to pop up a modal to send some content via an API route.
+```html
+<form>
+    <!-- honeypot -->
+    <div v-if="honeypot.enabled" :name="`${honeypot.nameFieldName}_wrap`" style="display:none;">
+        <input type="text" v-model="form[honeypot.nameFieldName]" :name="honeypot.nameFieldName" :id="honeypot.nameFieldName" />
+        <input type="text" v-model="form[honeypot.validFromFieldName]" :name="honeypot.validFromFieldName" />
+    </div>
+    <!-- contact-me  -->
+    <input type="text" v-model="form.subject" name="subject" id="subject" />
+    <input type="email" v-model="form.email" name="email" id="email" />
+    <textarea v-model="form.message" id="message" name="message" rows="5" cols="10">
+</form>
+```
 
 ```javascript
-data() {
-    return {
-        form: {
-            name: '',
-            email: '',
-            message: '',
-            [this.honeypot.nameFieldName]: '', // this must be empty
-            [this.honeypot.validFromFieldName]: this.honeypot.encryptedValidFrom,
-        }
+export default {
+    data() {
+        return {
+            honeypot: this.$page.props.honeypot, // assuming `honeypot` object is in main inertia page
+            form: {
+                subject: '',
+                email: '',
+                message: '',
+                [this.honeypot.nameFieldName]: '', // this must be empty
+                [this.honeypot.validFromFieldName]: this.honeypot.encryptedValidFrom,
+            }
+        },
     },
     methods: {
         submit() {
             axios.post('/api/v1/contact-me', this.form)
-                 .then(() => console.log('success!'))
-                 .catch(() => console.log('error!'));
+                .then(() => console.log('success!'))
+                .catch(() => console.log('error!'));
         }
     },
 }
