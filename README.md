@@ -217,7 +217,7 @@ data() {
 At times, you just want to pop up a partial modal inside a main inertia page to send some content via an API route.
 
 ```html
-<form>
+<form @submit.prevent="submit()">
     <!-- honeypot -->
     <div v-if="honeypot.enabled" :name="`${honeypot.nameFieldName}_wrap`" style="display:none;">
         <input type="text" v-model="form[honeypot.nameFieldName]" :name="honeypot.nameFieldName" :id="honeypot.nameFieldName" />
@@ -227,6 +227,7 @@ At times, you just want to pop up a partial modal inside a main inertia page to 
     <input type="text" v-model="form.subject" name="subject" id="subject" />
     <input type="email" v-model="form.email" name="email" id="email" />
     <textarea v-model="form.message" id="message" name="message" rows="5" cols="10">
+    <button type="submit">Submit</button>
 </form>
 ```
 
