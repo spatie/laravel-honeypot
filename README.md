@@ -10,7 +10,7 @@
 
 When adding a form to a public site, there's a risk that spam bots will try to submit it with fake values. Luckily, the majority of these bots are pretty dumb. You can thwart most of them by adding an invisible field to your form that should never contain a value when submitted. Such a field is called a honeypot. These spam bots will just fill all fields, including the honeypot.
 
-When a submission comes in with a filled honeypot field, this package will discard that request. 
+When a submission comes in with a filled honeypot field, this package will discard that request.
 On top of that this package also checks how long it took to submit the form. This is done using a timestamp in another invisible field. If the form was submitted in a ridiculously short time, the anti spam will also be triggered.
 
 After installing this package, all you need to do is to add the `x-honeypot` Blade component to your form.
@@ -75,7 +75,7 @@ return [
      * form is submitted faster than this amount of seconds
      */
     'valid_from_timestamp' => env('HONEYPOT_VALID_FROM_TIMESTAMP', true),
-    
+
     /*
      * This field contains the name of a form field that will be used to verify
      * if the form wasn't submitted too quickly. Make sure this name does not
@@ -120,7 +120,7 @@ return [
     'enabled' => env('HONEYPOT_ENABLED', true),
 ];
 ```
-  
+
 ## Usage
 
 First, you must add the `x-honeypot` Blade component to any form you wish to protect.
@@ -173,13 +173,13 @@ protected $middleware = [
 ];
 ```
 
-### Usage in Inertia 
+### Usage in Inertia
 
 When using Inertia you must manually pass the values used in the honeypot fields. Here's an example:
 
 ```php
 // in a controller
-public function create(\Spatie\Honeypot\Honeypot $honeypot) 
+public function create(\Spatie\Honeypot\Honeypot $honeypot)
 {
     return inertia('contactform.show', [
         'honeypot' => $honeypot,
@@ -213,6 +213,31 @@ data() {
 }
 ```
 
+### Usage in Inertia with Axios/Fetch
+
+At times, you just want to pop up a modal to send some content via an API route.
+
+```javascript
+data() {
+    return {
+        form: {
+            name: '',
+            email: '',
+            message: '',
+            [this.honeypot.nameFieldName]: '', // this must be empty
+            [this.honeypot.validFromFieldName]: this.honeypot.encryptedValidFrom,
+        }
+    },
+    methods: {
+        submit() {
+            axios.post('/api/v1/contact-me', this.form)
+                 .then(() => console.log('success!'))
+                 .catch(() => console.log('error!'));
+        }
+    },
+}
+```
+
 ### Usage in Livewire
 
 You can use this package to prevent spam submission to forms powered by Livewire.
@@ -235,19 +260,19 @@ use Spatie\Honeypot\Http\Livewire\Concerns\HoneypotData;
 class YourComponent extends Component
 {
     // ...
-    
+
     public HoneypotData $extraFields;
-    
+
     public function mount()
     {
         $this->extraFields = new HoneypotData();
     }
- 
-   
-    public function submit(): void 
+
+
+    public function submit(): void
     {
         $this->protectAgainstSpam(); // if is spam, will abort the request
-    
+
         User::create($request->all());
     }
 }
@@ -264,7 +289,7 @@ Finally, use the `x-honeypot` in your Livewire Blade component:
 
 ### Disabling in testing
 
-By default, any protected form that is submitted in faster than 1 second will be marked as spammy. When running end to end tests, which should run as fast as possible, you probably don't want this. 
+By default, any protected form that is submitted in faster than 1 second will be marked as spammy. When running end to end tests, which should run as fast as possible, you probably don't want this.
 
 To disable all honeypots in code, you can set the `enabled` config value to `false`.
 
@@ -334,7 +359,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Alternatives
 
-If you need stronger spam protection, consider using [Google ReCaptcha](https://m.dotdev.co/google-recaptcha-integration-with-laravel-ad0f30b52d7d) or [Akismet](https://github.com/nickurt/laravel-akismet). 
+If you need stronger spam protection, consider using [Google ReCaptcha](https://m.dotdev.co/google-recaptcha-integration-with-laravel-ad0f30b52d7d) or [Akismet](https://github.com/nickurt/laravel-akismet).
 
 ## Contributing
 
