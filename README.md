@@ -103,7 +103,7 @@ return [
      * rules for a request. By default uses `request()`.
      *
      * It throws the `Spatie\Honeypot\ExceptionsSpamException` if the
-     * request is flagged as spam, or returns void if it succeded.
+     * request is flagged as spam, or returns void if it succeeds.
      */
     'spam_protection' => \Spatie\Honeypot\SpamProtection::class,
 
