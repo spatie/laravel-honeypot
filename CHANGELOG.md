@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.3.3 - 2023-07-17
+
+### What's Changed
+
+- Fix badges by @erikn69 in https://github.com/spatie/laravel-honeypot/pull/116
+- fix typo by @conlacda in https://github.com/spatie/laravel-honeypot/pull/118
+- Fixes not dispatching SpamDetectedEvent in Livewire by @fsamapoor in https://github.com/spatie/laravel-honeypot/pull/120
+
+### New Contributors
+
+- @conlacda made their first contribution in https://github.com/spatie/laravel-honeypot/pull/118
+- @fsamapoor made their first contribution in https://github.com/spatie/laravel-honeypot/pull/120
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.3.2...4.3.3
+
 ## 4.3.2 - 2023-01-17
 
 ### What's Changed
