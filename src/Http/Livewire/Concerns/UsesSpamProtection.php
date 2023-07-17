@@ -4,6 +4,7 @@ namespace Spatie\Honeypot\Http\Livewire\Concerns;
 
 use Livewire\Component;
 use ReflectionProperty;
+use Spatie\Honeypot\Events\SpamDetectedEvent;
 use Spatie\Honeypot\Exceptions\SpamException;
 use Spatie\Honeypot\SpamProtection;
 
@@ -35,6 +36,8 @@ trait UsesSpamProtection
         try {
             app(SpamProtection::class)->check($honeypotData->toArray());
         } catch (SpamException) {
+            event(new SpamDetectedEvent(request()));
+
             abort(403, 'Spam detected.');
         }
     }
