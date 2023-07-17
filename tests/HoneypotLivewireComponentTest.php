@@ -1,7 +1,7 @@
 <?php
 
-use function Pest\Livewire\livewire;
 use Illuminate\Support\Facades\Event;
+use function Pest\Livewire\livewire;
 use Spatie\Honeypot\Events\SpamDetectedEvent;
 use Spatie\Honeypot\Tests\TestComponents\LivewireHoneypotComponent;
 use Spatie\Honeypot\Tests\TestComponents\LivewireHoneypotConfiguredComponent;
