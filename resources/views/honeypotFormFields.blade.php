@@ -11,7 +11,7 @@
                type="text"
                value="{{ $encryptedValidFrom }}"
                @if ($livewireModel ?? false) wire:model.defer="{{ $livewireModel }}.{{ $validFromFieldName }}" @endif
-               autocomplete="nope"
+               autocomplete="off"
                tabindex="-1">
     </div>
 @endif
