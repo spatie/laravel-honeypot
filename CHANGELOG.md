@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.3.4 - 2023-07-19
+
+Fix `autocomplete` attribute value
+
 ## 4.3.3 - 2023-07-17
 
 ### What's Changed
