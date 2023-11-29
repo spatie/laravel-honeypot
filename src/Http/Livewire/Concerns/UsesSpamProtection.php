@@ -33,7 +33,7 @@ trait UsesSpamProtection
 
     protected function getHoneypotDataProperty(): ?string
     {
-        //
+        return null;
     }
 
     protected function protectAgainstSpam(): void
