@@ -278,7 +278,7 @@ mount(function () {
     $this->extraFields = new HoneypotData();
 });
 
-$getHoneypotDataProperty = function () => $this->extraFields;
+$getHoneypotDataProperty = fn () => $this->extraFields;
 
 $submit = function () {
     $this->protectAgainstSpam(); // if is spam, will abort the request
