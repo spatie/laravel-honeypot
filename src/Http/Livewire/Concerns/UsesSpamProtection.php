@@ -13,7 +13,7 @@ trait UsesSpamProtection
 {
     public function guessHoneypotDataProperty(): ?HoneypotData
     {
-        $property = $this->getHoneyPotDataProperty();
+        $property = $this->getHoneypotDataProperty();
 
         if ($property) {
             return $this->$property;
@@ -31,7 +31,7 @@ trait UsesSpamProtection
         return null;
     }
 
-    protected function getHoneyPotDataProperty(): ?string
+    protected function getHoneypotDataProperty(): ?string
     {
         //
     }
