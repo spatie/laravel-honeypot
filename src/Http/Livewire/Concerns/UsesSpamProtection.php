@@ -13,6 +13,12 @@ trait UsesSpamProtection
 {
     public function guessHoneypotDataProperty(): ?HoneypotData
     {
+        $property = $this->getHoneyPotDataProperty();
+
+        if ($property) {
+            return $this->$property;
+        }
+
         $props = (new \ReflectionClass($this))
             ->getProperties(ReflectionProperty::IS_PUBLIC);
 
@@ -23,6 +29,11 @@ trait UsesSpamProtection
         }
 
         return null;
+    }
+
+    protected function getHoneyPotDataProperty(): ?string
+    {
+        //
     }
 
     protected function protectAgainstSpam(): void
