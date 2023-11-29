@@ -262,6 +262,27 @@ Finally, use the `x-honeypot` in your Livewire Blade component:
 </form>
 ```
 
+To use this package in Volt functional syntax, just return the HoneypotData field from the `guessHoneypotDataProperty` method of the `UsesSpamProtection` trait.
+
+```php
+state([
+    // ...
+    'extraFields' => null,
+]);
+
+mount(function () {
+    $this->extraFields = new HoneypotData();
+});
+
+$getHoneypotDataProperty = function () => $this->extraFields;
+
+$submit = function () {
+    $this->protectAgainstSpam(); // if is spam, will abort the request
+    
+    User::create($request->all());
+};
+```
+
 ### Disabling in testing
 
 By default, any protected form that is submitted in faster than 1 second will be marked as spammy. When running end to end tests, which should run as fast as possible, you probably don't want this. 
