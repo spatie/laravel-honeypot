@@ -264,7 +264,7 @@ Finally, use the `x-honeypot` in your Livewire Blade component:
 
 #### Usage in Volt functional syntax
 
-To use this package in Volt functional syntax, just return the HoneypotData property from the `guessHoneypotDataProperty` method of the `UsesSpamProtection` trait.
+To use this package in Volt functional syntax, just return the HoneypotData property from the `guessHoneypotDataProperty` method.
 
 ```php
 uses(UsesSpamProtection::class);
@@ -278,7 +278,7 @@ mount(function () {
     $this->extraFields = new HoneypotData();
 });
 
-$getHoneypotDataProperty = fn () => $this->extraFields;
+$guessHoneypotDataProperty = fn () => $this->extraFields;
 
 $submit = function () {
     $this->protectAgainstSpam(); // if is spam, will abort the request
