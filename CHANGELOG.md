@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.4.0 - 2023-12-01
+
+### What's Changed
+
+* GitHub Actions V4 by @erikn69 in https://github.com/spatie/laravel-honeypot/pull/123
+* Add instructions on how to use with Volt functional syntax by @jcsoriano in https://github.com/spatie/laravel-honeypot/pull/125
+
+### New Contributors
+
+* @jcsoriano made their first contribution in https://github.com/spatie/laravel-honeypot/pull/125
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.3.4...4.4.0
+
 ## 4.3.4 - 2023-07-19
 
 Fix `autocomplete` attribute value
