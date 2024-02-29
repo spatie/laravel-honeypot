@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.5.0 - 2024-02-29
+
+### What's Changed
+
+* Laravel 11.x Support by @erikn69 in https://github.com/spatie/laravel-honeypot/pull/126
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.4.0...4.5.0
+
 ## 4.4.0 - 2023-12-01
 
 ### What's Changed
