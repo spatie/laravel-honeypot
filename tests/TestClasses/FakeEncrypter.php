@@ -21,4 +21,14 @@ class FakeEncrypter implements Encrypter
     {
         return 1;
     }
+
+    public function getAllKeys()
+    {
+        return [];
+    }
+
+    public function getPreviousKeys()
+    {
+        return [];
+    }
 }
