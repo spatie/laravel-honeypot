@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.5.1 - 2024-03-14
+
+### What's Changed
+
+* Added Carbon 3 to the requirements by @poldixd in https://github.com/spatie/laravel-honeypot/pull/127
+
+### New Contributors
+
+* @poldixd made their first contribution in https://github.com/spatie/laravel-honeypot/pull/127
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.5.0...4.5.1
+
 ## 4.5.0 - 2024-02-29
 
 ### What's Changed
