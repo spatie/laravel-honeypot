@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.5.2 - 2024-04-15
+
+### What's Changed
+
+* Fix Carbon 3 rawAddUnit type by @clementmas in https://github.com/spatie/laravel-honeypot/pull/131
+
+### New Contributors
+
+* @clementmas made their first contribution in https://github.com/spatie/laravel-honeypot/pull/131
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.5.1...4.5.2
+
 ## 4.5.1 - 2024-03-14
 
 ### What's Changed
