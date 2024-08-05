@@ -264,6 +264,11 @@ Finally, use the `x-honeypot` in your Livewire Blade component:
 To use this package in Volt functional syntax, return the `HoneypotData` property from the `guessHoneypotDataProperty` method.
 
 ```php
+use App\Models\User;
+use Spatie\Honeypot\Http\Livewire\Concerns\HoneypotData;
+use Spatie\Honeypot\Http\Livewire\Concerns\UsesSpamProtection;
+use function Livewire\Volt\{uses, state, mount};
+
 uses(UsesSpamProtection::class);
 
 state([
