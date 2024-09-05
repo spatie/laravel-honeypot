@@ -3,8 +3,6 @@
 namespace Spatie\Honeypot;
 
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\View;
 use Illuminate\View\Compilers\BladeCompiler;
 use Spatie\Honeypot\SpamResponder\SpamResponder;
 use Spatie\Honeypot\View\HoneypotComponent;
