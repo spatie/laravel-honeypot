@@ -2,8 +2,8 @@
 
 namespace Spatie\Honeypot;
 
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\View;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\Compilers\BladeCompiler;
 use Spatie\Honeypot\SpamResponder\SpamResponder;
 use Spatie\Honeypot\View\HoneypotComponent;
 use Spatie\Honeypot\View\HoneypotViewComposer;
@@ -38,14 +38,15 @@ class HoneypotServiceProvider extends PackageServiceProvider
         return $this;
     }
 
-    protected function registerBladeClasses(): self
+    protected function registerBladeClasses(): void
     {
-        View::composer('honeypot::honeypotFormFields', HoneypotViewComposer::class);
-        Blade::component('honeypot', HoneypotComponent::class);
-        Blade::directive('honeypot', function () {
-            return "<?php echo view('honeypot::honeypotFormFields'); ?>";
+        $this->callAfterResolving('view', static function (Factory $view) {
+            $view->composer('honeypot::honeypotFormFields', HoneypotViewComposer::class);
         });
 
-        return $this;
+        $this->callAfterResolving('blade.compiler', static function (BladeCompiler $blade) {
+            $blade->component('honeypot', HoneypotComponent::class);
+            $blade->directive('honeypot', static fn () => "<?php echo view('honeypot::honeypotFormFields'); ?>");
+        });
     }
 }
