@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.5.3 - 2024-09-20
+
+### What's Changed
+
+* Corrected publishing tag by @LiamMcArthur in https://github.com/spatie/laravel-honeypot/pull/132
+* Add volt imports to README.md in https://github.com/spatie/laravel-honeypot/pull/135
+* Register components lazily by @mabdullahsari in https://github.com/spatie/laravel-honeypot/pull/136
+
+### New Contributors
+
+* @LiamMcArthur made their first contribution in https://github.com/spatie/laravel-honeypot/pull/132
+* @mabdullahsari made their first contribution in https://github.com/spatie/laravel-honeypot/pull/136
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.5.2...4.5.3
+
 ## 4.5.2 - 2024-04-15
 
 ### What's Changed
