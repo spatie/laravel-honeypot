@@ -209,6 +209,107 @@ data() {
     }
 }
 ```
+### Usage with Jetstream (Vue/Inertia)
+
+To make things work follow this steps:
+
+1. Add `\Spatie\Honeypot\ProtectAgainstSpam::class` to `bootstrap/app.php` in `->withMiddleware` block. For example:
+
+```php
+        $middleware->web(append: [
+            \App\Http\Middleware\HandleInertiaRequests::class,
+            \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
+
+            // will silenty reload Login page
+            \Spatie\Honeypot\ProtectAgainstSpam::class,    // <- this
+        ]);
+```
+
+or
+
+```php
+        $middleware->web(append: [
+            \App\Http\Middleware\HandleInertiaRequests::class,
+            \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
+        ]);
+
+        // will show blank responce page in iframe inside modal
+        $middleware->append(\Spatie\Honeypot\ProtectAgainstSpam::class);
+```
+
+2. Add `honeypot` variable to share block of `app/Http/Middleware/HandleInertiaRequests.php` middleware. For example:
+
+```php
+    public function share(Request $request): array
+    {
+        return array_merge(parent::share($request), [
+            // read more here https://laravel.com/docs/11.x/authorization#authorization-and-inertia
+            'honeypot' => new \Spatie\Honeypot\Honeypot(config('honeypot'))
+        ]);
+    }
+```
+
+3. Add honeypot elements to `Pages` you want. For example `resourses/js/Pages/Auth/Login.vue` like this:
+
+Redefine props like this:
+
+```javascript
+const props = defineProps({
+    canResetPassword: Boolean,
+    status: String,
+    honeypot: Object,
+});
+```
+
+Redefine `form` like this:
+
+```javascript
+const form = useForm({
+    email: '',
+    password: '',
+    remember: false,
+    [props.honeypot.nameFieldName]: '',
+    [props.honeypot.validFromFieldName]: props.honeypot.encryptedValidFrom,
+});
+```
+
+And add html to `template`, like this:
+
+```html
+<div v-if="honeypot.enabled" :name="`${honeypot.nameFieldName}_wrap`" style="display: none;">
+    <input type="text" v-model="form[honeypot.nameFieldName]" :name="honeypot.nameFieldName" :id="honeypot.nameFieldName" />
+    <input type="text" v-model="form[honeypot.validFromFieldName]" :name="honeypot.validFromFieldName" />
+</div>
+```
+
+In `Register.vue` changes will be:
+
+```javascript
+const props = defineProps({
+    honeypot: Object,
+});
+
+const form = useForm({
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
+    terms: false,
+    [props.honeypot.nameFieldName]: '',
+    [props.honeypot.validFromFieldName]: props.honeypot.encryptedValidFrom,
+});
+```
+
+and 
+
+```html
+<div v-if="honeypot.enabled" :name="`${honeypot.nameFieldName}_wrap`" style="display: none;">
+    <input type="text" v-model="form[honeypot.nameFieldName]" :name="honeypot.nameFieldName" :id="honeypot.nameFieldName" />
+    <input type="text" v-model="form[honeypot.validFromFieldName]" :name="honeypot.validFromFieldName" />
+</div>
+```
+
+That's all.
 
 ### Usage in Livewire
 
