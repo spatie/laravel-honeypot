@@ -14,11 +14,12 @@ it('throws exception because the component is not well configured')
     ->call('submit')
     ->assertOk();
 
-it('works if honeypot is disabled')
-    ->tap(fn () => config()->set('honeypot.enabled', false))
-    ->livewire(LivewireHoneypotConfiguredComponent::class)
-    ->call('submit')
-    ->assertOk();
+it('works if honeypot is disabled', function () {
+    config()->set('honeypot.enabled', false);
+    $this->livewire(LivewireHoneypotConfiguredComponent::class)
+        ->call('submit')
+        ->assertOk();
+});
 
 test('permission denied if request is done too early', function () {
     Event::fake();
