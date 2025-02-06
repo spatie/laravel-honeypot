@@ -35,27 +35,31 @@ beforeEach(function () {
     })->middleware(ProtectAgainstSpam::class);
 });
 
-test('requests that not use the honeypot fields succeed without random name')
-    ->tap(fn () => config()->set('honeypot.randomize_name_field_name', false))
-    ->post('test')
-    ->assertPassedSpamProtection();
+test('requests that not use the honeypot fields succeed without random name', function () {
+    config()->set('honeypot.randomize_name_field_name', false);
+    $this->post('test')
+        ->assertPassedSpamProtection();
+});
 
-test('requests that do not use the honeypot fields succeed with random name')
-    ->tap(fn () => config()->set('honeypot.randomize_name_field_name', true))
-    ->post('test')
-    ->assertPassedSpamProtection();
+test('requests that do not use the honeypot fields succeed with random name', function () {
+    config()->set('honeypot.randomize_name_field_name', true);
+    $this->post('test')
+        ->assertPassedSpamProtection();
+});
 
-test('requests that do not use the honeypot fields do not succeed without random name when missing fields enabled')
-    ->tap(fn () => config()->set('honeypot.randomize_name_field_name', false))
-    ->tap(fn () => config()->set('honeypot.honeypot_fields_required_for_all_forms', true))
-    ->post('test')
-    ->assertDidNotPassSpamProtection();
+test('requests that do not use the honeypot fields do not succeed without random name when missing fields enabled', function () {
+    config()->set('honeypot.randomize_name_field_name', false);
+    config()->set('honeypot.honeypot_fields_required_for_all_forms', true);
+    $this->post('test')
+        ->assertDidNotPassSpamProtection();
+});
 
-test('requests that do not use the honeypot fields do not succeed with random name when missing fields enabled')
-    ->tap(fn () => config()->set('honeypot.randomize_name_field_name', true))
-    ->tap(fn () => config()->set('honeypot.honeypot_fields_required_for_all_forms', true))
-    ->post('test')
-    ->assertDidNotPassSpamProtection();
+test('requests that do not use the honeypot fields do not succeed with random name when missing fields enabled', function () {
+    config()->set('honeypot.randomize_name_field_name', true);
+    config()->set('honeypot.honeypot_fields_required_for_all_forms', true);
+    $this->post('test')
+        ->assertDidNotPassSpamProtection();
+});
 
 test('requests that post an empty value for the honeypot name field do succeed', function () {
     $nameField = config('honeypot.name_field_name');

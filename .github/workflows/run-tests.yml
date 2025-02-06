@@ -10,9 +10,11 @@ jobs:
             matrix:
                 os: [ubuntu-latest]
                 php: [8.4, 8.3, 8.2, 8.1, 8.0]
-                laravel: [11.*, 10.*, 9.*, 8.*]
+                laravel: [12.*, 11.*, 10.*, 9.*, 8.*]
                 dependency-version: [prefer-lowest, prefer-stable]
                 include:
+                    -   laravel: 12.*
+                        testbench: 10.*
                     -   laravel: 11.*
                         testbench: 9.*
                     -   laravel: 10.*
@@ -22,6 +24,10 @@ jobs:
                     -   laravel: 8.*
                         testbench: ^6.23
                 exclude:
+                    -   laravel: 12.*
+                        php: 8.1
+                    -   laravel: 12.*
+                        php: 8.0
                     -   laravel: 11.*
                         php: 8.1
                     -   laravel: 11.*
@@ -50,7 +56,7 @@ jobs:
 
             -   name: Install dependencies
                 run: |
-                    composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nesbot/carbon:>=2.62.1" --no-interaction --no-update
+                    composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nesbot/carbon:>=2.72.6" --no-interaction --no-update
                     composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
             -   name: Execute tests

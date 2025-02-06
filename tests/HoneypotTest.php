@@ -10,18 +10,18 @@ test('honeypot setup returns enabled true if true in config', function () {
     expect(app(Honeypot::class)->toArray()['enabled'])->toBeTrue();
 });
 
-test('honeypot setup returns enabled false if false is in config')
-    ->tap(fn () => config()->set('honeypot.enabled', false))
-    ->expect(fn () => app(Honeypot::class)->toArray()['enabled'])
-    ->toBeFalse();
+test('honeypot setup returns enabled false if false is in config', function () {
+    config()->set('honeypot.enabled', false);
+    expect(app(Honeypot::class)->toArray()['enabled'])
+        ->toBeFalse();
+});
 
-test('honeypot setup returns correct `name_field_name` when randomize name field name is `false`')
-    ->tap(function () {
-        config()->set('honeypot.name_field_name', 'test_field');
-        config()->set('honeypot.randomize_name_field_name', false);
-    })
-    ->expect(fn () => app(Honeypot::class)->toArray()['nameFieldName'])
-    ->toEqual('test_field');
+test('honeypot setup returns correct `name_field_name` when randomize name field name is `false`', function () {
+    config()->set('honeypot.name_field_name', 'test_field');
+    config()->set('honeypot.randomize_name_field_name', false);
+    expect(app(Honeypot::class)->toArray()['nameFieldName'])
+        ->toEqual('test_field');
+});
 
 test(
     'honeypot setup returns correct `name_field_name` when randomize name field name is `true`',
