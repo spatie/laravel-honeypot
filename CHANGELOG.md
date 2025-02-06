@@ -2,6 +2,22 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.5.4 - 2025-02-06
+
+### What's Changed
+
+* PHP 8.3, 8.4 Tests by @erikn69 in https://github.com/spatie/laravel-honeypot/pull/139
+* Update README.md by @JamesNock in https://github.com/spatie/laravel-honeypot/pull/138
+* Readme updated with JetStream by @nixprosoft in https://github.com/spatie/laravel-honeypot/pull/141
+* Laravel 12 Support by @erikn69 in https://github.com/spatie/laravel-honeypot/pull/143
+
+### New Contributors
+
+* @JamesNock made their first contribution in https://github.com/spatie/laravel-honeypot/pull/138
+* @nixprosoft made their first contribution in https://github.com/spatie/laravel-honeypot/pull/141
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.5.3...4.5.4
+
 ## 4.5.3 - 2024-09-20
 
 ### What's Changed
