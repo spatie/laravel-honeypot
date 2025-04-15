@@ -55,12 +55,17 @@ class Honeypot implements Arrayable
         return EncryptedTime::create($this->validFrom());
     }
 
+    public function withCsp(): string
+    {
+        return $this->config['with_csp'];
+    }
     #[ArrayShape([
         'enabled' => "bool",
         'nameFieldName' => "string",
         'unrandomizedNameFieldName' => "string",
         'validFromFieldName' => "string",
         'encryptedValidFrom' => "string",
+        'withCsp' => "bool",
     ])]
     public function toArray(): array
     {
@@ -70,6 +75,7 @@ class Honeypot implements Arrayable
             'unrandomizedNameFieldName' => $this->unrandomizedNameFieldName(),
             'validFromFieldName' => $this->validFromFieldName(),
             'encryptedValidFrom' => $this->encryptedValidFrom(),
+            'withCsp' => $this->withCsp(),
         ];
     }
 }
