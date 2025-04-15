@@ -1,9 +1,19 @@
-# Preventing spam submitted through forms
+<div align="left">
+    <a href="https://spatie.be/open-source?utm_source=github&utm_medium=banner&utm_campaign=laravel-honeypot">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="https://spatie.be/packages/header/laravel-honeypot/html/dark.webp">
+        <img alt="Logo for laravel-honeypot" src=" https://spatie.be/packages/header/laravel-honeypot/html/light.webp" height="190">
+      </picture>
+    </a>
+
+<h1>Preventing spam submitted through forms</h1>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-honeypot.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-honeypot)
 ![Test Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-honeypot/run-tests.yml?branch=main&label=Tests)
 ![Code Style Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-honeypot/php-cs-fixer.yml?branch=main&label=Code%20Style)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-honeypot.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-honeypot)
+    
+</div>
 
 When adding a form to a public site, there's a risk that spam bots will try to submit it with fake values. Luckily, the majority of these bots are pretty dumb. You can thwart most of them by adding an invisible field to your form that should never contain a value when submitted. Such a field is called a honeypot. These spam bots will just fill all fields, including the honeypot.
 
