@@ -13,7 +13,7 @@ class HoneypotViewComposer
 
         $view
             ->with('enabled', $setup->enabled())
-            ->with('with_csp', $setup->withCsp())
+            ->with('withCsp', $setup->withCsp())
             ->with('nameFieldName', $setup->nameFieldName())
             ->with('validFromFieldName', $setup->validFromFieldName())
             ->with('encryptedValidFrom', $setup->encryptedValidFrom());
