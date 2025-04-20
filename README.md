@@ -364,6 +364,10 @@ Finally, use the `x-honeypot` in your Livewire Blade component:
     <input name="myField" type="text">
 </form>
 ```
+#### Usage in Volt functional syntax
+
+You can enable this feature to synchronize with csp by enabling config with_csp .
+Of course, you need to first install the package https://github.com/spatie/laravel-csp to manage csp additionally.
 
 #### Usage in Volt functional syntax
 
