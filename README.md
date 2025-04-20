@@ -115,6 +115,11 @@ return [
      * This switch determines if the honeypot protection should be activated.
      */
     'enabled' => env('HONEYPOT_ENABLED', true),
+
+    /*
+     * need to add @csp https://github.com/spatie/laravel-csp in style tag hidden items 
+    */
+    'with_csp' => env('HONEYPOT_WITH_CSP', true),
 ];
 ```
   
