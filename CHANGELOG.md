@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.6.0 - 2025-04-24
+
+### What's Changed
+
+* add with_csp config by @vahidalvandi in https://github.com/spatie/laravel-honeypot/pull/147
+
+### New Contributors
+
+* @vahidalvandi made their first contribution in https://github.com/spatie/laravel-honeypot/pull/147
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.5.4...4.6.0
+
 ## 4.5.4 - 2025-02-06
 
 ### What's Changed
