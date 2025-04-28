@@ -45,19 +45,9 @@ class EncryptedTime
 
     protected function isValidTimeStamp(string $timestamp): bool
     {
-        if ((string) (int) $timestamp !== $timestamp) {
-            return false;
-        }
-
-        if ($timestamp <= 0) {
-            return false;
-        }
-
-        if ($timestamp >= PHP_INT_MAX) {
-            return false;
-        }
-
-        return true;
+        return (string) (int) $timestamp === $timestamp
+            && $timestamp > 0
+            && $timestamp < PHP_INT_MAX;
     }
 
     public function __toString()
