@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.6.1 - 2025-05-05
+
+### What's Changed
+
+* same chage in withCsp by @vahidalvandi in https://github.com/spatie/laravel-honeypot/pull/149
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.6.0...4.6.1
+
 ## 4.6.0 - 2025-04-24
 
 ### What's Changed
