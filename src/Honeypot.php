@@ -55,10 +55,11 @@ class Honeypot implements Arrayable
         return EncryptedTime::create($this->validFrom());
     }
 
-    public function withCsp(): string
+    public function withCsp(): bool
     {
         return $this->config['with_csp'];
     }
+    
     #[ArrayShape([
         'enabled' => "bool",
         'nameFieldName' => "string",
