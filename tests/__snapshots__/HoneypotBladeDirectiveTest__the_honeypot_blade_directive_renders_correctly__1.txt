@@ -1,5 +1,5 @@
 <form method="POST">
-    <div id="my_name_wrap" style="display: none" aria-hidden="true">
+    <div id="my_name_wrap"  style="display: none" aria-hidden="true">
         <input id="my_name"
                name="my_name"
                type="text"
@@ -8,8 +8,8 @@
                tabindex="-1">
         <input name="valid_from"
                type="text"
-               value="1546300803-encrypted"
-                              autocomplete="nope"
+               value="1546300801-encrypted"
+                              autocomplete="off"
                tabindex="-1">
     </div>
     <input name="myField" type="text">
