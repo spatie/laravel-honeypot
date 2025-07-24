@@ -6,12 +6,12 @@
                value=""
                @if ($livewireModel ?? false) wire:model.defer="{{ $livewireModel }}.{{ $unrandomizedNameFieldName }}" @endif
                autocomplete="nope"
-               tabindex="-1">
+               aria-hidden="true">
         <input name="{{ $validFromFieldName }}"
                type="text"
                value="{{ $encryptedValidFrom }}"
                @if ($livewireModel ?? false) wire:model.defer="{{ $livewireModel }}.{{ $validFromFieldName }}" @endif
                autocomplete="off"
-               tabindex="-1">
+               aria-hidden="true">
     </div>
 @endif
