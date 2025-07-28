@@ -3,15 +3,17 @@
         <input id="{{ $nameFieldName }}"
                name="{{ $nameFieldName }}"
                type="text"
+               aria-label="Hidden field"
                value=""
                @if ($livewireModel ?? false) wire:model.defer="{{ $livewireModel }}.{{ $unrandomizedNameFieldName }}" @endif
                autocomplete="nope"
-               aria-hidden="true">
+               tabindex="-1">
         <input name="{{ $validFromFieldName }}"
                type="text"
+               aria-label="Hidden field"
                value="{{ $encryptedValidFrom }}"
                @if ($livewireModel ?? false) wire:model.defer="{{ $livewireModel }}.{{ $validFromFieldName }}" @endif
                autocomplete="off"
-               aria-hidden="true">
+               tabindex="-1">
     </div>
 @endif
