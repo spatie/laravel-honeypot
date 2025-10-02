@@ -9,7 +9,7 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest]
-                php: [8.4, 8.3, 8.2, 8.1, 8.0]
+                php: [8.5, 8.4, 8.3, 8.2, 8.1, 8.0]
                 laravel: [12.*, 11.*, 10.*, 9.*, 8.*]
                 dependency-version: [prefer-lowest, prefer-stable]
                 include:
@@ -33,9 +33,15 @@ jobs:
                     -   laravel: 11.*
                         php: 8.0
                     -   laravel: 10.*
+                        php: 8.5
+                    -   laravel: 10.*
                         php: 8.0
                     -   laravel: 9.*
+                        php: 8.5
+                    -   laravel: 9.*
                         php: 8.4
+                    -   laravel: 8.*
+                        php: 8.5
                     -   laravel: 8.*
                         php: 8.4
                     -   laravel: 8.*
@@ -45,7 +51,7 @@ jobs:
 
         steps:
             -   name: Checkout code
-                uses: actions/checkout@v4
+                uses: actions/checkout@v5
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
