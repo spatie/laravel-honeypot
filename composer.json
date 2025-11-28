@@ -24,7 +24,7 @@
         "illuminate/validation": "^11.0|^12.0",
         "nesbot/carbon": "^2.0|^3.0",
         "spatie/laravel-package-tools": "^1.9",
-        "symfony/http-foundation": "^7.0"
+        "symfony/http-foundation": "^7.0|^8.0"
     },
     "require-dev": {
         "livewire/livewire": "^3.0",
