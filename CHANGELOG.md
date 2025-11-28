@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.6.2 - 2025-11-28
+
+### What's Changed
+
+* Update issue template by @AlexVanderbist in https://github.com/spatie/laravel-honeypot/pull/155
+* PHP 8.5 tests by @erikn69 in https://github.com/spatie/laravel-honeypot/pull/156
+* Update comment for CSP nonce requirement by @NafiurSiddiqui in https://github.com/spatie/laravel-honeypot/pull/157
+
+### New Contributors
+
+* @AlexVanderbist made their first contribution in https://github.com/spatie/laravel-honeypot/pull/155
+* @NafiurSiddiqui made their first contribution in https://github.com/spatie/laravel-honeypot/pull/157
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.6.1...4.6.2
+
 ## 4.6.1 - 2025-05-05
 
 ### What's Changed
