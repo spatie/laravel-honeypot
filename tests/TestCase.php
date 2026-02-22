@@ -4,7 +4,6 @@ namespace Spatie\Honeypot\Tests;
 
 use Illuminate\Foundation\Testing\Concerns\InteractsWithContainer;
 use Illuminate\Support\Facades\View;
-use Livewire\LivewireServiceProvider;
 use Spatie\Honeypot\HoneypotServiceProvider;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
@@ -24,9 +23,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function getPackageProviders($app)
     {
-        return [
-            LivewireServiceProvider::class,
+        $providers = [
             HoneypotServiceProvider::class,
         ];
+
+        if (class_exists(\Livewire\LivewireServiceProvider::class)) {
+            $providers[] = \Livewire\LivewireServiceProvider::class;
+        }
+
+        return $providers;
     }
 }
