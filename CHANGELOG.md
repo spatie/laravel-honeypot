@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.7.0 - 2026-02-22
+
+Add Laravel 13 support
+
 ## 4.6.2 - 2025-11-28
 
 ### What's Changed
