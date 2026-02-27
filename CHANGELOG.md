@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.7.1 - 2026-02-27
+
+Support Livewire 4
+
 ## 4.7.0 - 2026-02-22
 
 Add Laravel 13 support
