@@ -9,8 +9,8 @@
 <h1>Preventing spam submitted through forms</h1>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-honeypot.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-honeypot)
-![Test Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-honeypot/run-tests.yml?branch=main&label=Tests)
-![Code Style Status](https://img.shields.io/github/actions/workflow/status/spatie/laravel-honeypot/php-cs-fixer.yml?branch=main&label=Code%20Style)
+![Test Status](https://github.com/spatie/laravel-honeypot/actions/workflows/run-tests.yml/badge.svg)
+![Code Style Status](https://github.com/spatie/laravel-honeypot/actions/workflows/php-cs-fixer.yml/badge.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-honeypot.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-honeypot)
     
 </div>
