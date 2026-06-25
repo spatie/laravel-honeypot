@@ -79,6 +79,14 @@ test('requests that post the honeypot name field with content do not succeed', f
         ->assertDidNotPassSpamProtection();
 });
 
+test('requests that post a falsy string value for the honeypot name field do not succeed', function () {
+    $nameField = config('honeypot.name_field_name');
+
+    $this
+        ->post('test', [$nameField => '0'])
+        ->assertDidNotPassSpamProtection();
+});
+
 test('requests will always succeed when the package is not enabled', function () {
     config()->set('honeypot.enabled', false);
 
