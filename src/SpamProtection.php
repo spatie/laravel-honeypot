@@ -33,7 +33,7 @@ class SpamProtection
 
         $honeypotValue = $requestFields->get($nameFieldName);
 
-        if (! empty($honeypotValue)) {
+        if (! in_array($honeypotValue, [null, ''], true)) {
             throw new SpamException();
         }
 
