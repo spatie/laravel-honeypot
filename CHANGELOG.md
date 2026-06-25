@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.7.2 - 2026-06-25
+
+### What's Changed
+
+- Treat a `"0"` honeypot value as spam by @freekmurze in https://github.com/spatie/laravel-honeypot/pull/164
+
+A bot that filled the honeypot field with `"0"` previously passed the spam check, because `empty("0")` is `true` in PHP. Only a genuinely blank field (`null` or `""`) is now allowed through.
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.7.1...4.7.2
+
 ## 4.7.1 - 2026-02-27
 
 Support Livewire 4
