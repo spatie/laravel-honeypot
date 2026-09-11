@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-honeypot` will be documented in this file
 
+## 4.7.3 - 2026-09-11
+
+### What's Changed
+
+* docs: fix 'responce' typo in README by @brkNx in https://github.com/spatie/laravel-honeypot/pull/165
+* fix csp Nonce token  by @vahidalvandi in https://github.com/spatie/laravel-honeypot/pull/166
+
+### New Contributors
+
+* @brkNx made their first contribution in https://github.com/spatie/laravel-honeypot/pull/165
+
+**Full Changelog**: https://github.com/spatie/laravel-honeypot/compare/4.7.2...4.7.3
+
 ## 4.7.2 - 2026-06-25
 
 ### What's Changed
