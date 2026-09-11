@@ -1,5 +1,6 @@
 <form method="POST">
-    <div id="my_name_wrap"  style="display: none"  aria-hidden="true">
+    <style nonce="test-nonce">#my_name_wrap { display: none; }</style>
+        <div id="my_name_wrap"  aria-hidden="true">
         <input id="my_name"
                name="my_name"
                type="text"

@@ -1,5 +1,8 @@
 @if($enabled)
-    <div id="{{ $nameFieldName }}_wrap" @if($withCsp) @cspNonce @endif style="display: none" aria-hidden="true">
+    @if($withCsp)
+        <style @cspNonce>#{{ $nameFieldName }}_wrap { display: none; }</style>
+    @endif
+    <div id="{{ $nameFieldName }}_wrap" @unless($withCsp) style="display: none" @endunless aria-hidden="true">
         <input id="{{ $nameFieldName }}"
                name="{{ $nameFieldName }}"
                type="text"

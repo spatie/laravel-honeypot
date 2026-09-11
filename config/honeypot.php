@@ -65,7 +65,9 @@ return [
     'spam_protection' => \Spatie\Honeypot\SpamProtection::class,
 
     /*
-     * need to add @cspNonce https://github.com/spatie/laravel-csp in style tag hidden items 
-    */
+     * When enabled, the honeypot fields will be hidden using a style tag
+     * with a CSP nonce instead of an inline style attribute. This
+     * requires spatie/laravel-csp to be installed.
+     */
     'with_csp' => env('HONEYPOT_WITH_CSP', false),
 ];

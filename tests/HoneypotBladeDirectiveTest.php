@@ -31,3 +31,12 @@ test('the honeypot Blade directive renders correctly when using CarbonImmutable'
 
     DateFactory::use(DateFactory::DEFAULT_CLASS_NAME);
 });
+
+test('the honeypot Blade directive hides the fields using a style tag with a nonce when csp is enabled', function () {
+    config()->set('honeypot.with_csp', true);
+    TestTime::freeze('Y-m-d H:i:s', '2019-01-01 00:00:00');
+
+    $renderedView = view('honeypot')->render();
+
+    assertMatchesSnapshot($renderedView);
+});

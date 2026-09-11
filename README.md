@@ -127,8 +127,10 @@ return [
     'enabled' => env('HONEYPOT_ENABLED', true),
 
     /*
-     * need to add @csp https://github.com/spatie/laravel-csp in style tag hidden items 
-    */
+     * When enabled, the honeypot fields will be hidden using a style tag
+     * with a CSP nonce instead of an inline style attribute. This
+     * requires spatie/laravel-csp to be installed.
+     */
     'with_csp' => env('HONEYPOT_WITH_CSP', false),
 ];
 ```
@@ -374,10 +376,12 @@ Finally, use the `x-honeypot` in your Livewire Blade component:
     <input name="myField" type="text">
 </form>
 ```
-#### Usage Csp for hidden inline style 
 
-You can enable this feature to synchronize with csp by enabling config with_csp .
-Of course, you need to first install the package https://github.com/spatie/laravel-csp to manage csp additionally.
+#### Usage with a Content Security Policy
+
+By default, the honeypot fields are hidden using an inline `style` attribute. If your Content Security Policy doesn't allow inline styles, set `with_csp` in the config file to `true` (or set `HONEYPOT_WITH_CSP=true`). The fields will then be hidden using a `<style>` tag that carries a nonce.
+
+This relies on the `@cspNonce` directive, so you'll need to install [spatie/laravel-csp](https://github.com/spatie/laravel-csp) first.
 
 #### Usage in Volt functional syntax
 
